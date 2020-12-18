@@ -1,0 +1,65 @@
+---
+title: "rs-synthesis"
+output: html_document
+---
+
+```{r setup, echo = FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+srdb <- read_csv("./rs/srdb-data.csv")
+
+search_srdb <- function(srdb, data, column) {
+  # Function to search the Soil Respiration Database for specific data in a specified column
+  # Function will take in `srdb` (data frame of SRDB data), `data` a vector of values to search, and
+  # `column` chatacter string of the column name to search within; returns a dataframe with search results
+  
+  cat("Searching database for...", data,"...in the", column, "column")
+  
+  dplyr::filter(srdb, grepl(paste(data, collapse = "|"), x = column))
+  
+}
+```
+
+```{r filter-manipulations, include = FALSE}
+
+hydro <- c("Irrigation", "Irrigated", "irrigated", "irrigation")
+
+#search_srdb(srdb, data = hydro, column = 'Manipulation')
+
+irrigation <- dplyr::filter(srdb, grepl(paste(hydro, collapse = "|"), x = Manipulation))
+
+ggplot(data = irrigation, 
+       aes(x = Study_midyear, y = Rs_annual, 
+           group = Study_number, color = Study_number)) +
+  geom_point()
+
+```
+
+```{r filter-soildrainage, include = FALSE}
+
+drainage <- c("Dry", "Wet")
+# Need studies that have BOTH dry and wet drainage 
+srdb %>%   
+  group_by(Study_number) %>% 
+  dplyr::filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>% 
+  select(Study_number, Soil_drainage) -> t
+```
+
+```{r filter-precip, include = FALSE}
+
+precip <- c("Precipitation", "precipitation")
+
+  dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
+
+```
+
+```{r filter-elevation, include = FALSE}
+
+#elevat <- c("Precipitation", "precipitation")
+
+#dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
+
+```
