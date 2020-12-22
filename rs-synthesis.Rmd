@@ -3,63 +3,133 @@ title: "rs-synthesis"
 output: html_document
 ---
 
-```{r setup, echo = FALSE}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+# Load packages
 library(readr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(kableExtra)
 
+# Read in SRDB
 srdb <- read_csv("./rs/srdb-data.csv")
 
-search_srdb <- function(srdb, data, column) {
-  # Function to search the Soil Respiration Database for specific data in a specified column
-  # Function will take in `srdb` (data frame of SRDB data), `data` a vector of values to search, and
-  # `column` chatacter string of the column name to search within; returns a dataframe with search results
+# Will turn this into a function once it works!!
+# search_srdb <- function(srdb, data, column) {
+#   # Function to search the Soil Respiration Database for specific data in a specified column
+#   # Function will take in `srdb` (data frame of SRDB data), `data` a vector of values to search, and
+#   # `column` chatacter string of the column name to search within; returns a dataframe with search results
+#   
+#   cat("Searching database for...", data,"...in the", column, "column")
+#   
+#   dplyr::filter(srdb, grepl(paste(data, collapse = "|"), x = column))
   
-  cat("Searching database for...", data,"...in the", column, "column")
-  
-  dplyr::filter(srdb, grepl(paste(data, collapse = "|"), x = column))
-  
-}
+# }
 ```
+##### This is a summary of the number of studies per manipulation for each ecosystem type in the SRDB.
 
-```{r filter-manipulations, include = FALSE}
+### Manipulation Type Summaries {.tabset .tabset-pills}
+
+#### Irrigation
+```{r filter-manipulations, echo = FALSE, message = FALSE}
 
 hydro <- c("Irrigation", "Irrigated", "irrigated", "irrigation")
 
 #search_srdb(srdb, data = hydro, column = 'Manipulation')
 
+# Filter for the manipulation we want to isolate
 irrigation <- dplyr::filter(srdb, grepl(paste(hydro, collapse = "|"), x = Manipulation))
 
-ggplot(data = irrigation, 
-       aes(x = Study_midyear, y = Rs_annual, 
-           group = Study_number, color = Study_number)) +
-  geom_point()
+# Summarise and count the number of studies
+irrigation %>% 
+  group_by(Ecosystem_type) %>% 
+  summarise(n_studies = length(unique(Study_number))) %>% 
+  mutate(M_Type = "Irrigated") %>% 
+  arrange(desc(n_studies)) %>% 
+  rename(Ecosystem_Type = Ecosystem_type) %>% 
+  select(M_Type, Ecosystem_Type, n_studies) -> irr_summary
+
+# Make table display
+kable(irr_summary) %>% kable_styling(full_width = F)
 
 ```
 
-```{r filter-soildrainage, include = FALSE}
+#### Soil Drainage
+
+```{r filter-soildrainage, echo = FALSE, message = FALSE}
 
 drainage <- c("Dry", "Wet")
 # Need studies that have BOTH dry and wet drainage 
+
 srdb %>%   
   group_by(Study_number) %>% 
   dplyr::filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>% 
-  select(Study_number, Soil_drainage) -> t
+  # Count the number of unique soil drainage types per study 
+  summarise(n_drain = length(unique(Soil_drainage))) %>% 
+  # We only want studies with 2 or more soil drainage types
+  filter(n_drain > 1) %>% left_join(srdb, by = "Study_number") -> drainage_type
+
+drainage_type %>% 
+  group_by(Ecosystem_type) %>% 
+  summarise(n_studies = length(unique(Study_number))) %>% 
+  mutate(M_Type = "Soil drainage") %>% 
+  arrange(desc(n_studies)) %>% 
+  rename(Ecosystem_Type = Ecosystem_type) %>% 
+  select(M_Type, Ecosystem_Type, n_studies) -> drain_summary
+
+kable(drain_summary) %>% kable_styling(full_width = F)
+
 ```
 
-```{r filter-precip, include = FALSE}
+#### Precipitation
+
+```{r filter-precip, echo = FALSE, message = FALSE}
 
 precip <- c("Precipitation", "precipitation")
 
-  dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
+precipitation <-  dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
+  
+precipitation %>% 
+  group_by(Ecosystem_type) %>% 
+  summarise(n_studies = length(unique(Study_number))) %>% 
+  mutate(M_Type = "Precipitation") %>% 
+  arrange(desc(n_studies)) %>% 
+  rename(Ecosystem_Type = Ecosystem_type) %>% 
+  select(M_Type, Ecosystem_Type, n_studies) -> precip_summary
+
+kable(precip_summary) %>% kable_styling(full_width = F)
 
 ```
 
-```{r filter-elevation, include = FALSE}
+#### Elevation
 
-#elevat <- c("Precipitation", "precipitation")
+```{r filter-elevation, echo = FALSE, message = FALSE}
 
-#dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
+srdb %>%   
+  group_by(Study_number) %>% 
+  summarise(n_elev = length(unique(Elevation))) %>% 
+  filter(n_elev > 1) %>% 
+  left_join(srdb, by = "Study_number") -> elevation
+
+elevation %>% 
+  group_by(Ecosystem_type) %>% 
+  summarise(n_studies = length(unique(Study_number))) %>% 
+  mutate(M_Type = "Elevation") %>% 
+  arrange(desc(n_studies)) %>% 
+  rename(Ecosystem_Type = Ecosystem_type) %>% 
+  select(M_Type, Ecosystem_Type, n_studies) -> elevat_summary
+
+kable(elevat_summary) %>% kable_styling(full_width = F)
+
+```
+
+### Summary of Forest Ecosystem
+
+```{r summary-table, echo = FALSE, message = FALSE}
+
+# We only want to see the number of studies for forest ecosystems 
+
+bind_rows(irr_summary, drain_summary, precip_summary, elevat_summary) %>% 
+  filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = F)
 
 ```
