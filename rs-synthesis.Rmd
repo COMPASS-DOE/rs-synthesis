@@ -52,6 +52,12 @@ irrigation %>%
 # Make table display
 kable(irr_summary) %>% kable_styling(full_width = F)
 
+irrigation %>% 
+  filter(Ecosystem_type == c("Forest", "Grassland", "Agriculture"),
+         Manipulation == "Irrigated") %>%
+  group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
+  summarise(n_obs = n())
+
 ```
 
 #### Soil Drainage
@@ -78,6 +84,11 @@ drainage_type %>%
   select(M_Type, Ecosystem_Type, n_studies) -> drain_summary
 
 kable(drain_summary) %>% kable_styling(full_width = F)
+
+drainage_type %>% 
+  filter(Ecosystem_type == c("Forest", "Grassland", "Agriculture")) %>% 
+  group_by(Ecosystem_type, Soil_drainage) %>% 
+  summarise(n_obs = n())
 
 ```
 
@@ -123,7 +134,7 @@ kable(elevat_summary) %>% kable_styling(full_width = F)
 
 ```
 
-### Summary of Forest Ecosystem
+### Summaries
 
 ```{r summary-table, echo = FALSE, message = FALSE}
 
@@ -131,5 +142,19 @@ kable(elevat_summary) %>% kable_styling(full_width = F)
 
 bind_rows(irr_summary, drain_summary, precip_summary, elevat_summary) %>% 
   filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = F)
+
+irrigation %>% 
+  filter(Manipulation == "Irrigated") %>% 
+  bind_rows(precipitation, drainage_type) %>%
+  ungroup %>% 
+  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture"),
+         Manipulation %in% c("Drought", "Irrigated", 
+                             "Precipitation amount change", "None")) %>% 
+  group_by(Ecosystem_type, Manipulation) %>% 
+  summarise(n_Rs_annual = length(!is.na(Rs_annual)),
+            n_Rs_growingseason = length(!is.na(Rs_growingseason))) %>% 
+  arrange(desc(n_Rs_annual)) %>% 
+  kable() %>% kable_styling(full_width = F)
+
 
 ```
