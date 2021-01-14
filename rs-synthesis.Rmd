@@ -10,9 +10,12 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(kableExtra)
+library(forcats)
 
 # Read in SRDB
-srdb <- read_csv("./rs/srdb-data.csv")
+read_csv("./rs/srdb-data.csv") %>% 
+  select(Study_number, Author, Study_midyear, Ecosystem_type, 
+         Manipulation, Manipulation_level, Rs_annual, Soil_drainage, Elevation) -> srdb
 
 # Will turn this into a function once it works!!
 # search_srdb <- function(srdb, data, column) {
@@ -33,12 +36,18 @@ srdb <- read_csv("./rs/srdb-data.csv")
 #### Irrigation
 ```{r filter-manipulations, echo = FALSE, message = FALSE}
 
-hydro <- c("Irrigation", "Irrigated", "irrigated", "irrigation")
-
 #search_srdb(srdb, data = hydro, column = 'Manipulation')
 
-# Filter for the manipulation we want to isolate
-irrigation <- dplyr::filter(srdb, grepl(paste(hydro, collapse = "|"), x = Manipulation))
+# Filter for studies with irrigation only manipulations
+srdb %>% 
+  #explain filter expression here
+  filter(grepl("^Irrigat[a-z]*$", Manipulation, ignore.case = TRUE)) %>% 
+  distinct(Study_number) %>% 
+  left_join(srdb, by = "Study_number") %>%
+  # Filter for rows with control and irrigation rows
+  group_by(Study_number) %>% 
+  filter(Manipulation == "None" |
+           grepl("^Irrigat[a-z]*$", Manipulation, ignore.case = TRUE))  -> irrigation
 
 # Summarise and count the number of studies
 irrigation %>% 
@@ -52,11 +61,27 @@ irrigation %>%
 # Make table display
 kable(irr_summary) %>% kable_styling(full_width = F)
 
+#ADD COMMENT
 irrigation %>% 
-  filter(Ecosystem_type == c("Forest", "Grassland", "Agriculture"),
-         Manipulation == "Irrigated") %>%
+  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>%
   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
   summarise(n_obs = n())
+
+irrigation %>% 
+  filter(Manipulation == "None") %>% 
+  group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
+  summarise(Rs_none = mean(Rs_annual, na.rm = TRUE)) %>% 
+  filter(!is.na(Rs_none)) %>% 
+  left_join(irrigation, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
+  mutate(rr = log(Rs_annual / Rs_none), 
+         Study = paste(Author, floor(Study_midyear))) %>% 
+  filter(Manipulation != "None")  -> irr_resp
+
+  ggplot(irr_resp, aes(x = rr, y = fct_reorder(Author, rr))) + 
+    geom_point(colour = "darkblue") + 
+    geom_vline(xintercept = 0, linetype = "dashed") + 
+    labs(x = "Response Ratio of Irrigation Studies", y = "Study") +
+    theme_light()
 
 ```
 
@@ -90,16 +115,36 @@ drainage_type %>%
   group_by(Ecosystem_type, Soil_drainage) %>% 
   summarise(n_obs = n())
 
+drainage_type %>% 
+  filter(Manipulation == "None", Soil_drainage == "Wet") %>% 
+  group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
+  summarise(Rs_wet = mean(Rs_annual, na.rm = TRUE)) %>% 
+  filter(!is.na(Rs_wet)) %>% 
+  left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
+  filter(Soil_drainage == "Dry") %>% 
+  mutate(rr = log(Rs_wet / Rs_annual), 
+         Study = paste(Author, floor(Study_midyear))) -> drainage_resp
+
+  ggplot(drainage_resp, aes(x = rr, y = fct_reorder(Author, rr))) + 
+    geom_point(colour = "darkblue") + 
+    geom_vline(xintercept = 0, linetype = "dashed") + 
+    labs(x = "Response Ratio of Dry vs Wet Soil Drainage", y = "Study") +
+    theme_light()
+
 ```
 
 #### Precipitation
 
 ```{r filter-precip, echo = FALSE, message = FALSE}
-
-precip <- c("Precipitation", "precipitation")
-
-precipitation <-  dplyr::filter(srdb, grepl(paste(precip, collapse = "|"), x = Manipulation))
   
+srdb %>% 
+  filter(grepl("^Precipitation amount change[a-z]*$", Manipulation, ignore.case = TRUE)) %>%
+  distinct(Study_number) %>% 
+  left_join(srdb, by = "Study_number") %>%
+  group_by(Study_number) %>% 
+  filter(Manipulation == "None" | 
+           grepl("^Precipitation amount change[a-z]*$", Manipulation, ignore.case = TRUE)) -> precipitation
+
 precipitation %>% 
   group_by(Ecosystem_type) %>% 
   summarise(n_studies = length(unique(Study_number))) %>% 
@@ -109,6 +154,22 @@ precipitation %>%
   select(M_Type, Ecosystem_Type, n_studies) -> precip_summary
 
 kable(precip_summary) %>% kable_styling(full_width = F)
+
+precipitation %>% 
+  filter(Manipulation == "None") %>% 
+  group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
+  summarise(Rs_none = mean(Rs_annual, na.rm = TRUE)) %>% 
+  filter(!is.na(Rs_none)) %>% 
+  left_join(precipitation, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
+  mutate(rr = log(Rs_annual / Rs_none), 
+         Study = paste(Author, floor(Study_midyear))) %>% 
+  filter(Manipulation != "None")  -> precip_resp
+
+  ggplot(precip_resp, aes(x = rr, y = fct_reorder(Author, rr))) + 
+    geom_point(colour = "darkblue") + 
+    geom_vline(xintercept = 0, linetype = "dashed") + 
+    labs(x = "Response Ratio of Precipitation Change Studies", y = "Study") +
+    theme_light()
 
 ```
 
@@ -132,6 +193,21 @@ elevation %>%
 
 kable(elevat_summary) %>% kable_styling(full_width = F)
 
+# elevation %>% 
+#   filter(Manipulation == "None") %>% 
+#   group_by(Study_number, Ecosystem_type, Study_midyear, Elevation) %>% 
+#   summarise(Rs_mean = mean(Rs_annual, na.rm = TRUE)) %>% 
+#   filter(!is.na(Rs_wet)) %>% 
+#   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
+#   mutate(rr = log(Rs_mean / Rs_annual), 
+#          Study = paste(Author, floor(Study_midyear))) -> test
+# 
+#   ggplot(test, aes(x = rr, y = fct_reorder(Author, rr))) + 
+#     geom_point(colour = "darkblue") + 
+#     geom_vline(xintercept = 0, linetype = "dashed") + 
+#     labs(x = "Response Ratio of Dry vs Wet Soil Drainage", y = "Study") +
+#     theme_light()
+
 ```
 
 ### Summaries
@@ -144,8 +220,7 @@ bind_rows(irr_summary, drain_summary, precip_summary, elevat_summary) %>%
   filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = F)
 
 irrigation %>% 
-  filter(Manipulation == "Irrigated") %>% 
-  bind_rows(precipitation, drainage_type) %>%
+  bind_rows(precipitation, drainage_type, elevat_summary) %>%
   ungroup %>% 
   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture"),
          Manipulation %in% c("Drought", "Irrigated", 
