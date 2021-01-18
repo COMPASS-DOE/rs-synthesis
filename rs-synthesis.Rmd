@@ -138,12 +138,12 @@ drainage_type %>%
 ```{r filter-precip, echo = FALSE, message = FALSE}
   
 srdb %>% 
-  filter(grepl("^Precipitation amount change[a-z]*$", Manipulation, ignore.case = TRUE)) %>%
+  filter(grepl("^Precip[a-z ]*$", Manipulation, ignore.case = TRUE)) %>%
   distinct(Study_number) %>% 
   left_join(srdb, by = "Study_number") %>%
   group_by(Study_number) %>% 
   filter(Manipulation == "None" | 
-           grepl("^Precipitation amount change[a-z]*$", Manipulation, ignore.case = TRUE)) -> precipitation
+           grepl("^Precip[a-z ]*$", Manipulation, ignore.case = TRUE)) -> precipitation
 
 precipitation %>% 
   group_by(Ecosystem_type) %>% 
