@@ -40,7 +40,7 @@ read_csv("./rs/srdb-data.csv") %>%
 
 # Filter for studies with irrigation only manipulations
 srdb %>% 
-  #explain filter expression here
+  # Studies with manipulations that start with "Irrigat"
   filter(grepl("^Irrigat[a-z]*$", Manipulation, ignore.case = TRUE)) %>% 
   distinct(Study_number) %>% 
   left_join(srdb, by = "Study_number") %>%
@@ -59,7 +59,7 @@ irrigation %>%
   select(M_Type, Ecosystem_Type, n_studies) -> irr_summary
 
 # Make table display
-kable(irr_summary) %>% kable_styling(full_width = F)
+kable(irr_summary) %>% kable_styling(full_width = FALSE)
 
 #ADD COMMENT
 irrigation %>% 
@@ -67,6 +67,7 @@ irrigation %>%
   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
   summarise(n_obs = n())
 
+# Isolate control row (manipulation of "None") and use that to compute response ratio
 irrigation %>% 
   filter(Manipulation == "None") %>% 
   group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
@@ -94,31 +95,33 @@ drainage <- c("Dry", "Wet")
 
 srdb %>%   
   group_by(Study_number) %>% 
-  dplyr::filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>% 
+  filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>% 
   # Count the number of unique soil drainage types per study 
-  summarise(n_drain = length(unique(Soil_drainage))) %>% 
+  summarise(n_drain = length(unique(Soil_drainage)), .groups = "drop") %>% 
   # We only want studies with 2 or more soil drainage types
-  filter(n_drain > 1) %>% left_join(srdb, by = "Study_number") -> drainage_type
+  filter(n_drain > 1) %>% 
+  left_join(srdb, by = "Study_number") -> drainage_type
 
 drainage_type %>% 
   group_by(Ecosystem_type) %>% 
-  summarise(n_studies = length(unique(Study_number))) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   mutate(M_Type = "Soil drainage") %>% 
   arrange(desc(n_studies)) %>% 
   rename(Ecosystem_Type = Ecosystem_type) %>% 
   select(M_Type, Ecosystem_Type, n_studies) -> drain_summary
 
-kable(drain_summary) %>% kable_styling(full_width = F)
+kable(drain_summary) %>% kable_styling(full_width = FALSE)
 
 drainage_type %>% 
-  filter(Ecosystem_type == c("Forest", "Grassland", "Agriculture")) %>% 
+  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
   group_by(Ecosystem_type, Soil_drainage) %>% 
   summarise(n_obs = n())
 
+# Isolate soil "wet" row and use that as 'treatment' to compute response ratio
 drainage_type %>% 
   filter(Manipulation == "None", Soil_drainage == "Wet") %>% 
   group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
-  summarise(Rs_wet = mean(Rs_annual, na.rm = TRUE)) %>% 
+  summarise(Rs_wet = mean(Rs_annual, na.rm = TRUE), .groups = "drop") %>% 
   filter(!is.na(Rs_wet)) %>% 
   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
   filter(Soil_drainage == "Dry") %>% 
@@ -153,7 +156,7 @@ precipitation %>%
   rename(Ecosystem_Type = Ecosystem_type) %>% 
   select(M_Type, Ecosystem_Type, n_studies) -> precip_summary
 
-kable(precip_summary) %>% kable_styling(full_width = F)
+kable(precip_summary) %>% kable_styling(full_width = FALSE)
 
 precipitation %>% 
   filter(Manipulation == "None") %>% 
@@ -191,7 +194,7 @@ elevation %>%
   rename(Ecosystem_Type = Ecosystem_type) %>% 
   select(M_Type, Ecosystem_Type, n_studies) -> elevat_summary
 
-kable(elevat_summary) %>% kable_styling(full_width = F)
+kable(elevat_summary) %>% kable_styling(full_width = FALSE)
 
 # elevation %>% 
 #   filter(Manipulation == "None") %>% 
@@ -217,7 +220,7 @@ kable(elevat_summary) %>% kable_styling(full_width = F)
 # We only want to see the number of studies for forest ecosystems 
 
 bind_rows(irr_summary, drain_summary, precip_summary, elevat_summary) %>% 
-  filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = F)
+  filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = FALSE)
 
 irrigation %>% 
   bind_rows(precipitation, drainage_type, elevat_summary) %>%
@@ -229,7 +232,7 @@ irrigation %>%
   summarise(n_Rs_annual = length(!is.na(Rs_annual)),
             n_Rs_growingseason = length(!is.na(Rs_growingseason))) %>% 
   arrange(desc(n_Rs_annual)) %>% 
-  kable() %>% kable_styling(full_width = F)
+  kable() %>% kable_styling(full_width = FALSE)
 
 
 ```
