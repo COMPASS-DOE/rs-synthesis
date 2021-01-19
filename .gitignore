@@ -1,6 +1,12 @@
-
+# OS files
 .DS_Store
+
+# R and RStudio files
 .Rproj.user
-rs-synthesis.html
+rs-synthesis_files/
+*.html
 .RData
 .Rhistory
+
+# Non-tracked files
+other/
