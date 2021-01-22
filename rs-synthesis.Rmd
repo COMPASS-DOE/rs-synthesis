@@ -14,7 +14,7 @@ library(forcats)
 
 # Read in SRDB
 read_csv("./rs/srdb-data.csv") %>% 
-  select(Study_number, Author, Study_midyear, Ecosystem_type, 
+  select(Study_number, Record_number, Author, Study_midyear, Ecosystem_type, 
          Manipulation, Manipulation_level, Rs_annual, Soil_drainage, Elevation) -> srdb
 
 # Will turn this into a function once it works!!
