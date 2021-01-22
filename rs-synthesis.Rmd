@@ -29,11 +29,13 @@ read_csv("./rs/srdb-data.csv") %>%
   
 # }
 ```
+
 ##### This is a summary of the number of studies per manipulation for each ecosystem type in the SRDB.
 
 ### Manipulation Type Summaries {.tabset .tabset-pills}
 
-#### Water manipulations: irrigation and drought
+#### Water manipulations
+
 ```{r filter-manipulations, echo = FALSE, message = FALSE}
 
 #search_srdb(srdb, data = hydro, column = 'Manipulation')
