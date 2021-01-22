@@ -126,50 +126,13 @@ drainage_type %>%
   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
   filter(Soil_drainage == "Dry") %>% 
   mutate(rr = log(Rs_wet / Rs_annual), 
-         Study = paste(Author, floor(Study_midyear))) -> drainage_resp
+         Study = paste(Study_number, Author)) -> drainage_resp
 
-  ggplot(drainage_resp, aes(x = rr, y = fct_reorder(Author, rr))) + 
+  ggplot(drainage_resp, aes(x = rr, y = fct_reorder(Study, rr))) + 
     geom_point(colour = "darkblue") + 
     geom_vline(xintercept = 0, linetype = "dashed") + 
-    labs(x = "Response Ratio of Dry vs Wet Soil Drainage", y = "Study") +
+    labs(x = "Response Ratio of Wet vs Dry (control) Soil Drainage", y = "Study") +
     theme_light()
-
-```
-
-#### Elevation
-
-```{r filter-elevation, echo = FALSE, message = FALSE}
-
-srdb %>%   
-  group_by(Study_number) %>% 
-  summarise(n_elev = length(unique(Elevation))) %>% 
-  filter(n_elev > 1) %>% 
-  left_join(srdb, by = "Study_number") -> elevation
-
-elevation %>% 
-  group_by(Ecosystem_type) %>% 
-  summarise(n_studies = length(unique(Study_number))) %>% 
-  mutate(M_Type = "Elevation") %>% 
-  arrange(desc(n_studies)) %>% 
-  rename(Ecosystem_Type = Ecosystem_type) %>% 
-  select(M_Type, Ecosystem_Type, n_studies) -> elevat_summary
-
-kable(elevat_summary) %>% kable_styling(full_width = FALSE)
-
-# elevation %>% 
-#   filter(Manipulation == "None") %>% 
-#   group_by(Study_number, Ecosystem_type, Study_midyear, Elevation) %>% 
-#   summarise(Rs_mean = mean(Rs_annual, na.rm = TRUE)) %>% 
-#   filter(!is.na(Rs_wet)) %>% 
-#   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
-#   mutate(rr = log(Rs_mean / Rs_annual), 
-#          Study = paste(Author, floor(Study_midyear))) -> test
-# 
-#   ggplot(test, aes(x = rr, y = fct_reorder(Author, rr))) + 
-#     geom_point(colour = "darkblue") + 
-#     geom_vline(xintercept = 0, linetype = "dashed") + 
-#     labs(x = "Response Ratio of Dry vs Wet Soil Drainage", y = "Study") +
-#     theme_light()
 
 ```
 
@@ -179,20 +142,15 @@ kable(elevat_summary) %>% kable_styling(full_width = FALSE)
 
 # We only want to see the number of studies for forest ecosystems 
 
-bind_rows(wm_summary, drain_summary, elevat_summary) %>% 
+bind_rows(wm_summary, drain_summary) %>% 
   filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = FALSE)
 
-irrigation %>% 
-  bind_rows(precipitation, drainage_type, elevat_summary) %>%
+water_manipulations %>% 
+  bind_rows(drainage_type) %>%
   ungroup %>% 
-  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture"),
-         Manipulation %in% c("Drought", "Irrigated", 
-                             "Precipitation amount change", "None")) %>% 
+  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
   group_by(Ecosystem_type, Manipulation) %>% 
-  summarise(n_Rs_annual = length(!is.na(Rs_annual)),
-            n_Rs_growingseason = length(!is.na(Rs_growingseason))) %>% 
+  summarise(n_Rs_annual = length(!is.na(Rs_annual))) %>% 
   arrange(desc(n_Rs_annual)) %>% 
   kable() %>% kable_styling(full_width = FALSE)
-
-
 ```
