@@ -59,7 +59,7 @@ water_manipulations %>%
   select(M_Type, Ecosystem_Type, n_studies) -> wm_summary
 
 # Make table display
-kable(irr_summary) %>% kable_styling(full_width = FALSE)
+kable(wm_summary) %>% kable_styling(full_width = FALSE)
 
 #ADD COMMENT
 water_manipulations %>% 
