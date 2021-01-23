@@ -69,19 +69,32 @@ water_manipulations %>%
   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
   summarise(n_obs = n())
 
+# Read in extra (non-SRDB) data on N, treatment level, Rs s.d., and merge in
+# This is the google sheet, directly downloaded
+read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "ddcdcccdcddddddc") %>% 
+  select(Record_number, N, SD_Rs_annual, Percent_control) %>% 
+  right_join(water_manipulations) ->
+  water_manipulations
+
 # Isolate control row (manipulation of "None") and use that to compute response ratio
 water_manipulations %>% 
   filter(Manipulation == "None") %>% 
   group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
-  summarise(Rs_none = mean(Rs_annual, na.rm = TRUE)) %>% 
+  summarise(Rs_none = mean(Rs_annual, na.rm = TRUE),
+            Rs_SD_none = mean(SD_Rs_annual, na.rm = TRUE),
+            N_none = mean(N, na.rm = TRUE)) %>% 
   filter(!is.na(Rs_none)) %>% 
   left_join(water_manipulations, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
   mutate(rr = log(Rs_annual / Rs_none), 
+         rr_var = SD_Rs_annual ^ 2 / (N * Rs_annual ^ 2) + 
+           Rs_SD_none ^ 2 / (N_none * Rs_none ^ 2),  # Eq. 1 in Hedges (1999)
          Study = paste(Study_number, Author)) %>% 
-  filter(Manipulation != "None") -> wm_response_ratios
+  filter(Manipulation != "None", !is.na(rr)) ->
+  wm_response_ratios
 
-  ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr))) + 
-    geom_point(colour = "darkblue") + 
+  ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr), color = Percent_control)) + 
+    geom_point() + 
+    geom_errorbarh(aes(xmin = rr - rr_var, xmax = rr + rr_var), na.rm = TRUE) +
     geom_vline(xintercept = 0, linetype = "dashed") + 
     labs(x = "Response Ratio of Water Manipulation Studies", y = "Study") +
     theme_light()
