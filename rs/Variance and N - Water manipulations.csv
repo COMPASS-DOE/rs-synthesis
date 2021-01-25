@@ -34,8 +34,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 4051,1048,Risch,2005,Grassland,Irrigated,NA,NA,Dry,2430,,,,,,
 4051,1049,Risch,2005,Grassland,Irrigated,NA,NA,Dry,1920,,,,,,
 4051,1050,Risch,2005,Grassland,Irrigated,NA,NA,Dry,2260,,,,,,
-4085,1057,Sotta,2002.5,Forest,None,NA,1627,Dry,NA,,,,,,
-4085,1058,Sotta,2002.5,Forest,Precipitation amount change,NA,1211,Dry,NA,,,,,,
+4085,1057,Sotta,2002.5,Forest,None,NA,1627,Dry,NA,1,37.8372093,100,0.224,0.006,
+4085,1058,Sotta,2002.5,Forest,Precipitation amount change,NA,1211,Dry,NA,1,37.84375,50,0.162,0.006,
 2694,1225,Maier,1996,Forest,None,NA,811,Dry,14,4,,100,,,No s.d.
 2694,1226,Maier,1996,Forest,Irrigated,NA,1038,Dry,14,4,,133,,,No s.d.
 3263,1280,Borken,2002,Forest,None,NA,1148,Dry,340,,,,,,
@@ -53,12 +53,12 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 4549,1524,Selmants,2000.5,Forest,None,NA,900,Dry,2250,,,,,,
 4549,1525,Selmants,2000.5,Forest,Irrigated,NA,989,Dry,2250,,,,,,
 4549,1528,Selmants,2000.5,Forest,Irrigated,NA,1175,Dry,2250,,,,,,
-4564,1541,Sowerby,2001,Shrubland,None,NA,NA,Wet,NA,,,,,,
-4564,1542,Sowerby,2001,Shrubland,None,NA,263,Dry,NA,,,,,,
-4564,1543,Sowerby,2001,Shrubland,None,NA,597,Dry,NA,,,,,,
-4564,1544,Sowerby,2001,Shrubland,Drought,NA,NA,Wet,NA,,,,,,
-4564,1545,Sowerby,2001,Shrubland,Drought,NA,213,Dry,NA,,,,,,
-4564,1546,Sowerby,2001,Shrubland,Drought,NA,237,Dry,NA,,,,,,
+4564,1541,Sowerby,2001,Shrubland,None,NA,NA,Wet,NA,3,,100,0.41,,The values from the paper seem really sketchy; let's omit
+4564,1542,Sowerby,2001,Shrubland,None,NA,263,Dry,NA,3,,100,0.23,,The values from the paper seem really sketchy; let's omit
+4564,1543,Sowerby,2001,Shrubland,None,NA,597,Dry,NA,3,,100,0.3,,The values from the paper seem really sketchy; let's omit
+4564,1544,Sowerby,2001,Shrubland,Drought,NA,NA,Wet,NA,3,,77,0.27,,The values from the paper seem really sketchy; let's omit
+4564,1545,Sowerby,2001,Shrubland,Drought,NA,213,Dry,NA,3,,77,0.19,,The values from the paper seem really sketchy; let's omit
+4564,1546,Sowerby,2001,Shrubland,Drought,NA,237,Dry,NA,3,,77,0.2,,The values from the paper seem really sketchy; let's omit
 1593,1600,Fay,1998,Grassland,None,NA,NA,Dry,NA,,,,,,
 1593,1601,Fay,1998,Grassland,Drought,Increased interval,NA,Dry,NA,,,,,,
 1593,1602,Fay,1998,Grassland,Drought,70% rainfall,NA,Dry,NA,,,,,,
@@ -85,8 +85,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 3983,2276,Metcalfe,2004.5,Forest,None,NA,1700,Dry,NA,,,,,,
 3730,2303,Asensio,2003,Forest,None,NA,859,Dry,930,,,,,,
 3730,2304,Asensio,2003,Forest,Drought,NA,859,Dry,930,,,,,,
-4234,2357,Brando,2002.5,Forest,None,NA,1280,Dry,NA,,,,,,
-4234,2358,Brando,2002.5,Forest,Drought,65% annual precip,1280,Dry,NA,,,,,,
+4234,2357,Brando,2002.5,Forest,None,NA,1280,Dry,NA,1,130,100,,,
+4234,2358,Brando,2002.5,Forest,Drought,65% annual precip,1280,Dry,NA,1,100,63,,,
 3710,2364,Zhou,2003,Grassland,None,NA,835,Dry,NA,,,,,,
 3710,2368,Zhou,2002,Grassland,None,NA,1131,Dry,NA,,,,,,
 3710,2369,Zhou,2002,Grassland,None,NA,877,Dry,NA,,,,,,
@@ -98,8 +98,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 105,2391,de Jong,1970,Agriculture,None,NA,NA,Dry,NA,,,,,,
 105,2392,de Jong,1970,Agriculture,None,NA,NA,Dry,NA,,,,,,
 105,2393,de Jong,1970,Agriculture,None,NA,NA,Dry,NA,,,,,,
-2354,2753,Lee,2001.5,Forest,None,NA,655,Dry,NA,,,,,,
-2354,2754,Lee,2001.5,Forest,Irrigated,NA,594,Dry,NA,,,,,,
+2354,2753,Lee,2001.5,Forest,None,NA,655,Dry,NA,3,,,,,No errors or irrigation level reported
+2354,2754,Lee,2001.5,Forest,Irrigated,NA,594,Dry,NA,3,,,,,No errors or irrigation level reported
 3665,2896,Werner,NA,Forest,None,NA,NA,Dry,770,,,,,,
 3665,2897,Werner,NA,Forest,None,NA,NA,Dry,550,,,,,,
 3665,2899,Werner,NA,Forest,Irrigated,NA,NA,Dry,770,,,,,,
@@ -141,8 +141,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 5587,3846,Misson,2005,Forest,Drought,NA,710,Dry,270,3,454.4,73,,,No s.d. given; using average CV of other fluxes
 5403,3896,Joos,2007,Grassland,None,NA,1610,Dry,400,,,,,,
 5403,3897,Joos,2007,Grassland,Drought,-400 mm,NA,Dry,400,,,,,,
-5448,3965,van Straaten,2007.5,Forest,None,NA,1110,Dry,560,,,,,,
-5448,3966,van Straaten,2007.5,Forest,Drought,NA,1050,Dry,560,,,,,,
+5448,3965,van Straaten,2007.5,Forest,None,NA,1110,Dry,560,3,500,100,,,
+5448,3966,van Straaten,2007.5,Forest,Drought,NA,1050,Dry,560,3,500,30,,,"March 2007, 60% closed, increased to 80% January 2008"
 5573,4003,Cleveland,2008,Forest,None,NA,1142,Dry,NA,,,,,,
 5573,4004,Cleveland,2008,Forest,Drought,-25%,1293,Dry,NA,,,,,,
 5573,4005,Cleveland,2008,Forest,Drought,-50%,1421,Dry,NA,,,,,,
@@ -167,9 +167,12 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6172,4398,Yan,2007.5,Forest,Irrigated,NA,NA,Dry,660,,,,,,
 6172,4399,Yan,2007.5,Forest,Irrigated,NA,NA,Dry,660,,,,,,
 6172,4400,Yan,2007.5,Forest,Irrigated,NA,NA,Dry,660,,,,,,
-6166,4402,Cotrufo,2008,Forest,None,NA,1157,Dry,500,,,,,,
-6166,4403,Cotrufo,2008,Forest,Drought,-20% precip,1415,Dry,500,,,,,,
-6166,4404,Cotrufo,2008,Forest,Irrigated,755 mm/yr,1887,Dry,500,,,,,,
+6166,4402,Cotrufo,2008,Forest,None,NA,1157,Dry,500,3,75,100,,,SD est. from Fig 5
+6166,4403,Cotrufo,2008,Forest,Drought,-20% precip,1415,Dry,500,3,125,90,,,SD est. from Fig 5
+6166,4404,Cotrufo,2008,Forest,Irrigated,755 mm/yr,1887,Dry,500,3,120,204,,,SD est. from Fig 5
+6166,4402,Cotrufo,2009.5,Forest,None,NA,1200,,,3,50,100,,,ADD NEW ROW NUMBER; est. from Fig 5
+6166,4403,Cotrufo,2009.5,Forest,Drought,-20% precip,1400,,,3,75,90,,,ADD NEW ROW NUMBER; est. from Fig 5
+6166,4404,Cotrufo,2009.5,Forest,Irrigated,755 mm/yr,1775,,,3,110,204,,,ADD NEW ROW NUMBER; est. from Fig 5
 6048,4491,Yan,2009,Grassland,None,NA,NA,Dry,1324,,,,,,
 6048,4494,Yan,2009,Grassland,Irrigated,120 mm,NA,Dry,1324,,,,,,
 6048,4497,Yan,2010,Grassland,None,NA,NA,Dry,1324,,,,,,
@@ -243,10 +246,10 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6272,4797,Deng,2007,Forest,None,NA,833,Dry,250,,,,,,
 6272,4798,Deng,2008,Forest,None,NA,1150,Dry,260,,,,,,
 6272,4799,Deng,2009,Forest,None,NA,1158,Dry,260,,,,,,
-6299,4852,Ford,2009,Savanna,None,NA,675,Dry,158,,,,,,
-6299,4853,Ford,2009,Savanna,Irrigated,50%,760,Dry,158,,,,,,
-6299,4854,Ford,2009,Savanna,None,NA,460,Dry,158,,,,,,
-6299,4855,Ford,2009,Savanna,Irrigated,50%,845,Dry,158,,,,,,
+6299,4852,Ford,2009,Savanna,None,NA,675,Dry,158,4,13.6,100,0.078,,SD estimated from Fig 7
+6299,4853,Ford,2009,Savanna,Irrigated,50%,760,Dry,158,4,68.2,150,0.118,,SD estimated from Fig 7
+6299,4854,Ford,2009,Savanna,None,NA,460,Dry,158,4,109.1,100,0.078,,SD estimated from Fig 7
+6299,4855,Ford,2009,Savanna,Irrigated,50%,845,Dry,158,4,81.8,150,0.118,,SD estimated from Fig 7
 6341,4878,Huang,2010,Agriculture,Irrigated,NA,NA,Dry,NA,,,,,,
 6341,4879,Huang,2011,Agriculture,Irrigated,NA,NA,Dry,NA,,,,,,
 6374,4903,Lai,2010,Shrubland,Irrigated,NA,NA,Dry,NA,,,,,,
@@ -316,8 +319,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 8694,5896,da Costa,2010.5,Forest,Drought,NA,1534,Dry,NA,,,,,,
 9324,5940,Zhang,2012.5,Forest,None,NA,693,Dry,568,5,299.578125,100,0.2918,0.0899,Data from SI
 9324,5941,Zhang,2012.5,Forest,Drought,NA,855,Dry,568,5,348.9013453,50,0.2435,0.073,Data from SI
-10104,6046,Hinko-Najera,2011.5,Forest,None,NA,1771,Dry,706,,,,,,
-10104,6047,Hinko-Najera,2011.5,Forest,Drought,-40%,1434,Dry,706,,,,,,
+10104,6046,Hinko-Najera,2011.5,Forest,None,NA,1771,Dry,706,3,30.2744,100,,,
+10104,6047,Hinko-Najera,2011.5,Forest,Drought,-40%,1434,Dry,706,3,22.7058,60,,,
 10404,6094,Reynolds,2011,Grassland,None,NA,979,Dry,394,,,,,,
 10404,6095,Reynolds,2011,Grassland,None,NA,1039,Dry,165,,,,,,
 10404,6096,Reynolds,2011,Grassland,None,NA,802,Dry,134,,,,,,
@@ -420,9 +423,9 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 8163,7355,Jia,2011.5,Grassland,Irrigated,#ERROR!,NA,NA,NA,,,,,,
 8163,7356,Jia,2011.5,Grassland,Irrigated,#ERROR!,NA,NA,NA,,,,,,
 8163,7357,Jia,2011.5,Grassland,Irrigated,#ERROR!,NA,NA,NA,,,,,,
-9557,7413,Martins,2013.5,Forest,Irrigated,"grey water N 0.6 mg/L, total P 3.0 mg/L",205.84,Dry,NA,,,,,,
-9557,7416,Martins,2013.5,Forest,None,NA,160.74,Dry,NA,,,,,,
-9557,7417,Martins,2013.5,Grassland,None,NA,332.02,Dry,NA,,,,,,
+9557,7413,Martins,2013.5,Forest,Irrigated,"grey water N 0.6 mg/L, total P 3.0 mg/L",205.84,Dry,NA,4,12.865,153.984375,0.078,,SD estimated from Fig 1; MAP from Barton et al. ref
+9557,7416,Martins,2013.5,Forest,None,NA,160.74,Dry,NA,4,10.716,100,0.022,,SD estimated from Fig 1
+9557,7417,Martins,2013.5,Grassland,None,NA,332.02,Dry,NA,4,22.13466667,100,0.042,,SD estimated from Fig 1
 9649,7476,Shen,2013.5,Grassland,None,Unwarmed plot + 0% precipitation level,NA,Dry,NA,,,,,,
 9649,7478,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 6% precipitation level,NA,Dry,NA,,,,,,
 9649,7480,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 25% precipitation level,NA,Dry,NA,,,,,,
@@ -560,7 +563,7 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 10797,9836,Miao,2010,Grassland,Precipitation amount change,20%+,NA,Dry,1324,,,,,,
 10797,9837,Miao,2010,Grassland,Precipitation amount change,40%+,NA,Dry,1324,,,,,,
 10797,9838,Miao,2010,Grassland,Precipitation amount change,60%+,NA,Dry,1324,,,,,,
-10878,9925,Moinet,2014,Grassland,None,None,730,Dry,35,,,,,,
-10878,9926,Moinet,2014,Grassland,Irrigated,NA,1204.5,Dry,35,,,,,,
+10878,9925,Moinet,2014,Grassland,None,None,730,Dry,35,3,165,100,,,SD estimated from Figure 6
+10878,9926,Moinet,2014,Grassland,Irrigated,NA,948,Dry,35,3,175,150,,,SD estimated from Figure 6; percent_control est. from 1B
 10886,9937,Domínguez,2012,Shrubland,None,NA,NA,Dry,NA,,,,,,
 10886,9938,Domínguez,2012,Shrubland,Drought,NA,NA,Dry,NA,,,,,,
