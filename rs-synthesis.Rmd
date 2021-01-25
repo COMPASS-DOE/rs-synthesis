@@ -40,8 +40,6 @@ srdb_raw %>%
 
 ```{r filter-manipulations, echo = FALSE, message = FALSE}
 
-#search_srdb(srdb, data = hydro, column = 'Manipulation')
-
 # Filter for studies with water manipulations
 grep_string <- "^(Irrigat[a-z]*|Drought|Precipitation amount change)$"
 srdb %>% 
