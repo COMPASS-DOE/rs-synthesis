@@ -27,12 +27,9 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown, remotes, and the local package
         run: |
-          install.packages("remotes")
-          remotes::install_local(".")
-          remotes::install_cran("rmarkdown")
+          install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "kableExtra", "forcats"))
         shell: Rscript {0}
       - name: Render Rmarkdown files
         run: |
           RMD_PATH=($(git diff-tree --no-commit-id --name-only -r HEAD | grep '[.]Rmd$'))
           Rscript -e 'for (file in commandArgs(TRUE)) rmarkdown::render(file)' ${RMD_PATH[*]}
-
