@@ -14,8 +14,9 @@ library(forcats)
 
 # Read in SRDB
 read_csv("./rs/srdb-data.csv") %>% 
-  select(Study_number, Record_number, Author, Study_midyear, Ecosystem_type, 
-         Manipulation, Manipulation_level, Rs_annual, Soil_drainage, Elevation) -> srdb
+  select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
+         Manipulation, Manipulation_level, Meas_method,
+         Rs_annual, Soil_drainage, Elevation) -> srdb
 
 # Will turn this into a function once it works!!
 # search_srdb <- function(srdb, data, column) {
@@ -54,7 +55,7 @@ srdb %>%
 # Summarise and count the number of studies
 water_manipulations %>% 
   group_by(Ecosystem_type) %>% 
-  summarise(n_studies = length(unique(Study_number))) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   mutate(M_Type = "Water manipulation") %>% 
   arrange(desc(n_studies)) %>% 
   rename(Ecosystem_Type = Ecosystem_type) %>% 
@@ -67,7 +68,7 @@ kable(wm_summary) %>% kable_styling(full_width = FALSE)
 water_manipulations %>% 
   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>%
   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
-  summarise(n_obs = n())
+  summarise(n_obs = n(), .groups = "drop")
 
 # Read in extra (non-SRDB) data on N, treatment level, Rs s.d., and merge in
 # This is the google sheet, directly downloaded
@@ -79,12 +80,14 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "d
 # Isolate control row (manipulation of "None") and use that to compute response ratio
 water_manipulations %>% 
   filter(Manipulation == "None") %>% 
-  group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
+  # Some studies have more than one site; latitude is a proxy for site here
+  group_by(Study_number, Ecosystem_type, Study_midyear, Latitude, Meas_method) %>% 
   summarise(Rs_none = mean(Rs_annual, na.rm = TRUE),
             Rs_SD_none = mean(SD_Rs_annual, na.rm = TRUE),
-            N_none = mean(N, na.rm = TRUE)) %>% 
+            N_none = mean(N, na.rm = TRUE), .groups = "drop") %>% 
   filter(!is.na(Rs_none)) %>% 
-  left_join(water_manipulations, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
+  left_join(water_manipulations, by = c("Study_number", "Ecosystem_type",
+                                        "Study_midyear", "Latitude", "Meas_method")) %>% 
   mutate(rr = log(Rs_annual / Rs_none), 
          rr_var = SD_Rs_annual ^ 2 / (N * Rs_annual ^ 2) + 
            Rs_SD_none ^ 2 / (N_none * Rs_none ^ 2),  # Eq. 1 in Hedges (1999)
@@ -130,7 +133,7 @@ kable(drain_summary) %>% kable_styling(full_width = FALSE)
 drainage_type %>% 
   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
   group_by(Ecosystem_type, Soil_drainage) %>% 
-  summarise(n_obs = n())
+  summarise(n_obs = n(), .groups = "drop")
 
 # Isolate soil "wet" row and use that as 'treatment' to compute response ratio
 drainage_type %>% 
@@ -165,7 +168,7 @@ water_manipulations %>%
   ungroup %>% 
   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
   group_by(Ecosystem_type, Manipulation) %>% 
-  summarise(n_Rs_annual = length(!is.na(Rs_annual))) %>% 
+  summarise(n_Rs_annual = length(!is.na(Rs_annual)), .groups = "drop") %>% 
   arrange(desc(n_Rs_annual)) %>% 
   kable() %>% kable_styling(full_width = FALSE)
 ```
