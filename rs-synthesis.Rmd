@@ -13,7 +13,8 @@ library(kableExtra)
 library(forcats)
 
 # Read in SRDB
-read_csv("./rs/srdb-data.csv") %>% 
+srdb_raw <- read_csv("./rs/srdb-data.csv")
+srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method,
          Rs_annual, Soil_drainage, Elevation) -> srdb
@@ -42,15 +43,16 @@ read_csv("./rs/srdb-data.csv") %>%
 #search_srdb(srdb, data = hydro, column = 'Manipulation')
 
 # Filter for studies with water manipulations
+grep_string <- "^(Irrigat[a-z]*|Drought|Precipitation amount change)$"
 srdb %>% 
   # Studies with manipulations that start with "Irrigat" or "Drought" or are "Precipitation amount change"
-  filter(grepl("^(Irrigat[a-z]*|Drought|Precipitation amount change)$", Manipulation, ignore.case = TRUE)) %>% 
+  filter(grepl(grep_string, Manipulation, ignore.case = TRUE)) %>% 
   distinct(Study_number) %>% 
   left_join(srdb, by = "Study_number") %>%
   # Filter for rows with control and irrigation rows
   group_by(Study_number) %>% 
   filter(Manipulation == "None" |
-           grepl("^(Irrigat[a-z]*|Drought|Precipitation amount change)$", Manipulation, ignore.case = TRUE))  -> water_manipulations
+           grepl(grep_string, Manipulation, ignore.case = TRUE))  -> water_manipulations
 
 # Summarise and count the number of studies
 water_manipulations %>% 
@@ -64,7 +66,7 @@ water_manipulations %>%
 # Make table display
 kable(wm_summary) %>% kable_styling(full_width = FALSE)
 
-#ADD COMMENT
+# Summary table
 water_manipulations %>% 
   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>%
   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
@@ -74,7 +76,7 @@ water_manipulations %>%
 # This is the google sheet, directly downloaded
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "ddcdcccdcddddddc") %>% 
   select(Record_number, N, SD_Rs_annual, Percent_control) %>% 
-  right_join(water_manipulations) ->
+  right_join(water_manipulations, by = "Record_number") ->
   water_manipulations
 
 # Isolate control row (manipulation of "None") and use that to compute response ratio
