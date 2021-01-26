@@ -16,10 +16,10 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 3978,842,McCulley,1996.5,Savanna,None,NA,707,Dry,NA,6,577.5492958,100,0.058,0.041,
 3978,843,McCulley,1996.5,Savanna,None,NA,896,Dry,NA,6,686.9333333,100,0.059,0.037,
 3978,844,McCulley,1996.5,Savanna,None,NA,876,Dry,NA,6,617.1818182,100,0.09,0.055,
-3978,845,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1165,Dry,NA,6,736.8376068,248.603352,0.179,0.057,"MAP=716, +40 mm/week"
-3978,846,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1224,Dry,NA,6,646.8292683,248.603352,0.143,0.053,"MAP=716, +40 mm/week"
-3978,847,McCulley,1996.5,Savanna,Irrigated,40 mm/week,2071,Dry,NA,6,1154.980769,248.603352,0.138,0.048,"MAP=716, +40 mm/week"
-3978,848,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1802,Dry,NA,6,1055.314917,248.603352,0.168,0.049,"MAP=716, +40 mm/week"
+3978,845,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1165,Dry,NA,6,736.8376068,390.5027933,0.179,0.057,"MAP=716, +40 mm/week"
+3978,846,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1224,Dry,NA,6,646.8292683,390.5027933,0.143,0.053,"MAP=716, +40 mm/week"
+3978,847,McCulley,1996.5,Savanna,Irrigated,40 mm/week,2071,Dry,NA,6,1154.980769,390.5027933,0.138,0.048,"MAP=716, +40 mm/week"
+3978,848,McCulley,1996.5,Savanna,Irrigated,40 mm/week,1802,Dry,NA,6,1055.314917,390.5027933,0.168,0.049,"MAP=716, +40 mm/week"
 3729,964,Asensio,2003.5,Forest,None,NA,859,Dry,930,,,,,,
 3729,965,Asensio,2004.5,Forest,None,NA,397,Dry,930,,,,,,
 3729,966,Asensio,2003.5,Forest,Drought,NA,NA,Dry,930,,,,,,
@@ -286,20 +286,20 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6540,5096,Suseela,2009,Grassland,None,NA,NA,Dry,NA,,,,,,
 6540,5097,Suseela,2009,Grassland,Irrigated,NA,NA,Dry,NA,,,,,,
 6540,5098,Suseela,2009,Grassland,Drought,NA,NA,Dry,NA,,,,,,
-6575,5113,Wunderlich,2009,Wetland,None,NA,365,Wet,700,,,,,,
-6575,5114,Wunderlich,2010,Wetland,None,NA,307,Wet,700,,,,,,
-6575,5115,Wunderlich,2009,Wetland,Irrigated,NA,212,Wet,700,,,,,,
-6575,5116,Wunderlich,2010,Wetland,Irrigated,NA,216,Wet,700,,,,,,
+6575,5113,Wunderlich,2009,Wetland,None,NA,365,Wet,700,3,52,100,,,
+6575,5114,Wunderlich,2010,Wetland,None,NA,307,Wet,700,3,35,100,,,
+6575,5115,Wunderlich,2009,Wetland,Irrigated,NA,212,Wet,700,3,9,,,,
+6575,5116,Wunderlich,2010,Wetland,Irrigated,NA,216,Wet,700,3,62,,,,
 6793,5241,Coucheney,2009,Forest,Irrigated,NA,NA,Dry,310,,,,,,
-7048,5424,Jiang,2007.5,Forest,None,NA,848,Dry,225,,,,,,
-7048,5425,Jiang,2007.5,Forest,None,NA,1082,Dry,225,,,,,,
-7048,5426,Jiang,2007.5,Forest,None,NA,1094,Dry,225,,,,,,
-7048,5427,Jiang,2007.5,Forest,Drought,NA,416,Dry,225,,,,,,
-7048,5428,Jiang,2007.5,Forest,Drought,NA,787,Dry,225,,,,,,
-7048,5429,Jiang,2007.5,Forest,Drought,NA,810,Dry,225,,,,,,
-7048,5430,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,999,Dry,225,,,,,,
-7048,5431,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,1124,Dry,225,,,,,,
-7048,5432,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,1116,Dry,225,,,,,,
+7048,5424,Jiang,2007.5,Forest,None,pf,848,Dry,225,3,49.21428571,100,,,
+7048,5425,Jiang,2007.5,Forest,None,mf,1082,Dry,225,3,75.66433566,100,,,
+7048,5426,Jiang,2007.5,Forest,None,bf,1094,Dry,225,3,75.70934256,100,,,
+7048,5427,Jiang,2007.5,Forest,Drought,pf,416,Dry,225,3,18.90909091,0,,,
+7048,5428,Jiang,2007.5,Forest,Drought,mf,787,Dry,225,3,45.40384615,0,,,
+7048,5429,Jiang,2007.5,Forest,Drought,bf,810,Dry,225,3,45.42056075,0,,,
+7048,5430,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,999,Dry,225,3,60.54545455,200,,,
+7048,5431,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,1124,Dry,225,3,64.33670034,200,,,
+7048,5432,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,1116,Dry,225,3,64.31186441,200,,,
 7113,5444,Lagomarsino,2003.5,Forest,Irrigated,NA,719,Dry,150,,,,,,
 7113,5445,Lagomarsino,2004.5,Forest,Irrigated,NA,605,Dry,150,,,,,,
 7046,5645,Jia,2011,Grassland,None,NA,NA,Dry,1178,,,,,,
