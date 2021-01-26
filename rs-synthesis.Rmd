@@ -18,7 +18,7 @@ library(forcats)
 srdb_raw <- read_csv("./rs/srdb-data.csv")
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
-         Manipulation, Manipulation_level, Meas_method,
+         Manipulation, Manipulation_level, Meas_method, Soil_type,
          Rs_annual, Soil_drainage, Elevation) -> srdb
 
 # Will turn this into a function once it works!!
@@ -83,13 +83,13 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "d
 water_manipulations %>% 
   filter(Manipulation == "None") %>% 
   # Some studies have more than one site; latitude is a proxy for site here
-  group_by(Study_number, Ecosystem_type, Study_midyear, Latitude, Meas_method) %>% 
+  group_by(Study_number, Ecosystem_type, Study_midyear, Latitude, Meas_method, Soil_type) %>% 
   summarise(Rs_none = mean(Rs_annual, na.rm = TRUE),
             Rs_SD_none = mean(SD_Rs_annual, na.rm = TRUE),
             N_none = mean(N, na.rm = TRUE), .groups = "drop") %>% 
   filter(!is.na(Rs_none)) %>% 
   left_join(water_manipulations, by = c("Study_number", "Ecosystem_type",
-                                        "Study_midyear", "Latitude", "Meas_method")) %>% 
+                                        "Study_midyear", "Latitude", "Meas_method", "Soil_type")) %>% 
   mutate(rr = log(Rs_annual / Rs_none), 
          rr_var = SD_Rs_annual ^ 2 / (N * Rs_annual ^ 2) + 
            Rs_SD_none ^ 2 / (N_none * Rs_none ^ 2),  # Eq. 1 in Hedges (1999)

@@ -79,10 +79,10 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 2809,2012,Vasconcelos,2002,Forest,Irrigated,5 mm/day,2237,Dry,NA,,,,,,
 2952,2060,Harper,1999,Grassland,None,NA,NA,Dry,NA,,,,,,
 2952,2061,Harper,1999,Grassland,Drought,NA,NA,Dry,NA,,,,,,
-3983,2273,Metcalfe,2004.5,Forest,None,NA,1300,Dry,NA,,,,,,
-3983,2274,Metcalfe,2004.5,Forest,Drought,NA,1300,Dry,NA,,,,,,
-3983,2275,Metcalfe,2004.5,Forest,None,NA,1300,Dry,NA,,,,,,
-3983,2276,Metcalfe,2004.5,Forest,None,NA,1700,Dry,NA,,,,,,
+3983,2273,Metcalfe,2004.5,Forest,None,NA,1300,Dry,NA,1,166,100,,,Estimated from Table 2 and normal distribution; Percent_control from https://link.springer.com/article/10.1007/s11104-008-9670-9
+3983,2274,Metcalfe,2004.5,Forest,Drought,NA,1300,Dry,NA,1,160,50,,,Estimated from Table 2 and normal distribution; Percent_control from https://link.springer.com/article/10.1007/s11104-008-9670-9
+3983,2275,Metcalfe,2004.5,Forest,None,NA,1300,Dry,NA,,,,,,Different soil types
+3983,2276,Metcalfe,2004.5,Forest,None,NA,1700,Dry,NA,,,,,,Different soil types
 3730,2303,Asensio,2003,Forest,None,NA,859,Dry,930,,,,,,
 3730,2304,Asensio,2003,Forest,Drought,NA,859,Dry,930,,,,,,
 4234,2357,Brando,2002.5,Forest,None,NA,1280,Dry,NA,1,130,100,,,
