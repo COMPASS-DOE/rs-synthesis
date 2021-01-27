@@ -21,17 +21,6 @@ srdb_raw %>%
          Manipulation, Manipulation_level, Meas_method, Soil_type,
          Rs_annual, Soil_drainage, Elevation) -> srdb
 
-# Will turn this into a function once it works!!
-# search_srdb <- function(srdb, data, column) {
-#   # Function to search the Soil Respiration Database for specific data in a specified column
-#   # Function will take in `srdb` (data frame of SRDB data), `data` a vector of values to search, and
-#   # `column` chatacter string of the column name to search within; returns a dataframe with search results
-#   
-#   cat("Searching database for...", data,"...in the", column, "column")
-#   
-#   dplyr::filter(srdb, grepl(paste(data, collapse = "|"), x = column))
-  
-# }
 ```
 
 ##### This is a summary of the number of studies per manipulation for each ecosystem type in the SRDB.
@@ -39,7 +28,6 @@ srdb_raw %>%
 ### Manipulation Type Summaries {.tabset .tabset-pills}
 
 #### Water manipulations
-
 ```{r filter-manipulations, echo = FALSE, message = FALSE}
 
 # Filter for studies with water manipulations
