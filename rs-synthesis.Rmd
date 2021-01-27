@@ -85,13 +85,17 @@ water_manipulations %>%
   filter(Manipulation != "None", !is.na(rr)) ->
   wm_response_ratios
 
-  ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr), color = Percent_control)) + 
-    geom_point() + 
-    geom_errorbarh(aes(xmin = rr - rr_var, xmax = rr + rr_var), na.rm = TRUE) +
-    geom_vline(xintercept = 0, linetype = "dashed") + 
-    labs(x = "Response Ratio of Water Manipulation Studies", y = "Study") +
-    theme_light()
+limit <- max(abs(wm_response_ratios$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
 
+  ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr), fill = Percent_control)) + 
+    geom_vline(xintercept = 0, linetype = "dashed") + 
+    geom_errorbarh(aes(xmin = rr - rr_var, xmax = rr + rr_var), color = "grey30", na.rm = TRUE) +
+    geom_point(shape = 21, size = 2, colour = "grey30") +
+    labs(x = "Response Ratio of Water Manipulation Studies", y = "Study", fill = "Percent of Control") +
+    theme_minimal() +
+    scale_fill_distiller(palette = "BrBG", direction = 1, limit = limit, 
+                         breaks = c(-200, 100, 400), labels = c(-200,100,400))
+  
 ```
 
 #### Contrasting Soil Drainage
