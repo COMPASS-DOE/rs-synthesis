@@ -62,7 +62,7 @@ water_manipulations %>%
 
 # Read in extra (non-SRDB) data on N, treatment level, Rs s.d., and merge in
 # This is the google sheet, directly downloaded
-read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "ddcdcccdcddddddc") %>% 
+read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "iicdcccdcccdddddddc") %>% 
   select(Record_number, N, SD_Rs_annual, Percent_control) %>% 
   right_join(water_manipulations, by = "Record_number") ->
   water_manipulations
@@ -87,14 +87,14 @@ water_manipulations %>%
 
 limit <- max(abs(wm_response_ratios$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
 
-  ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr), fill = Percent_control)) + 
-    geom_vline(xintercept = 0, linetype = "dashed") + 
-    geom_errorbarh(aes(xmin = rr - rr_var, xmax = rr + rr_var), color = "grey30", na.rm = TRUE) +
-    geom_point(shape = 21, size = 2, colour = "grey30") +
-    labs(x = "Response Ratio of Water Manipulation Studies", y = "Study", fill = "Percent of Control") +
-    theme_minimal() +
-    scale_fill_distiller(palette = "BrBG", direction = 1, limit = limit, 
-                         breaks = c(-200, 100, 400), labels = c(-200,100,400))
+ggplot(wm_response_ratios, aes(x = rr, y = fct_reorder(Study, rr), fill = Percent_control)) + 
+  geom_vline(xintercept = 0, linetype = "dashed") + 
+  geom_errorbarh(aes(xmin = rr - rr_var, xmax = rr + rr_var), color = "grey30", na.rm = TRUE) +
+  geom_point(shape = 21, size = 2, colour = "grey30") +
+  labs(x = "Response Ratio of Water Manipulation Studies", y = "Study", fill = "Percent of Control") +
+  theme_minimal() +
+  scale_fill_distiller(palette = "BrBG", direction = 1, limit = limit, 
+                       breaks = c(-200, 100, 400), labels = c(-200,100,400))
   
 ```
 
