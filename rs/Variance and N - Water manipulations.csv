@@ -7,9 +7,11 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 2353,651,Lee,2001.5,Forest,Irrigated,NA,30.83,Alkali absorption,Rhodic Paleudlt,Dry,NA,855,,,,,,
 2353,655,Lee,2001.5,Forest,Irrigated,NA,30.83,Alkali absorption,Rhodic Paleudlt,Dry,NA,715,,,,,,
 1421,759,Borken,1993,Forest,None,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,302,3,36.6,100,,,Table 1 and Table 2
-1421,760,Borken,1993,Forest,Irrigated,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,321,4,41.6,55,,,Table 1 and Table 2
-1421,762,Borken,1994,Forest,None,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,313,3,15.5,100,,,Table 1 and Table 2
-1421,763,Borken,1994,Forest,Irrigated,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,481,4,75.6,86,,,Table 1 and Table 2
+1421,760,Borken,1993,Forest,Irrigated,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,321,4,23.3,86,,,Table 1 and Table 2
+1421,761,Borken,1993,Forest,Drought,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,298,4,41.6,55,,,Table 1 and Table 2
+1421,762,Borken,1993,Forest,None,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,313,3,15.5,100,,,Table 1 and Table 2
+1421,763,Borken,1993,Forest,Irrigated,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,,4,,95,,,Table 1 and Table 2
+1421,764,Borken,1993,Forest,Drought,NA,51.52,Gas chromatography,Typic Dystrochrept,Dry,510,481,4,75.6,86,,,Table 1 and Table 2
 1599,777,Gärdenäs,1995,Forest,None,NA,56.55,IRGA,Loamy sand podzol,Dry,NA,NA,3,,,,,
 1599,779,Gärdenäs,1995,Forest,Drought,NA,56.55,IRGA,Loamy sand podzol,Dry,NA,NA,4,,,,,
 3978,841,McCulley,1996.5,Savanna,None,NA,27.67,IRGA,Fine sandy loam,Dry,NA,786,6,616.8607595,100,0.063,0.055,
@@ -150,12 +152,12 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 5536,4008,Yan,2006,Grassland,Irrigated,15 mm H2O/week,42.45,IRGA,Aridisols,Dry,NA,NA,,,,,,
 5536,4010,Yan,2007,Grassland,None,NA,42.45,IRGA,Aridisols,Dry,NA,NA,,,,,,
 5536,4012,Yan,2007,Grassland,Irrigated,15 mm H2O/week,42.45,IRGA,Aridisols,Dry,NA,NA,,,,,,
-5308,4150,De Dato,2002,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1173,3,,100,,,
-5308,4152,De Dato,2002,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1077,3,,84,,,
-5308,4153,De Dato,2003,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1173,3,,100,,,
-5308,4155,De Dato,2003,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1091,3,,64,,,
-5308,4156,De Dato,2004,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1009,3,,100,,,
-5308,4158,De Dato,2004,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,941,3,,64,,,
+5308,4150,De Dato,2002,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1305.6,3,151.4,100,,,
+5308,4152,De Dato,2002,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1248.8,3,75.7,84,,,
+5308,4153,De Dato,2003,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,832.5,3,75.7,100,,,
+5308,4155,De Dato,2003,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,794.7,3,56.8,64,,,
+5308,4156,De Dato,2004,Shrubland,None,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1002.8,3,151.4,100,,,
+5308,4158,De Dato,2004,Shrubland,Drought,NA,40.61666667,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,983.9,3,37.8,64,,,
 5368,4379,Liu,NA,Agriculture,Irrigated,NA,35.2,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,,,,,,
 5368,4380,Liu,NA,Agriculture,None,NA,35.2,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,,,,,,
 5368,4381,Liu,NA,Agriculture,None,NA,35.2,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,,,,,,
