@@ -19,7 +19,7 @@ srdb_raw <- read_csv("./rs/srdb-data.csv")
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
-         Rs_annual, Soil_drainage, Elevation) -> srdb
+         Rs_annual, Soil_drainage, Elevation, Rh_annual, Rs_growingseason) -> srdb
 
 ```
 
