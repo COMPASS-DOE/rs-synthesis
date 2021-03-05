@@ -12,14 +12,13 @@ library(ggplot2)
 library(kableExtra)
 library(forcats)
 
-# test change
-
-# Read in SRDB
+# Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read_csv("./rs/srdb-data.csv")
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
-         Rs_annual, Soil_drainage, Elevation) -> srdb
+         Rs_annual, Soil_drainage, Elevation, Quality_flag)  %>% 
+  filter(!grepl("Q1[0-5]", Quality_flag))-> srdb
 
 ```
 
@@ -152,7 +151,7 @@ drainage_type %>%
 
 ```{r summary-table, echo = FALSE, message = FALSE}
 
-# We only want to see the number of studies for forest ecosystems 
+# We only want to see the number of studies for certain ecosystems 
 
 bind_rows(wm_summary, drain_summary) %>% 
   filter(Ecosystem_Type == "Forest") %>% kable() %>% kable_styling(full_width = FALSE)
