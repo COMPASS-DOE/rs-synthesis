@@ -21,6 +21,7 @@ Read the google sheet data and reshape so that control values have their own col
 ```{r}
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
          col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
+  select(-Notes) %>% 
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
@@ -31,7 +32,7 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
 # Construct and control data frame
 dat %>% 
   filter(Manipulation == "Control") %>% 
-  select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd, -Notes)->
+  select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
   dat_control
 dat_control %>% 
   select(-starts_with("SD_"), -Percent_control) %>% 
@@ -73,6 +74,7 @@ dat_manip %>%
   filter(!is.na(manip)) ->
   dat_rs
 
+# Plots
 limit <- max(abs(dat_rs$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
 ggplot(dat_rs, aes(control, manip, color = Percent_control)) +
   geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
@@ -81,7 +83,8 @@ ggplot(dat_rs, aes(control, manip, color = Percent_control)) +
   facet_wrap(~depvar, scales = "free")
 
 ggplot(dat_rs, aes(control, manip, color = Manipulation)) +
-  geom_point(size = 4, na.rm = TRUE) + geom_abline() + facet_wrap(~depvar, scales = "free")
+  geom_point(size = 3, na.rm = TRUE) + geom_abline() + 
+  facet_wrap(~depvar, scales = "free")
 
 ggplot(dat_rs, aes(manip / control, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(depvar~., scales = "free")
@@ -89,7 +92,7 @@ ggplot(dat_rs, aes(manip / control, color = Manipulation)) +
 
 # Metafor {.tabset}
 
-```{r, message=FALSE}
+```{r do_ma, message=FALSE}
 library(metafor)
 do_ma <- function(dat, condition, dv, output = TRUE) {
   dat %>% 
@@ -122,7 +125,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 
 ## Irrigation
 
-```{r}
+```{r irrigation}
 do_ma(dat_rs, "Irrigation", "Rs_annual")
 do_ma(dat_rs, "Irrigation", "Rh_annual")
 do_ma(dat_rs, "Irrigation", "Rs_growingseason")
@@ -130,7 +133,7 @@ do_ma(dat_rs, "Irrigation", "Rs_growingseason")
 
 ## Drought
 
-```{r}
+```{r drought}
 do_ma(dat_rs, "Drought", "Rs_annual")
 do_ma(dat_rs, "Drought", "Rh_annual")
 do_ma(dat_rs, "Drought", "Rs_growingseason")
