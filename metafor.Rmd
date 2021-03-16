@@ -1,0 +1,89 @@
+---
+title: "metafor"
+author: "BBL"
+date: "3/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+theme_set(theme_minimal())
+```
+
+# Setup
+
+Read the google sheet data and reshape so that control values have their own columns:
+
+```{r}
+read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
+         col_types = "ddcdcccdcccdddddddc") %>% 
+  select(Study_number, Record_number, Author, Study_midyear, 
+         Ecosystem_type, Meas_method, Soil_type, Soil_drainage,
+         Rs_annual, SD_Rs_annual, N, Percent_control) %>% 
+  mutate(Manipulation = case_when(
+    Percent_control < 100 ~ "Drought",
+    Percent_control > 100 ~ "Irrigation",
+    TRUE ~ "Control"
+  )) ->
+  dat
+
+# Construct and control data frame
+dat %>% 
+  filter(Manipulation == "Control") %>% 
+  rename(Rs_control = Rs_annual, SD_Rs_control = SD_Rs_annual) %>% 
+  select(Study_number, Study_midyear, Ecosystem_type, Meas_method, Soil_type,
+         Soil_drainage, Rs_control, SD_Rs_control) ->
+  dat_control
+
+# ...and join with the manipulation data
+dat %>% 
+  filter(Manipulation != "Control") %>% 
+  left_join(dat_control, by = c("Study_number", "Study_midyear", "Ecosystem_type",
+                                "Meas_method", "Soil_type", "Soil_drainage")) ->
+  dat_rs
+
+limit <- max(abs(dat_rs$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
+ggplot(dat_rs, aes(Rs_control, Rs_annual, color = Percent_control)) +
+  geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
+  scale_color_distiller(palette = "BrBG", direction = 1, limit = limit, 
+                        breaks = c(-200, 100, 400), labels = c(-200, 100, 400))
+
+ggplot(dat_rs, aes(Rs_control, Rs_annual, color = Manipulation)) +
+  geom_point(size = 4, na.rm = TRUE) + geom_abline()
+
+ggplot(dat_rs, aes(Rs_annual / Rs_control, color = Manipulation)) + 
+  geom_density(na.rm = TRUE)
+```
+
+# Metafor
+
+```{r, message=FALSE}
+library(metafor)
+for(condition in unique(dat_rs$Manipulation)) {
+  # Filter for the data we want...
+  dat_rs %>% 
+    filter(Manipulation == condition,
+           !is.na(Rs_annual), !is.na(Rs_control), !is.na(N)) %>% 
+    arrange(Rs_annual / Rs_control) -> 
+    dat_condition
+  # Construct the meta-analysis variables and run the MA
+  metadat <- escalc(measure = "SMD",
+                    m1i = Rs_annual, m2i = Rs_control, 
+                    sd1i = SD_Rs_annual, sd2i = SD_Rs_control,
+                    n1i = N, n2i = N, 
+                    slab = paste(Study_number, Author, Study_midyear),
+                    data = dat_condition)
+  mam <- rma(yi, vi, data = metadat)
+  # Diagnostics
+  print(summary(mam))
+  forest.rma(mam, showweights = TRUE)
+  title(condition)
+  funnel.rma(mam)
+}
+
+```
+
