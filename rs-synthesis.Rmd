@@ -61,7 +61,8 @@ water_manipulations %>%
 
 # Read in extra (non-SRDB) data on N, treatment level, Rs s.d., and merge in
 # This is the google sheet, directly downloaded
-read_csv("rs/Variance and N - Water manipulations.csv", skip = 2, col_types = "iicdcccdcccdddddddc") %>% 
+read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
+         col_types = "ddcdcccdcccdddddddddddc") %>% 
   select(Record_number, N, SD_Rs_annual, Percent_control) %>% 
   right_join(water_manipulations, by = "Record_number") ->
   water_manipulations
