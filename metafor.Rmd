@@ -70,6 +70,7 @@ for(condition in unique(dat_rs$Manipulation)) {
            !is.na(Rs_annual), !is.na(Rs_control), !is.na(N)) %>% 
     arrange(Rs_annual / Rs_control) -> 
     dat_condition
+  
   # Construct the meta-analysis variables and run the MA
   metadat <- escalc(measure = "SMD",
                     m1i = Rs_annual, m2i = Rs_control, 
@@ -80,10 +81,9 @@ for(condition in unique(dat_rs$Manipulation)) {
   mam <- rma(yi, vi, data = metadat)
   # Diagnostics
   print(summary(mam))
-  forest.rma(mam, showweights = TRUE)
+  forest.rma(mam)
   title(condition)
-  funnel.rma(mam)
+  plot(mam)
 }
-
 ```
 
