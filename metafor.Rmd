@@ -20,10 +20,7 @@ Read the google sheet data and reshape so that control values have their own col
 
 ```{r}
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdcccdcccdddddddc") %>% 
-  select(Study_number, Record_number, Author, Study_midyear, 
-         Ecosystem_type, Meas_method, Soil_type, Soil_drainage,
-         Rs_annual, SD_Rs_annual, N, Percent_control) %>% 
+         col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
@@ -34,56 +31,107 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
 # Construct and control data frame
 dat %>% 
   filter(Manipulation == "Control") %>% 
-  rename(Rs_control = Rs_annual, SD_Rs_control = SD_Rs_annual) %>% 
-  select(Study_number, Study_midyear, Ecosystem_type, Meas_method, Soil_type,
-         Soil_drainage, Rs_control, SD_Rs_control) ->
+  select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd, -Notes)->
   dat_control
+dat_control %>% 
+  select(-starts_with("SD_"), -Percent_control) %>% 
+  pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
+               names_to = "depvar", values_to = "control") ->
+  cont1
+dat_control %>% 
+  select(-Rs_annual, -Rh_annual, -Rs_growingseason, -Percent_control) %>% 
+  pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason),
+               names_to = "depvar", values_to = "SD_control") %>% 
+  mutate(depvar = gsub("SD_", "", depvar)) ->
+  cont2
 
-# ...and join with the manipulation data
+cont1 %>% left_join(cont2) -> dat_control
+
+# and manipulation data frame
 dat %>% 
   filter(Manipulation != "Control") %>% 
-  left_join(dat_control, by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                                "Meas_method", "Soil_type", "Soil_drainage")) ->
+  select(-starts_with("SD_")) %>% 
+  pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
+               names_to = "depvar", values_to = "manip") ->
+  manip1
+dat %>% 
+  filter(Manipulation != "Control") %>% 
+  select(-Rs_annual, -Rh_annual, -Rs_growingseason) %>% 
+  pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason), 
+               names_to = "depvar", values_to = "SD_manip") %>% 
+  mutate(depvar = gsub("SD_", "", depvar)) ->
+  manip2
+
+manip1 %>% left_join(manip2) -> dat_manip
+
+# ...and join with the manipulation data
+dat_manip %>% 
+  left_join(dat_control, 
+            by = c("Study_number", "Study_midyear", "Ecosystem_type",
+                   "Latitude", "Meas_method", "Soil_type", "Soil_drainage",
+                   "Elevation", "depvar")) %>% 
+  filter(!is.na(manip)) ->
   dat_rs
 
 limit <- max(abs(dat_rs$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
-ggplot(dat_rs, aes(Rs_control, Rs_annual, color = Percent_control)) +
+ggplot(dat_rs, aes(control, manip, color = Percent_control)) +
   geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
   scale_color_distiller(palette = "BrBG", direction = 1, limit = limit, 
-                        breaks = c(-200, 100, 400), labels = c(-200, 100, 400))
+                        breaks = c(-200, 100, 400), labels = c(-200, 100, 400)) +
+  facet_wrap(~depvar, scales = "free")
 
-ggplot(dat_rs, aes(Rs_control, Rs_annual, color = Manipulation)) +
-  geom_point(size = 4, na.rm = TRUE) + geom_abline()
+ggplot(dat_rs, aes(control, manip, color = Manipulation)) +
+  geom_point(size = 4, na.rm = TRUE) + geom_abline() + facet_wrap(~depvar, scales = "free")
 
-ggplot(dat_rs, aes(Rs_annual / Rs_control, color = Manipulation)) + 
-  geom_density(na.rm = TRUE)
+ggplot(dat_rs, aes(manip / control, color = Manipulation)) + 
+  geom_density(na.rm = TRUE) + facet_grid(depvar~., scales = "free")
 ```
 
-# Metafor
+# Metafor {.tabset}
 
 ```{r, message=FALSE}
 library(metafor)
-for(condition in unique(dat_rs$Manipulation)) {
-  # Filter for the data we want...
-  dat_rs %>% 
-    filter(Manipulation == condition,
-           !is.na(Rs_annual), !is.na(Rs_control), !is.na(N)) %>% 
-    arrange(Rs_annual / Rs_control) -> 
+do_ma <- function(dat, condition, dv, output = TRUE) {
+  dat %>% 
+    filter(Manipulation == condition, depvar == dv) -> 
     dat_condition
   
   # Construct the meta-analysis variables and run the MA
   metadat <- escalc(measure = "SMD",
-                    m1i = Rs_annual, m2i = Rs_control, 
-                    sd1i = SD_Rs_annual, sd2i = SD_Rs_control,
+                    m1i = manip, m2i = control, 
+                    sd1i = SD_manip, sd2i = SD_control,
                     n1i = N, n2i = N, 
                     slab = paste(Study_number, Author, Study_midyear),
                     data = dat_condition)
+  
+  # Arrange by response ratio
+  metadat <- metadat[order(metadat$yi),]
+  
   mam <- rma(yi, vi, data = metadat)
-  # Diagnostics
-  print(summary(mam))
-  forest.rma(mam)
-  title(condition)
-  plot(mam)
+  
+  if(output) {
+    # Diagnostics
+    print(summary(mam))
+    forest.rma(mam)
+    title(paste(condition, dv))
+    plot(mam)
+  }
+  invisible(list(metadat = metadat, mam = mam))
 }
 ```
 
+## Irrigation
+
+```{r}
+do_ma(dat_rs, "Irrigation", "Rs_annual")
+do_ma(dat_rs, "Irrigation", "Rh_annual")
+do_ma(dat_rs, "Irrigation", "Rs_growingseason")
+```
+
+## Drought
+
+```{r}
+do_ma(dat_rs, "Drought", "Rs_annual")
+do_ma(dat_rs, "Drought", "Rh_annual")
+do_ma(dat_rs, "Drought", "Rs_growingseason")
+```
