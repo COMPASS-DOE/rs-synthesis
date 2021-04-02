@@ -11,6 +11,7 @@ library(tidyr)
 library(ggplot2)
 library(kableExtra)
 library(forcats)
+library(DT)
 
 # Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read_csv("./rs/srdb-data.csv")
