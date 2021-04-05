@@ -223,18 +223,20 @@ drainage_type %>%
 
 ```
 
-#### Table Summaries
+#### Data Summaries
 
+##### Number of Studies Per Manipulation in Forest Ecosystems
 ```{r summary-table, echo = FALSE, message = FALSE}
 
 # We only want to see the number of studies for certain ecosystems 
 water_manipulations %>% 
   bind_rows(drainage_type) %>%
   ungroup %>% 
-  filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
-  group_by(Ecosystem_type, Manipulation) %>% 
-  summarise(n_Rs_annual = length(!is.na(Rs_annual)), .groups = "drop") %>% 
-  arrange(desc(n_Rs_annual)) %>% 
+  filter(Ecosystem_type == "Forest") %>% 
+  pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
+  group_by(Ecosystem_type, Manipulation, Variable) %>%
+  summarise(N_studies = length(unique(Study_number))) %>% 
+  pivot_wider(names_from = Variable, values_from = N_studies) %>% 
   DT::datatable()
 
 # # Summary by level of manipulation
@@ -243,3 +245,4 @@ water_manipulations %>%
 #   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
 #   summarise(n_obs = n(), .groups = "drop")
 # ```
+```
