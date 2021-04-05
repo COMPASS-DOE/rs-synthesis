@@ -234,7 +234,7 @@ water_manipulations %>%
   ungroup %>% 
   filter(Ecosystem_type == "Forest") %>% 
   pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
-  group_by(Ecosystem_type, Manipulation, Variable) %>%
+  group_by(Manipulation, Variable) %>%
   summarise(N_studies = length(unique(Study_number))) %>% 
   pivot_wider(names_from = Variable, values_from = N_studies) %>% 
   DT::datatable()
