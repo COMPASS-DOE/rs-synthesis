@@ -18,17 +18,18 @@ srdb_raw <- read_csv("./rs/srdb-data.csv")
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
-         Rs_annual, Soil_drainage, Elevation, Quality_flag)  %>% 
-  filter(!grepl("Q1[0-5]", Quality_flag))-> srdb
+         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation, Quality_flag)  %>% 
+  filter(!grepl("Q1[0-5]", Quality_flag)) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
          col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
-  select(-Notes) %>% 
+  select(Study_number, Record_number, N, SD_Rs_annual,	SD_Rh_annual, 
+         SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
+  left_join(srdb, by = c("Study_number", "Record_number")) %>% 
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
-    TRUE ~ "Control"
-  )) -> variance
+    TRUE ~ "Control")) -> dat_rs
 
 ```
 
@@ -59,64 +60,69 @@ water_manipulations %>%
   select(M_Type, Ecosystem_Type, n_studies) -> wm_summary
 
 # Construct and control data frame
-variance %>% 
+dat_rs %>% 
   filter(Manipulation == "Control") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
-  dat_control
-dat_control %>% 
+  controls
+
+controls %>% 
   select(-starts_with("SD_"), -Percent_control) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
-               names_to = "depvar", values_to = "control") ->
+               names_to = "depvar", values_to = "Control_Resp") ->
   cont1
-dat_control %>% 
+
+controls %>% 
   select(-Rs_annual, -Rh_annual, -Rs_growingseason, -Percent_control) %>% 
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason),
-               names_to = "depvar", values_to = "SD_control") %>% 
+               names_to = "depvar", values_to = "Control_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
   cont2
 
-cont1 %>% left_join(cont2) -> dat_control
+cont1 %>% left_join(cont2) -> meta_control
 
 # and manipulation data frame
-variance %>% 
+dat_rs %>% 
   filter(Manipulation != "Control") %>% 
   select(-starts_with("SD_")) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
-               names_to = "depvar", values_to = "manip") ->
+               names_to = "depvar", values_to = "Manip_Resp") ->
   manip1
-variance %>% 
+
+dat_rs %>% 
   filter(Manipulation != "Control") %>% 
   select(-Rs_annual, -Rh_annual, -Rs_growingseason) %>% 
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason), 
-               names_to = "depvar", values_to = "SD_manip") %>% 
+               names_to = "depvar", values_to = "Manip_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
   manip2
 
-manip1 %>% left_join(manip2) -> dat_manip
+manip1 %>% left_join(manip2) -> meta_manip
 
 # ...and join with the manipulation data
-dat_manip %>% 
-  left_join(dat_control, 
+meta_manip %>% 
+  left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
                    "Latitude", "Meas_method", "Soil_type", "Soil_drainage",
                    "Elevation", "depvar")) %>% 
-  filter(!is.na(manip)) ->
-  dat_rs
+  filter(!is.na(Manip_Resp)) %>% 
+  rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
+  select(-Quality_flag.y) ->
+  meta_df
 
 # Plots
-limit <- max(abs(dat_rs$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
-ggplot(dat_rs, aes(control, manip, color = Percent_control)) +
+limit <- max(abs(meta_df$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
+ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Percent_control)) +
   geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
   scale_color_distiller(palette = "BrBG", direction = 1, limit = limit, 
                         breaks = c(-200, 100, 400), labels = c(-200, 100, 400)) +
-  facet_wrap(~depvar, scales = "free")
+  facet_wrap(~Variable, scales = "free")
 
-ggplot(dat_rs, aes(control, manip, color = Manipulation)) +
+ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Manipulation)) +
   geom_point(size = 3, na.rm = TRUE) + geom_abline() + 
-  facet_wrap(~depvar, scales = "free")
+  facet_wrap(~Variable, scales = "free")
 
-ggplot(dat_rs, aes(manip / control, color = Manipulation)) + 
-  geom_density(na.rm = TRUE) + facet_grid(depvar~., scales = "free")
+ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) + 
+  geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free")
 
 ```
 
