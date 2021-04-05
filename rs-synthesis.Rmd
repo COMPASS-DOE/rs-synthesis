@@ -12,6 +12,7 @@ library(ggplot2)
 library(kableExtra)
 library(forcats)
 library(DT)
+library(metafor)
 
 # Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read_csv("./rs/srdb-data.csv")
@@ -35,7 +36,7 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
 
 ### Manipulation Type Summaries {.tabset .tabset-pills}
 
-#### Water manipulations
+#### Water manipulations {.tabset}
 ```{r filter-manipulations, echo = FALSE, message = FALSE}
 
 # Filter for studies with water manipulations
@@ -124,6 +125,52 @@ ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Manipulation)) +
 ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free")
 
+```
+
+```{r do_ma, echo = FALSE, message = FALSE}
+
+do_ma <- function(dat, condition, dv, output = TRUE) {
+  dat %>% 
+    filter(Manipulation == condition, Variable == dv) -> 
+    dat_condition
+  
+  # Construct the meta-analysis variables and run the MA
+  metadat <- escalc(measure = "SMD",
+                    m1i = Manip_Resp, m2i = Control_Resp, 
+                    sd1i = Manip_SD, sd2i = Control_SD,
+                    n1i = N, n2i = N, 
+                    slab = paste(Study_number, Author, Study_midyear),
+                    data = dat_condition)
+  
+  # Arrange by response ratio
+  metadat <- metadat[order(metadat$yi),]
+  
+  mam <- rma(yi, vi, data = metadat)
+  
+  if(output) {
+    # Diagnostics
+    print(summary(mam))
+    forest.rma(mam)
+    title(paste(condition, dv))
+    plot(mam)
+  }
+  invisible(list(metadat = metadat, mam = mam))
+}
+
+```
+
+##### Irrigation
+```{r irrigation}
+do_ma(meta_df, "Irrigation", "Rs_annual")
+do_ma(meta_df, "Irrigation", "Rh_annual")
+do_ma(meta_df, "Irrigation", "Rs_growingseason")
+```
+
+##### Drought
+```{r drought}
+do_ma(meta_df, "Drought", "Rs_annual")
+do_ma(meta_df, "Drought", "Rh_annual")
+do_ma(meta_df, "Drought", "Rs_growingseason")
 ```
 
 #### Contrasting Soil Drainage
