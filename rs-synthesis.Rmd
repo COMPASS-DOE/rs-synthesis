@@ -230,12 +230,11 @@ drainage_type %>%
 
 # We only want to see the number of studies for certain ecosystems 
 water_manipulations %>% 
-  bind_rows(drainage_type) %>%
   ungroup %>% 
   filter(Ecosystem_type == "Forest") %>% 
   pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
   group_by(Manipulation, Variable) %>%
-  summarise(N_studies = length(unique(Study_number))) %>% 
+  summarise(N_studies = sum(!is.na(Value))) %>% 
   pivot_wider(names_from = Variable, values_from = N_studies) %>% 
   DT::datatable()
 
