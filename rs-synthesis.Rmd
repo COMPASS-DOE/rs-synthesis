@@ -14,7 +14,7 @@ library(forcats)
 library(DT)
 library(metafor)
 
-theme_set(theme_bw())
+theme_set(theme_minimal())
 
 # Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read_csv("./rs/srdb-data.csv")
