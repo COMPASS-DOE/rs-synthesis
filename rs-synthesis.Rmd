@@ -14,13 +14,23 @@ library(forcats)
 library(DT)
 library(metafor)
 
+theme_set(theme_minimal())
+
 # Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read_csv("./rs/srdb-data.csv")
+
+# Read in new studies 2018-2021 that SRDB doesn't have yet
+read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv") %>% 
+    select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
+         Manipulation, Manipulation_level, Meas_method, Soil_type,
+         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation) -> new_studies
+
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
          Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation, Quality_flag)  %>% 
-  filter(!grepl("Q1[0-5]", Quality_flag)) -> srdb
+  filter(!grepl("Q1[0-5]", Quality_flag)) %>% 
+  bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
          col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
