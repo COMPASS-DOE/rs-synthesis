@@ -1,9 +1,18 @@
 ---
 title: "rs-synthesis"
-output: html_document
+date: "`r Sys.time()`"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '4'
+    toc_float: yes
+    number_sections: true
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
 # Load packages
 library(readr)
 library(dplyr)
@@ -44,11 +53,11 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
     TRUE ~ "Control")) -> dat_rs
 ```
 
-### Manipulation Type Summaries {.tabset .tabset-pills}
+# Manipulation Type Summaries {.tabset .tabset-pills}
 
-#### Water manipulations {.tabset}
+## Water manipulations {.tabset}
 
-```{r filter-manipulations, echo = FALSE, message = FALSE}
+```{r filter-manipulations, message = FALSE}
 
 # Filter for studies with water manipulations
 grep_string <- "^(Irrigat[a-z]*|Drought|Precipitation amount change)$"
@@ -128,7 +137,7 @@ meta_manip %>%
 ```
 
 
-```{r diagnostic-plots, echo=FALSE}
+```{r diagnostic-plots}
 limit <- max(abs(meta_df$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
 
 ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Percent_control)) +
@@ -150,13 +159,15 @@ ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_numb
 ```
 
 
-```{r do_ma, echo = FALSE, message = FALSE}
+```{r do_ma, message = FALSE}
 
 do_ma <- function(dat, condition, dv, output = TRUE) {
   dat %>% 
     filter(Manipulation == condition, Variable == dv) -> 
     dat_condition
-  
+
+  cat("condition = ", condition, "\n")
+  cat("var = ", dv, "\n")
   cat("N = ", nrow(dat_condition), "\n")
   cat("Percent control values:\n")
   print(summary(dat_condition$Percent_control))
@@ -185,7 +196,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 }
 ```
 
-##### Irrigation
+### Irrigation
 
 ```{r irrigation}
 do_ma(meta_df, "Irrigation", "Rs_annual")
@@ -193,7 +204,7 @@ do_ma(meta_df, "Irrigation", "Rh_annual")
 do_ma(meta_df, "Irrigation", "Rs_growingseason")
 ```
 
-##### Drought
+### Drought
 
 ```{r drought}
 do_ma(meta_df, "Drought", "Rs_annual")
@@ -201,9 +212,9 @@ do_ma(meta_df, "Drought", "Rh_annual")
 do_ma(meta_df, "Drought", "Rs_growingseason")
 ```
 
-#### Contrasting Soil Drainage
+## Contrasting Soil Drainage
 
-```{r filter-soildrainage, echo = FALSE, message = FALSE}
+```{r filter-soildrainage, message = FALSE}
 
 drainage <- c("Dry", "Wet")
 # Need studies that have BOTH dry and wet drainage
@@ -251,10 +262,10 @@ drainage_type %>%
 
 ```
 
-#### Data Summaries
+# Data Summaries
 
-##### Number of Studies Per Manipulation in Forest Ecosystems
-```{r summary-table, echo = FALSE, message = FALSE}
+## Number of Studies Per Manipulation in Forest Ecosystems
+```{r summary-table, message = FALSE}
 
 # We only want to see the number of studies for certain ecosystems 
 water_manipulations %>% 
@@ -273,3 +284,10 @@ water_manipulations %>%
 #   summarise(n_obs = n(), .groups = "drop")
 # ```
 ```
+
+# The End
+
+```{r}
+sessionInfo()
+```
+
