@@ -1,9 +1,18 @@
 ---
 title: "rs-synthesis"
-output: html_document
+date: "`r Sys.time()`"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '4'
+    toc_float: yes
+    number_sections: true
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
 # Load packages
 library(readr)
 library(dplyr)
@@ -17,11 +26,12 @@ library(metafor)
 theme_set(theme_minimal())
 
 # Read in SRDB and filter out bad values using the Quality_flag column
-srdb_raw <- read_csv("./rs/srdb-data.csv")
+srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
 # Read in new studies 2018-2021 that SRDB doesn't have yet
-read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv") %>% 
-    select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
+read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
+         col_types = "cdddcdcccdcccdddddddddddc") %>% 
+  select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
          Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation) -> new_studies
 
@@ -41,13 +51,13 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
     TRUE ~ "Control")) -> dat_rs
-
 ```
 
-### Manipulation Type Summaries {.tabset .tabset-pills}
+# Manipulation Type Summaries {.tabset .tabset-pills}
 
-#### Water manipulations {.tabset}
-```{r filter-manipulations, echo = FALSE, message = FALSE}
+## Water manipulations {.tabset}
+
+```{r filter-manipulations, message = FALSE}
 
 # Filter for studies with water manipulations
 grep_string <- "^(Irrigat[a-z]*|Drought|Precipitation amount change)$"
@@ -70,7 +80,12 @@ water_manipulations %>%
   rename(Ecosystem_Type = Ecosystem_type) %>% 
   select(M_Type, Ecosystem_Type, n_studies) -> wm_summary
 
-# Construct and control data frame
+# The SRDB and google sheet data have control and manipulations from the same
+# study in different rows, which isn't what we want
+# Rebuild the data frame to meet metafor requirements: for a given study,
+# the control and treatment values are in the same row
+
+# Construct the control data frame
 dat_rs %>% 
   filter(Manipulation == "Control") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
@@ -119,9 +134,12 @@ meta_manip %>%
   rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
   select(-Quality_flag.y) ->
   meta_df
+```
 
-# Plots
+
+```{r diagnostic-plots}
 limit <- max(abs(meta_df$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
+
 ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Percent_control)) +
   geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
   scale_color_distiller(palette = "BrBG", direction = 1, limit = limit, 
@@ -135,14 +153,24 @@ ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Manipulation)) +
 ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free")
 
+ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
+  geom_point() +
+  geom_vline(xintercept = 0)
 ```
 
-```{r do_ma, echo = FALSE, message = FALSE}
+
+```{r do_ma, message = FALSE}
 
 do_ma <- function(dat, condition, dv, output = TRUE) {
   dat %>% 
     filter(Manipulation == condition, Variable == dv) -> 
     dat_condition
+
+  cat("condition = ", condition, "\n")
+  cat("var = ", dv, "\n")
+  cat("N = ", nrow(dat_condition), "\n")
+  cat("Percent control values:\n")
+  print(summary(dat_condition$Percent_control))
   
   # Construct the meta-analysis variables and run the MA
   metadat <- escalc(measure = "SMD",
@@ -166,26 +194,27 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   }
   invisible(list(metadat = metadat, mam = mam))
 }
-
 ```
 
-##### Irrigation
+### Irrigation
+
 ```{r irrigation}
 do_ma(meta_df, "Irrigation", "Rs_annual")
 do_ma(meta_df, "Irrigation", "Rh_annual")
 do_ma(meta_df, "Irrigation", "Rs_growingseason")
 ```
 
-##### Drought
+### Drought
+
 ```{r drought}
 do_ma(meta_df, "Drought", "Rs_annual")
 do_ma(meta_df, "Drought", "Rh_annual")
 do_ma(meta_df, "Drought", "Rs_growingseason")
 ```
 
-#### Contrasting Soil Drainage
+## Contrasting Soil Drainage
 
-```{r filter-soildrainage, echo = FALSE, message = FALSE}
+```{r filter-soildrainage, message = FALSE}
 
 drainage <- c("Dry", "Wet")
 # Need studies that have BOTH dry and wet drainage
@@ -233,10 +262,10 @@ drainage_type %>%
 
 ```
 
-#### Data Summaries
+# Data Summaries
 
-##### Number of Studies Per Manipulation in Forest Ecosystems
-```{r summary-table, echo = FALSE, message = FALSE}
+## Number of Studies Per Manipulation in Forest Ecosystems
+```{r summary-table, message = FALSE}
 
 # We only want to see the number of studies for certain ecosystems 
 water_manipulations %>% 
@@ -255,3 +284,10 @@ water_manipulations %>%
 #   summarise(n_obs = n(), .groups = "drop")
 # ```
 ```
+
+# The End
+
+```{r}
+sessionInfo()
+```
+
