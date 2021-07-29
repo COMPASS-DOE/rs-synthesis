@@ -165,7 +165,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   dat %>% 
     filter(Manipulation == condition, Variable == dv) -> 
     dat_condition
-
+  
   cat("condition = ", condition, "\n")
   cat("var = ", dv, "\n")
   cat("N = ", nrow(dat_condition), "\n")
@@ -183,7 +183,20 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   # Arrange by response ratio
   metadat <- metadat[order(metadat$yi),]
   
-  mam <- rma(yi, vi, data = metadat)
+  if(nrow(metadat) < 10) {
+    return(list(metadata = metadat, mam = NULL))  
+  }
+  
+  # BBL TODO: build formula dynamically and have a single model fit
+  if(length(unique(metadat$Soil_drainage)) > 1) {
+    mam <- rma(yi, vi, 
+               mods = ~ Soil_drainage + Ecosystem_type +  Percent_control, 
+               data = metadat)
+  } else {
+    mam <- rma(yi, vi, 
+               mods = ~ Ecosystem_type +  Percent_control, 
+               data = metadat)
+  } 
   
   if(output) {
     # Diagnostics
