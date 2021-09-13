@@ -1,19 +1,4 @@
----
-title: "rs-synthesis"
-date: "`r Sys.time()`"
-output:
-  html_document:
-    df_print: paged
-    toc: yes
-    toc_depth: '4'
-    toc_float: yes
-    number_sections: true
----
 
-```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Load packages
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -23,18 +8,13 @@ library(forcats)
 library(DT)
 library(metafor)
 
-theme_set(theme_minimal())
-
-# Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
-# Read in new studies 2018-2021 that SRDB doesn't have yet
 read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
          col_types = "cdddcdcccdcccdddddddddddc") %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
          Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation) -> new_studies
-
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Soil_type,
@@ -43,7 +23,8 @@ srdb_raw %>%
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
+         col_types = "ddcdcccdcccdddddddddddc") %>% 
+  #filter(Study_number==10526) %>% 
   select(Study_number, Record_number, N, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
@@ -51,41 +32,7 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
     TRUE ~ "Control")) -> dat_rs
-```
 
-# Manipulation Type Summaries {.tabset .tabset-pills}
-
-## Water manipulations {.tabset}
-
-```{r filter-manipulations, message = FALSE}
-
-# Filter for studies with water manipulations
-grep_string <- "^(Irrigat[a-z]*|Drought|Precipitation amount change)$"
-srdb %>% 
-  # Studies with manipulations that start with "Irrigat" or "Drought" or are "Precipitation amount change"
-  filter(grepl(grep_string, Manipulation, ignore.case = TRUE)) %>% 
-  distinct(Study_number) %>% 
-  left_join(srdb, by = "Study_number") %>%
-  # Filter for rows with control and irrigation rows
-  group_by(Study_number) %>% 
-  filter(Manipulation == "None" |
-           grepl(grep_string, Manipulation, ignore.case = TRUE))  -> water_manipulations
-
-# Summarize and count the number of studies
-water_manipulations %>% 
-  group_by(Ecosystem_type) %>% 
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
-  mutate(M_Type = "Water manipulation") %>% 
-  arrange(desc(n_studies)) %>% 
-  rename(Ecosystem_Type = Ecosystem_type) %>% 
-  select(M_Type, Ecosystem_Type, n_studies) -> wm_summary
-
-# The SRDB and google sheet data have control and manipulations from the same
-# study in different rows, which isn't what we want
-# Rebuild the data frame to meet metafor requirements: for a given study,
-# the control and treatment values are in the same row
-
-# Construct the control data frame
 dat_rs %>% 
   filter(Manipulation == "Control") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
@@ -106,7 +53,6 @@ controls %>%
 
 cont1 %>% left_join(cont2) -> meta_control
 
-# and manipulation data frame
 dat_rs %>% 
   filter(Manipulation != "Control") %>% 
   select(-starts_with("SD_")) %>% 
@@ -124,7 +70,6 @@ dat_rs %>%
 
 manip1 %>% left_join(manip2) -> meta_manip
 
-# ...and join with the manipulation data
 meta_manip %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
@@ -134,10 +79,7 @@ meta_manip %>%
   rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
   select(-Quality_flag.y) ->
   meta_df
-```
 
-
-```{r diagnostic-plots}
 limit <- max(abs(meta_df$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
 
 ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Percent_control)) +
@@ -156,10 +98,6 @@ ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) +
 ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
   geom_point() +
   geom_vline(xintercept = 0)
-```
-
-
-```{r do_ma, message = FALSE}
 
 do_ma <- function(dat, condition, dv, output = TRUE) {
   dat %>% 
@@ -173,7 +111,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   print(summary(dat_condition$Percent_control))
   
   # Construct the meta-analysis variables and run the MA
-  metadat <- escalc(measure = "RR",
+  metadat <- escalc(measure = "SMD",
                     m1i = Manip_Resp, m2i = Control_Resp, 
                     sd1i = Manip_SD, sd2i = Control_SD,
                     n1i = N, n2i = N, 
@@ -207,100 +145,9 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   }
   invisible(list(metadat = metadat, mam = mam))
 }
-```
 
-### Irrigation
-
-```{r irrigation}
-do_ma(meta_df, "Irrigation", "Rs_annual")
-do_ma(meta_df, "Irrigation", "Rh_annual")
-do_ma(meta_df, "Irrigation", "Rs_growingseason")
-```
-
-### Drought
-
-```{r drought}
 do_ma(meta_df, "Drought", "Rs_annual")
-do_ma(meta_df, "Drought", "Rh_annual")
 do_ma(meta_df, "Drought", "Rs_growingseason")
-```
 
-## Contrasting Soil Drainage
-
-```{r filter-soildrainage, message = FALSE}
-
-drainage <- c("Dry", "Wet")
-# Need studies that have BOTH dry and wet drainage
-
-srdb %>%
-  group_by(Study_number) %>%
-  filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>%
-  # Count the number of unique soil drainage types per study
-  summarise(n_drain = length(unique(Soil_drainage)), .groups = "drop") %>%
-  # We only want studies with 2 or more soil drainage types
-  filter(n_drain > 1) %>%
-  left_join(srdb, by = "Study_number") -> drainage_type
-
-drainage_type %>%
-  group_by(Ecosystem_type) %>%
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
-  mutate(M_Type = "Soil drainage") %>%
-  arrange(desc(n_studies)) %>%
-  rename(Ecosystem_Type = Ecosystem_type) %>%
-  select(M_Type, Ecosystem_Type, n_studies) -> drain_summary
-# 
-# kable(drain_summary) %>% kable_styling(full_width = FALSE)
-# 
-# drainage_type %>% 
-#   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
-#   group_by(Ecosystem_type, Soil_drainage) %>% 
-#   summarise(n_obs = n(), .groups = "drop")
-# 
-# # Isolate soil "wet" row and use that as 'treatment' to compute response ratio
-# drainage_type %>% 
-#   filter(Manipulation == "None", Soil_drainage == "Wet") %>% 
-#   group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
-#   summarise(Rs_wet = mean(Rs_annual, na.rm = TRUE), .groups = "drop") %>% 
-#   filter(!is.na(Rs_wet)) %>% 
-#   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
-#   filter(Soil_drainage == "Dry") %>% 
-#   mutate(rr = log(Rs_wet / Rs_annual), 
-#          Study = paste(Study_number, Author)) -> drainage_resp
-# 
-#   ggplot(drainage_resp, aes(x = rr, y = fct_reorder(Study, rr))) + 
-#     geom_point(colour = "darkblue") + 
-#     geom_vline(xintercept = 0, linetype = "dashed") + 
-#     labs(x = "Response Ratio of Wet vs Dry (control) Soil Drainage", y = "Study") +
-#     theme_light()
-
-```
-
-# Data Summaries
-
-## Number of Studies Per Manipulation in Forest Ecosystems
-```{r summary-table, message = FALSE}
-
-# We only want to see the number of studies for certain ecosystems 
-water_manipulations %>% 
-  ungroup %>% 
-  filter(Ecosystem_type == "Forest") %>% 
-  pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
-  group_by(Manipulation, Variable) %>%
-  summarise(N_studies = sum(!is.na(Value))) %>% 
-  pivot_wider(names_from = Variable, values_from = N_studies) %>% 
-  DT::datatable()
-
-# # Summary by level of manipulation
-# water_manipulations %>% 
-#   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>%
-#   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
-#   summarise(n_obs = n(), .groups = "drop")
-# ```
-```
-
-# The End
-
-```{r}
-sessionInfo()
-```
-
+do_ma(meta_df, "Irrigation", "Rs_annual")
+do_ma(meta_df, "Irrigation", "Rs_growingseason")
