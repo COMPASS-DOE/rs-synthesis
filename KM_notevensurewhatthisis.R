@@ -8,6 +8,8 @@ library(forcats)
 library(DT)
 library(metafor)
 
+setwd("rs-synthesis/")
+
 srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
 read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
@@ -94,6 +96,15 @@ ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Manipulation)) +
 
 ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free")
+
+ggplot(meta_time, aes(Study_midyear, Manip_Resp-Control_Resp, color = Author)) + 
+  geom_point(na.rm = TRUE) + geom_line() +
+  facet_grid(Ecosystem_type~Manipulation) + theme(legend.position = "bottom")
+
+meta_df %>%
+  group_by(Study_number) %>%
+  filter(length(unique(Study_midyear)) > 1 ) -> meta_time
+
 
 ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
   geom_point() +
