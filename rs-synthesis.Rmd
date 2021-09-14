@@ -173,7 +173,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   print(summary(dat_condition$Percent_control))
   
   # Construct the meta-analysis variables and run the MA
-  metadat <- escalc(measure = "RR",
+  metadat <- escalc(measure = "SMD",
                     m1i = Manip_Resp, m2i = Control_Resp, 
                     sd1i = Manip_SD, sd2i = Control_SD,
                     n1i = N, n2i = N, 
