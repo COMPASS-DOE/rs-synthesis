@@ -157,8 +157,4 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   invisible(list(metadat = metadat, mam = mam))
 }
 
-do_ma(meta_df, "Drought", "Rs_annual")
-do_ma(meta_df, "Drought", "Rs_growingseason")
-
-do_ma(meta_df, "Irrigation", "Rs_annual")
-do_ma(meta_df, "Irrigation", "Rs_growingseason")
+do_ma(metadat, )
