@@ -1,4 +1,7 @@
 
+
+#failed attempt at meta regression using time
+
 metadat <- escalc(measure = "SMD",
                   m1i = Manip_Resp, m2i = Control_Resp, 
                   sd1i = Manip_SD, sd2i = Control_SD,
