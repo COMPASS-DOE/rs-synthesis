@@ -7,11 +7,10 @@ metadat <- escalc(measure = "SMD",
                   sd1i = Manip_SD, sd2i = Control_SD,
                   n1i = N, n2i = N, 
                   slab = paste(Study_number, Author, Study_midyear),
-                  data = meta_time5)
+                  data = meta_time4)
 
 meta_time4 %>%
-  filter(metadat$yi < 45,
-         Percent_control < 350) -> meta_time5
+  filter(metadat$yi > 45) -> meta_time5
 
 meta_time3 <- read.csv("meta_time.csv")
 
