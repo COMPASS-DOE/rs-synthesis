@@ -133,7 +133,21 @@ meta_manip %>%
   filter(!is.na(Manip_Resp)) %>% 
   rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
   select(-Quality_flag.y) ->
-  meta_df
+  meta_df1
+
+#filter dups
+meta_df1 %>%
+  distinct() -> meta_df
+
+#year of study
+meta_df %>%
+  group_by(Study_number, Manipulation_level, Ecosystem_type) %>%
+  mutate(YearOfStudy = Study_midyear - min(Study_midyear)) -> meta_time
+
+meta_time %>%
+  group_by(Study_number, Ecosystem_type) %>%
+  mutate(PC_group = as.numeric(as.factor(Percent_control))) -> meta_timePC
+
 ```
 
 
