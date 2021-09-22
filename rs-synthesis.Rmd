@@ -242,6 +242,7 @@ srdb %>%
   left_join(srdb, by = "Study_number") -> drainage_type
 
 drainage_type %>%
+  mutate(Ecosystem_type = trimws(Ecosystem_type)) %>%
   group_by(Ecosystem_type) %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
   mutate(M_Type = "Soil drainage") %>%
