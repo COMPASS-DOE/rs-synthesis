@@ -50,7 +50,8 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
-    TRUE ~ "Control")) -> dat_rs
+    Percent_control == 100 ~ "Control",
+    TRUE ~ NA_character_)) -> dat_rs
 ```
 
 # Manipulation Type Summaries {.tabset .tabset-pills}
