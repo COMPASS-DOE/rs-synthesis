@@ -107,6 +107,7 @@ controls %>%
 
 meta_control <- cont_mean
 meta_control$Control_SD <- cont_sd$Control_SD
+meta_control <- filter(meta_control, !is.na(Control_Resp))
 
 # and the same thing with the manipulation data frame
 dat_rs %>% 
@@ -126,16 +127,23 @@ dat_rs %>%
 
 meta_manip <- manip_mean
 meta_manip$Manip_SD <- manip_sd$Manip_SD
+meta_manip <- filter(meta_manip, !is.na(Manip_Resp))
+
+# Stop for a little defensive programming and qa/qc
+# Every study in the manipulation data frame should have an entry in the control one
+# (but the converse is not necessarily true)
+sn_diff <- setdiff(meta_manip$Study_number, meta_control$Study_number)
+stopifnot(length(sn_diff) == 0)
 
 # ...and join with the manipulation data
 meta_manip %>% 
+  select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
                    "Latitude", "Meas_method", "Soil_type", "Soil_drainage",
                    "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
-  rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
-  select(-Quality_flag.y) ->
+  rename("Variable" = "depvar") ->
   meta_df
 ```
 
