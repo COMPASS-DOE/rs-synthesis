@@ -104,7 +104,8 @@ controls %>%
   mutate(depvar = gsub("SD_", "", depvar)) ->
   cont2
 
-cont1 %>% left_join(cont2) -> meta_control
+meta_control <- cont1
+meta_control$Control_SD <- cont2$Control_SD
 
 # and manipulation data frame
 dat_rs %>% 
@@ -122,22 +123,31 @@ dat_rs %>%
   mutate(depvar = gsub("SD_", "", depvar)) ->
   manip2
 
-manip1 %>% left_join(manip2) -> meta_manip
+meta_manip <- manip1
+meta_manip$Manip_SD <- manip2$Manip_SD
 
 # ...and join with the manipulation data
 meta_manip %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Meas_method", "Soil_type", "Soil_drainage",
-                   "Elevation", "depvar")) %>% 
-  filter(!is.na(Manip_Resp)) %>% 
+                   "Latitude", "Meas_method", "Soil_type", "Soil_drainage",                   "Elevation", "depvar")) %>% 
   rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
   select(-Quality_flag.y) ->
-  meta_df1
+  meta_df
+
+# At this point:
+# 1. meta_df should have no duplicate rows
+# 2. All study numbers in dat_rs should be present in meta_df
+#
+
+
+#remove NA's
+  filter(!is.na(Manip_Resp)) %>% 
+    
 
 #filter dups
-meta_df1 %>%
-  distinct() -> meta_df
+#meta_df1 %>%
+#  distinct() -> meta_df
 
 #year of study
 meta_df %>%
