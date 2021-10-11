@@ -87,8 +87,9 @@ water_manipulations %>%
 # the control and treatment values are in the same row
 
 # Construct the control data frame
+# Remove duplicate control record from a study (reference respiration from pre-treatment years)
 dat_rs %>% 
-  filter(Manipulation == "Control") %>% 
+  filter(Manipulation == "Control", Record_number != "2368") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
   controls
 
