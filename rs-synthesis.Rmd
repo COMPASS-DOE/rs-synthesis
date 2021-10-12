@@ -147,6 +147,11 @@ meta_manip %>%
   filter(!is.na(Manip_Resp)) %>% 
   rename("Variable" = "depvar") ->
   meta_df
+
+
+#temporary code with Manipultion_level is incorporated into matching criteria
+#currently gives 26 rows, should be 10
+check <- meta_df[meta_df$Study_number == 1421,]
 ```
 
 
