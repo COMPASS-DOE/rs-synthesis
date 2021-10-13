@@ -37,20 +37,21 @@ read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
 
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
-         Manipulation, Manipulation_level, Meas_method, Soil_type,
-         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation, Quality_flag)  %>% 
+         Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
+         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Soil_clay, Elevation, Quality_flag)  %>% 
   filter(!grepl("Q1[0-5]", Quality_flag)) %>% 
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
-  select(Study_number, Record_number, N, SD_Rs_annual,	SD_Rh_annual, 
+         col_types = "ddcdccccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
+  select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
-    TRUE ~ "Control")) -> dat_rs
+    Percent_control == 100 ~ "Control",
+    TRUE ~ NA_character_)) -> dat_rs
 ```
 
 # Manipulation Type Summaries {.tabset .tabset-pills}
@@ -86,34 +87,37 @@ water_manipulations %>%
 # the control and treatment values are in the same row
 
 # Construct the control data frame
+# Remove duplicate control record from a study (reference respiration from pre-treatment years)
 dat_rs %>% 
-  filter(Manipulation == "Control") %>% 
+  filter(Manipulation == "Control", Record_number != "2368") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
   controls
 
+# Isolate the control mean and standard deviations; reshape; and join together
 controls %>% 
   select(-starts_with("SD_"), -Percent_control) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
                names_to = "depvar", values_to = "Control_Resp") ->
-  cont1
+  cont_mean
 
 controls %>% 
   select(-Rs_annual, -Rh_annual, -Rs_growingseason, -Percent_control) %>% 
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason),
                names_to = "depvar", values_to = "Control_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
-  cont2
+  cont_sd
 
-meta_control <- cont1
-meta_control$Control_SD <- cont2$Control_SD
+meta_control <- cont_mean
+meta_control$Control_SD <- cont_sd$Control_SD
+meta_control <- filter(meta_control, !is.na(Control_Resp))
 
-# and manipulation data frame
+# and the same thing with the manipulation data frame
 dat_rs %>% 
   filter(Manipulation != "Control") %>% 
   select(-starts_with("SD_")) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
                names_to = "depvar", values_to = "Manip_Resp") ->
-  manip1
+  manip_mean
 
 dat_rs %>% 
   filter(Manipulation != "Control") %>% 
@@ -121,42 +125,28 @@ dat_rs %>%
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason), 
                names_to = "depvar", values_to = "Manip_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
-  manip2
+  manip_sd
 
-meta_manip <- manip1
-meta_manip$Manip_SD <- manip2$Manip_SD
+meta_manip <- manip_mean
+meta_manip$Manip_SD <- manip_sd$Manip_SD
+meta_manip <- filter(meta_manip, !is.na(Manip_Resp))
+
+# Stop for a little defensive programming and qa/qc
+# Every study in the manipulation data frame should have an entry in the control one
+# (but the converse is not necessarily true)
+sn_diff <- setdiff(meta_manip$Study_number, meta_control$Study_number)
+stopifnot(length(sn_diff) == 0)
 
 # ...and join with the manipulation data
 meta_manip %>% 
+  select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Meas_method", "Soil_type", "Soil_drainage",                   "Elevation", "depvar")) %>% 
-  rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
-  select(-Quality_flag.y) ->
-  meta_df
-
-# At this point:
-# 1. meta_df should have no duplicate rows
-# 2. All study numbers in dat_rs should be present in meta_df
-#
-
-
-#remove NA's
+                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species", "Soil_type",
+                   "Soil_drainage", "Soil_clay", "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
-    
-
-#filter dups
-#meta_df1 %>%
-#  distinct() -> meta_df
-
-#year of study
-meta_df %>%
-  group_by(Study_number, Manipulation_level, Ecosystem_type) %>%
-  mutate(YearOfStudy = Study_midyear - min(Study_midyear)) -> meta_time
-
-meta_time %>%
-  group_by(Study_number, Ecosystem_type) %>%
-  mutate(PC_group = as.numeric(as.factor(Percent_control))) -> meta_timePC
+  rename("Variable" = "depvar") ->
+  meta_df
 
 ```
 
@@ -266,7 +256,6 @@ srdb %>%
   left_join(srdb, by = "Study_number") -> drainage_type
 
 drainage_type %>%
-  mutate(Ecosystem_type = trimws(Ecosystem_type)) %>%
   group_by(Ecosystem_type) %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
   mutate(M_Type = "Soil drainage") %>%
