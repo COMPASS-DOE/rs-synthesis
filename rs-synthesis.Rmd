@@ -38,7 +38,7 @@ read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
          Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
-         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation, Quality_flag)  %>% 
+         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Soil_clay, Elevation, Quality_flag)  %>% 
   filter(!grepl("Q1[0-5]", Quality_flag)) %>% 
   bind_rows(new_studies) -> srdb
 
@@ -142,8 +142,8 @@ meta_manip %>%
   select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species", "Soil_type", "Soil_drainage",
-                   "Elevation", "depvar")) %>% 
+                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species", "Soil_type",
+                   "Soil_drainage", "Soil_clay", "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
   rename("Variable" = "depvar") ->
   meta_df
