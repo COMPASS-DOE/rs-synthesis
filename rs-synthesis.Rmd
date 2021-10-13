@@ -43,8 +43,8 @@ srdb_raw %>%
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
-  select(Study_number, Record_number, N, SD_Rs_annual,	SD_Rh_annual, 
+         col_types = "ddcdccccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
+  select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
   mutate(Manipulation = case_when(
@@ -142,16 +142,12 @@ meta_manip %>%
   select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Meas_method", "Species", "Soil_type", "Soil_drainage",
+                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species", "Soil_type", "Soil_drainage",
                    "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
   rename("Variable" = "depvar") ->
   meta_df
 
-
-#temporary code with Manipultion_level is incorporated into matching criteria
-#currently gives 26 rows, should be 10
-check <- meta_df[meta_df$Study_number == 1421,]
 ```
 
 
