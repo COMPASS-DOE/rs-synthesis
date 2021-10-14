@@ -25,11 +25,6 @@ res
 ggplot(metadat, aes(Duration, yi)) + 
   geom_point(size = 4, na.rm = TRUE) + geom_smooth(method = "lm") #+ facet_grid(Manipulation~.)
 
-#summary plot WORK IN PROGRESS
-#would be great to have a combination factor that would make each line connect only one set of points
-ggplot(metadat, aes(Duration, yi, color = Author)) + 
-  geom_point(na.rm = TRUE) + geom_line() +
-  facet_grid(Manipulation~.) + theme(legend.position = "bottom")
 
 #Studies that last @least four years
 metadat %>%
@@ -37,9 +32,9 @@ metadat %>%
   filter(length(unique(Study_midyear)) > 3 ) -> md4year
 
 
-ggplot(md4year, aes(Duration, yi, color = Author)) + 
-  geom_point(na.rm = TRUE) + geom_line() +
-  facet_grid(Manipulation~.) + theme(legend.position = "bottom")
+ggplot(md4year, aes(Duration, yi, color=Manipulation)) + 
+  geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
+  facet_grid(Ecosystem_type~.) #+ theme(legend.position = "bottom")
 
 #summarize mean effect size, 95%CI, and count by year of study (and manipulation type)
 #metadat
