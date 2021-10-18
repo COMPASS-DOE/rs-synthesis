@@ -142,8 +142,8 @@ meta_manip %>%
   select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species", "Soil_type",
-                   "Soil_drainage", "Soil_clay", "Elevation", "depvar")) %>% 
+                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species",
+                   "Soil_type", "Soil_drainage", "Soil_clay", "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
   rename("Variable" = "depvar") ->
   meta_df
@@ -187,7 +187,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   print(summary(dat_condition$Percent_control))
   
   # Construct the meta-analysis variables and run the MA
-  metadat <- escalc(measure = "SMD",
+  metadat <- escalc(measure = "ROM",
                     m1i = Manip_Resp, m2i = Control_Resp, 
                     sd1i = Manip_SD, sd2i = Control_SD,
                     n1i = N, n2i = N, 
@@ -227,16 +227,26 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 
 ```{r irrigation}
 do_ma(meta_df, "Irrigation", "Rs_annual")
+#76 of 278 pairs
 do_ma(meta_df, "Irrigation", "Rh_annual")
+#11 of 278 pairs
 do_ma(meta_df, "Irrigation", "Rs_growingseason")
+#65 of 278 pairs
 ```
 
 ### Drought
 
 ```{r drought}
 do_ma(meta_df, "Drought", "Rs_annual")
+#83 of 278 pairs
 do_ma(meta_df, "Drought", "Rh_annual")
+#11 of 278 pairs
 do_ma(meta_df, "Drought", "Rs_growingseason")
+#37 of 278 pairs
+
+
+
+#N for all pairs is 283, but meta_df is only 278 rows long...
 ```
 
 ## Contrasting Soil Drainage
