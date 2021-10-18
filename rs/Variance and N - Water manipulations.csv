@@ -560,8 +560,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 13001,1,Chao,2014,Grassland,None,NA,,44.22,116.43,IRGA,NA,Dry,NA,NA,NA,2.25,4,NA,NA,0.65,100,NA,NA,Rs est from fig 2
 13001,2,Chao,2014,Grassland,Increased Precipitation,20% increase,,44.22,116.43,IRGA,NA,Dry,NA,NA,NA,4.1,4,NA,NA,0.8,120,NA,NA,Rs est from fig 2
 13004,1,Yue,2014.5,Desert,None,NA,,44.43,87.9,Gas chromatography,NA,Dry,437,109.011,NA,0.1343174109,4,45.078,NA,NA,100,NA,NA,NA
-13004,2,Yue,2014.5,Desert,Increased Precipitation,30% increase,,44.43,87.9,Gas chromatography,NA,Dry,437,145.078,NA,0.322454273,4,54.37,NA,NA,100,NA,NA,NA
-13004,3,Yue,2015.5,Desert,None,NA,,44.43,87.9,Gas chromatography,NA,Dry,437,109.011,NA,0.1719357989,4,45.078,NA,NA,130,NA,NA,NA
+13004,2,Yue,2014.5,Desert,Increased Precipitation,30% increase,,44.43,87.9,Gas chromatography,NA,Dry,437,145.078,NA,0.322454273,4,54.37,NA,NA,130,NA,NA,NA
+13004,3,Yue,2015.5,Desert,None,NA,,44.43,87.9,Gas chromatography,NA,Dry,437,109.011,NA,0.1719357989,4,45.078,NA,NA,100,NA,NA,NA
 13004,4,Yue,2015.5,Desert,Increased Precipitation,30% increase,,44.43,87.9,Gas chromatography,NA,Dry,437,145.078,NA,0.4337952942,4,54.37,NA,NA,130,NA,NA,NA
 13007,1,Zhang,2014,Desert,Decreased Precipitation,40% decrease,,36.22,103.78,IRGA,Haplic Calcisol,Dry,1780,247.87296,NA,NA,4,15.13728,NA,NA,60,NA,NA,Rs est from fig 3
 13007,2,Zhang,2014,Desert,Decreased Precipitation,20% decrease,,36.22,103.78,IRGA,Haplic Calcisol,Dry,1780,321.6672,NA,NA,4,15.13728,NA,NA,80,NA,NA,Rs est from fig 3
