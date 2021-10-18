@@ -27,9 +27,10 @@ ggplot(metadat, aes(Duration, yi)) +
 
 
 #Studies that last @least four years
+#no forest studies longer than 3 years
 metadat %>%
   group_by(Study_number) %>%
-  filter(length(unique(Study_midyear)) > 3 ) -> md4year
+  filter(length(unique(Study_midyear)) > 4 ) -> md4year
 
 
 ggplot(md4year, aes(Duration, yi, color=Manipulation)) + 

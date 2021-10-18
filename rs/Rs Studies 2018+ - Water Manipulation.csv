@@ -19,18 +19,18 @@ DOI,Pub Year,Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Mani
 10.1111/1365-2435.13119,2018,13009,2,Li,2014,Grassland,Increased Precipitation,30% increase,43.63,IRGA,Calcic Chernozems,Dry,1200,1059.6096,NA,NA,6,74.15722419,NA,NA,130,0.151,0.005,Rs and SM est from fig 1
 10.1016/j.agrformet.2018.06.020,2018,13015,1,Zou,2015,Forest,None,,52.95,IRGA,Low humic surfacewater gley,Wet,260,710,295,1.3212415,3,40,90,0.13212415,100,NA,NA,Rs est from fig 4
 10.1016/j.agrformet.2018.06.021,2018,13015,2,Zou,2015,Forest,Increased Precipitation,20% increase,52.95,IRGA,Low humic surfacewater gley,Wet,260,620,280,1.18911735,3,60,20,0.2642483,120,NA,NA,Rs est from fig 4
-10.1016/j.scitotenv.2018.08.111,2019,13018,1,Yu,2014.5,Meadow,None,,30.52,IRGA,NA,Dry,NA,NA,NA,1.95,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.112,2019,13018,2,Yu,2014.5,Meadow,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.85,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.113,2019,13018,3,Yu,2014.5,Meadow,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.114,2019,13018,4,Yu,2015.5,Meadow,None,,30.52,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.115,2019,13018,5,Yu,2015.5,Meadow,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.25,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.116,2019,13018,6,Yu,2015.5,Meadow,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.117,2019,13018,7,Yu,2016.5,Meadow,None,,30.52,IRGA,NA,Dry,NA,NA,NA,3.75,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.118,2019,13018,8,Yu,2016.5,Meadow,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,3.99,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.119,2019,13018,9,Yu,2016.5,Meadow,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,3.95,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.120,2019,13018,10,Yu,2017.5,Meadow,None,,30.52,IRGA,NA,Dry,NA,NA,NA,2.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.121,2019,13018,11,Yu,2017.5,Meadow,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,2.4,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-10.1016/j.scitotenv.2018.08.122,2019,13018,12,Yu,2017.5,Meadow,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,2.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.111,2019,13018,1,Yu,2014.5,Grassland,None,,30.52,IRGA,NA,Dry,NA,NA,NA,1.95,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.112,2019,13018,2,Yu,2014.5,Grassland,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.85,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.113,2019,13018,3,Yu,2014.5,Grassland,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.114,2019,13018,4,Yu,2015.5,Grassland,None,,30.52,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.115,2019,13018,5,Yu,2015.5,Grassland,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.25,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.116,2019,13018,6,Yu,2015.5,Grassland,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.117,2019,13018,7,Yu,2016.5,Grassland,None,,30.52,IRGA,NA,Dry,NA,NA,NA,3.75,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.118,2019,13018,8,Yu,2016.5,Grassland,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,3.99,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.119,2019,13018,9,Yu,2016.5,Grassland,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,3.95,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.120,2019,13018,10,Yu,2017.5,Grassland,None,,30.52,IRGA,NA,Dry,NA,NA,NA,2.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.121,2019,13018,11,Yu,2017.5,Grassland,Increased Precipitation,15% increase,30.52,IRGA,NA,Dry,NA,NA,NA,2.4,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
+10.1016/j.scitotenv.2018.08.122,2019,13018,12,Yu,2017.5,Grassland,Increased Precipitation,30% increase,30.52,IRGA,NA,Dry,NA,NA,NA,2.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
 10.1016/j.soilbio.2018.11.021,2019,13022,1,Ni,2017.5,Forest,Decreased Precipitation,0% precipitation,41.78,Gas chromatography,Lithic Dystrudepts,Dry,157,1575.583333,NA,NA,3,379.3191269,NA,NA,0,NA,NA,Rs and SD est from fig 1
 10.1016/j.soilbio.2018.11.022,2019,13022,2,Ni,2017.5,Forest,None,,41.78,Gas chromatography,Lithic Dystrudepts,Dry,157,1688.125,NA,NA,3,110.6347453,NA,NA,100,NA,NA,Rs and SD est from fig 1
 10.1016/j.soilbio.2018.11.023,2019,13022,3,Ni,2017.5,Forest,Increased Precipitation,50% increase,41.78,Gas chromatography,Lithic Dystrudepts,Dry,157,2165.666667,NA,NA,3,94.82978171,NA,NA,150,NA,NA,Rs and SD est from fig 1
@@ -90,21 +90,21 @@ DOI,Pub Year,Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Mani
 10.1016/j.agrformet.2020.108146,2020,13079,28,Li,2018.5,Grassland,Decreased Precipitation,30% decrease,42.2,IRGA,NA,Dry,1393,340.5888,NA,NA,3,37.8432,NA,NA,70,NA,NA,Rs and SD est from fig 3
 10.1016/j.agrformet.2020.108147,2020,13079,29,Li,2018.5,Grassland,None,,42.2,IRGA,NA,Dry,1393,794.7072,NA,NA,3,3.78432,NA,NA,100,NA,NA,Rs and SD est from fig 3
 10.1016/j.agrformet.2020.108148,2020,13079,30,Li,2018.5,Grassland,Increased Precipitation,30% increase,42.2,IRGA,NA,Dry,1393,1044.47232,NA,NA,3,15.13728,NA,NA,130,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108146,2020,13079,31,Li,2014.5,Meadow,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,567.648,NA,NA,3,3.78432,NA,NA,70,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108147,2020,13079,32,Li,2014.5,Meadow,None,,45.95,IRGA,NA,Dry,992,662.256,NA,NA,3,18.9216,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108148,2020,13079,33,Li,2014.5,Meadow,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,756.864,NA,NA,3,94.608,NA,NA,130,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108148,2020,13079,34,Li,2015.5,Meadow,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,605.4912,NA,NA,3,18.9216,NA,NA,70,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108149,2020,13079,35,Li,2015.5,Meadow,None,,45.95,IRGA,NA,Dry,992,946.08,NA,NA,3,151.3728,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108150,2020,13079,36,Li,2015.5,Meadow,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1210.9824,NA,NA,3,208.1376,NA,NA,130,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108150,2020,13079,37,Li,2016.5,Meadow,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,756.864,NA,NA,3,113.5296,NA,NA,70,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108151,2020,13079,38,Li,2016.5,Meadow,None,,45.95,IRGA,NA,Dry,992,1097.4528,NA,NA,3,37.8432,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108152,2020,13079,39,Li,2016.5,Meadow,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1324.512,NA,NA,3,227.0592,NA,NA,130,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108152,2020,13079,40,Li,2017.5,Meadow,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,794.7072,NA,NA,3,56.7648,NA,NA,70,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108153,2020,13079,41,Li,2017.5,Meadow,None,,45.95,IRGA,NA,Dry,992,1154.2176,NA,NA,3,18.9216,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108154,2020,13079,42,Li,2017.5,Meadow,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1702.944,NA,NA,3,75.6864,NA,NA,130,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108154,2020,13079,43,Li,2018.5,Meadow,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,586.5696,NA,NA,3,37.8432,NA,NA,70,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108155,2020,13079,44,Li,2018.5,Meadow,None,,45.95,IRGA,NA,Dry,992,1135.296,NA,NA,3,56.7648,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1016/j.agrformet.2020.108156,2020,13079,45,Li,2018.5,Meadow,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1419.12,NA,NA,3,245.9808,NA,NA,130,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108146,2020,13079,31,Li,2014.5,Grassland,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,567.648,NA,NA,3,3.78432,NA,NA,70,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108147,2020,13079,32,Li,2014.5,Grassland,None,,45.95,IRGA,NA,Dry,992,662.256,NA,NA,3,18.9216,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108148,2020,13079,33,Li,2014.5,Grassland,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,756.864,NA,NA,3,94.608,NA,NA,130,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108148,2020,13079,34,Li,2015.5,Grassland,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,605.4912,NA,NA,3,18.9216,NA,NA,70,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108149,2020,13079,35,Li,2015.5,Grassland,None,,45.95,IRGA,NA,Dry,992,946.08,NA,NA,3,151.3728,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108150,2020,13079,36,Li,2015.5,Grassland,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1210.9824,NA,NA,3,208.1376,NA,NA,130,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108150,2020,13079,37,Li,2016.5,Grassland,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,756.864,NA,NA,3,113.5296,NA,NA,70,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108151,2020,13079,38,Li,2016.5,Grassland,None,,45.95,IRGA,NA,Dry,992,1097.4528,NA,NA,3,37.8432,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108152,2020,13079,39,Li,2016.5,Grassland,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1324.512,NA,NA,3,227.0592,NA,NA,130,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108152,2020,13079,40,Li,2017.5,Grassland,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,794.7072,NA,NA,3,56.7648,NA,NA,70,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108153,2020,13079,41,Li,2017.5,Grassland,None,,45.95,IRGA,NA,Dry,992,1154.2176,NA,NA,3,18.9216,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108154,2020,13079,42,Li,2017.5,Grassland,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1702.944,NA,NA,3,75.6864,NA,NA,130,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108154,2020,13079,43,Li,2018.5,Grassland,Decreased Precipitation,30% decrease,45.95,IRGA,NA,Dry,992,586.5696,NA,NA,3,37.8432,NA,NA,70,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108155,2020,13079,44,Li,2018.5,Grassland,None,,45.95,IRGA,NA,Dry,992,1135.296,NA,NA,3,56.7648,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1016/j.agrformet.2020.108156,2020,13079,45,Li,2018.5,Grassland,Increased Precipitation,30% increase,45.95,IRGA,NA,Dry,992,1419.12,NA,NA,3,245.9808,NA,NA,130,NA,NA,Rs and SD est from fig 3
 10.1007/s11284-017-1529-1,2018,13094,1,Ge,2013.5,Forest,None,,30.08,NA,Haplic Luvisol,Dry,NA,813.6288,NA,NA,3,NA,NA,NA,100,NA,NA,Rs est from fig 4
 10.1007/s11284-017-1529-2,2018,13094,2,Ge,2013.5,Forest,Decreased Precipitation,Throughfall exclusion,30.08,NA,Haplic Luvisol,Dry,NA,715.23648,NA,NA,3,NA,NA,NA,0,NA,NA,Rs est from fig 4
 10.1007/s11104-017-3485-5,2018,13096,1,Diaz-Guerra,2012.5,Shrubland,None,,42.04,IRGA,Typic Haploxerept,Dry,250,737.9424,NA,NA,3,65.54634512,NA,NA,100,NA,NA,Rs and SD est from fig 4
@@ -114,14 +114,14 @@ DOI,Pub Year,Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Mani
 10.1016/j.apsoil.2018.02.007,2018,13112,3,Zhang,2014,Grassland,None,,36.22,IRGA,Haplic Calcisol,Dry,1780,NA,NA,0.9383333333,4,NA,NA,0.05,100,NA,NA,Rs and SD est from fig 3
 10.1016/j.apsoil.2018.02.008,2018,13112,4,Zhang,2014,Grassland,Increased Precipitation,120% of original precipitation,36.22,IRGA,Haplic Calcisol,Dry,1780,NA,NA,1.096666667,4,NA,NA,0.04,120,NA,NA,Rs and SD est from fig 3
 10.1016/j.apsoil.2018.02.009,2018,13112,5,Zhang,2014,Grassland,Increased Precipitation,140% of original precipitation,36.22,IRGA,Haplic Calcisol,Dry,1780,NA,NA,1.333333333,4,NA,NA,0.06,140,NA,NA,Rs and SD est from fig 3
-10.1007/s11104-019-04025-w,2019,13189,1,Zhou,2015.5,Pasture,None,,44.3,IRGA,NA,Dry,1079,1734.48,1255.1328,NA,4,50.45759874,39.10462739,NA,100,NA,NA,Rs and SD est from fig 4
-10.1007/s11104-019-04025-w,2019,13189,2,Zhou,2015.5,Pasture,Decreased Precipitation,0% of original precipitation,44.3,IRGA,NA,Dry,1079,1158.00192,908.2368,NA,4,32.16672,25.22879975,NA,0,NA,NA,Rs and SD est from fig 4
-10.1007/s11104-019-04025-w,2019,13189,3,Zhou,2016.5,Pasture,None,,44.3,IRGA,NA,Dry,1079,1141.6032,725.3279975,NA,4,31.53599874,50.45759874,NA,100,NA,NA,Rs and SD est from fig 4
-10.1007/s11104-019-04025-w,2019,13189,4,Zhou,2016.5,Pasture,Decreased Precipitation,0% of original precipitation,44.3,IRGA,NA,Dry,1079,889.3152,630.7199748,NA,4,16.39872,20.18303999,NA,0,NA,NA,Rs and SD est from fig 4
+10.1007/s11104-019-04025-w,2019,13189,1,Zhou,2015.5,Grassland,None,,44.3,IRGA,NA,Dry,1079,1734.48,1255.1328,NA,4,50.45759874,39.10462739,NA,100,NA,NA,Rs and SD est from fig 4
+10.1007/s11104-019-04025-w,2019,13189,2,Zhou,2015.5,Grassland,Decreased Precipitation,0% of original precipitation,44.3,IRGA,NA,Dry,1079,1158.00192,908.2368,NA,4,32.16672,25.22879975,NA,0,NA,NA,Rs and SD est from fig 4
+10.1007/s11104-019-04025-w,2019,13189,3,Zhou,2016.5,Grassland,None,,44.3,IRGA,NA,Dry,1079,1141.6032,725.3279975,NA,4,31.53599874,50.45759874,NA,100,NA,NA,Rs and SD est from fig 4
+10.1007/s11104-019-04025-w,2019,13189,4,Zhou,2016.5,Grassland,Decreased Precipitation,0% of original precipitation,44.3,IRGA,NA,Dry,1079,889.3152,630.7199748,NA,4,16.39872,20.18303999,NA,0,NA,NA,Rs and SD est from fig 4
 10.1016/j.agrformet.2019.03.021,2019,13193,1,Chen ,2016.5,Forest,None,,42.4,IRGA,NA,Dry,NA,1135.296,NA,NA,3,NA,NA,NA,100,NA,NA,Rs est from fig 3
 10.1016/j.agrformet.2019.03.022,2019,13193,2,Chen ,2016.5,Forest,Decreased Precipitation,30% reduction,42.4,IRGA,NA,Dry,NA,1324.512,NA,NA,3,NA,NA,NA,70,NA,NA,Rs est from fig 3
 10.1016/j.agrformet.2019.03.023,2019,13193,3,Chen ,2017.5,Forest,None,,42.4,IRGA,NA,Dry,NA,1173.1392,NA,NA,3,NA,NA,NA,100,NA,NA,Rs est from fig 3
 10.1016/j.agrformet.2019.03.024,2019,13193,4,Chen ,2017.5,Forest,Decreased Precipitation,30% reduction,42.4,IRGA,NA,Dry,NA,1324.512,NA,NA,3,NA,NA,NA,70,NA,NA,Rs est from fig 3
-10.1111/aje.12670,2020,13242,1,Ondier,2012.5,Savannah,Decreased Precipitation,50% reduction,-0.58,IRGA,Loam,Dry,1300,2459.808,NA,NA,3,756.864,NA,NA,50,NA,NA,Rs and SD est from fig 3
-10.1111/aje.12671,2020,13242,2,Ondier,2012.5,Savannah,None,,-0.58,IRGA,Loam,Dry,1300,3027.456,NA,NA,3,756.864,NA,NA,100,NA,NA,Rs and SD est from fig 3
-10.1111/aje.12672,2020,13242,3,Ondier,2012.5,Savannah,Increased Precipitation,50% increase,-0.58,IRGA,Loam,Dry,1300,3784.32,NA,NA,3,378.432,NA,NA,150,NA,NA,Rs and SD est from fig 3
+10.1111/aje.12670,2020,13242,1,Ondier,2012.5,Savanna,Decreased Precipitation,50% reduction,-0.58,IRGA,Loam,Dry,1300,2459.808,NA,NA,3,756.864,NA,NA,50,NA,NA,Rs and SD est from fig 3
+10.1111/aje.12671,2020,13242,2,Ondier,2012.5,Savanna,None,,-0.58,IRGA,Loam,Dry,1300,3027.456,NA,NA,3,756.864,NA,NA,100,NA,NA,Rs and SD est from fig 3
+10.1111/aje.12672,2020,13242,3,Ondier,2012.5,Savanna,Increased Precipitation,50% increase,-0.58,IRGA,Loam,Dry,1300,3784.32,NA,NA,3,378.432,NA,NA,150,NA,NA,Rs and SD est from fig 3

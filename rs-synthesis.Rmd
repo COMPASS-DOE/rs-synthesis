@@ -148,6 +148,31 @@ meta_manip %>%
   rename("Variable" = "depvar") ->
   meta_df
 
+
+meta_df %>%
+  group_by(Ecosystem_type) %>%
+  count()
+
+
+# summarize missing data, 83 studies in dataset
+meta_df %>% 
+  group_by(Ecosystem_type) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(Ecosystem_type, n_studies) -> Ecosystem_summary
+
+meta_df %>% 
+  group_by(Soil_drainage) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(Soil_drainage, n_studies) -> Drainage_summary
+
+meta_df %>% 
+  group_by(Soil_clay) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(Soil_clay, n_studies) -> Clay_summary
+
 ```
 
 
