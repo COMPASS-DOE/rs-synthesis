@@ -1,9 +1,14 @@
 
+library(skimr)
 
 #duration
 meta_df %>%
-  group_by(Study_number, Manipulation_level, Ecosystem_type) %>%
+  group_by(Study_number, OtherFactor, Ecosystem_type) %>%
   mutate(Duration = Study_midyear - min(Study_midyear)) -> meta_time
+
+meta_time %>%
+  select(-Study_number, -Record_number, -OtherFactor, -Manipulation_level, -Soil_type) %>%
+  skim()
 
 
 #compute effect sizes
@@ -30,12 +35,18 @@ ggplot(metadat, aes(Duration, yi)) +
 #no forest studies longer than 3 years
 metadat %>%
   group_by(Study_number) %>%
-  filter(length(unique(Study_midyear)) > 4 ) -> md4year
+  filter(length(unique(Study_midyear)) > 2 ) -> md4year
 
 
-ggplot(md4year, aes(Duration, yi, color=Manipulation)) + 
+ggplot(md4year[md4year$Ecosystem_type == "Desert" | md4year$Ecosystem_type == "Forest",],
+       aes(Duration, yi, color=Manipulation)) + 
   geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
-  facet_grid(Ecosystem_type~.) #+ theme(legend.position = "bottom")
+  facet_grid(.~Ecosystem_type, scales="free") #+ theme(legend.position = "bottom")
+
+ggplot(md4year[md4year$Ecosystem_type == "Grassland" | md4year$Ecosystem_type == "Shrubland",],
+       aes(Duration, yi, color=Manipulation)) + 
+  geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
+  facet_grid(.~Ecosystem_type, scales="free") #+ theme(legend.position = "bottom")
 
 #summarize mean effect size, 95%CI, and count by year of study (and manipulation type)
 #metadat
