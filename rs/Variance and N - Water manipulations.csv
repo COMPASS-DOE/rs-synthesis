@@ -401,22 +401,22 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 11859,7128,Escolar,2009.5,Grassland,Precipitation amount change,33%,Low Biocrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,336,NA,NA,10,50.4,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
 11859,7130,Escolar,2010.5,Grassland,None,NA,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,351,NA,NA,10,52.65,,,100,0.14,,Estimating SM_mean from SI; estimating SD from Figure 1
 11859,7132,Escolar,2010.5,Grassland,Precipitation amount change,33%,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,404,NA,NA,10,60.6,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
-8163,7342,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7343,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7344,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7345,Jia,2010.5,Grassland,None,NA,fallow,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7346,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7347,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7348,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7349,Jia,2010.5,Grassland,Irrigated,50 mm/yr,fallow,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,NA,,,,,,,,
-8163,7350,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.45,6,,,0.05,100,,,s.d. est from fig 5
-8163,7351,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.3,6,,,0.1,100,,,s.d. est from fig 5
-8163,7352,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.63,6,,,0.1,100,,,s.d. est from fig 5
-8163,7353,Jia,2011.5,Grassland,None,NA,fallow,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,0.98,6,,,0.05,100,,,s.d. est from fig 5
-8163,7354,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.85,6,,,0.1,113,,,s.d. est from fig 5
-8163,7355,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.52,6,,,0.05,113,,,s.d. est from fig 5
-8163,7356,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.73,6,,,0.1,113,,,s.d. est from fig 5
-8163,7357,Jia,2011.5,Grassland,Irrigated,50 mm/yr,fallow,38.81,110.38,IRGA,Loessial,NA,NA,NA,NA,1.4,6,,,0.1,113,,,s.d. est from fig 5
+8163,7342,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7343,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7344,Jia,2010.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7345,Jia,2010.5,Grassland,None,NA,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7346,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7347,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7348,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7349,Jia,2010.5,Grassland,Irrigated,50 mm/yr,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7350,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.45,6,,,0.05,100,,,s.d. est from fig 5
+8163,7351,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.3,6,,,0.1,100,,,s.d. est from fig 5
+8163,7352,Jia,2011.5,Grassland,None,NA,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.63,6,,,0.1,100,,,s.d. est from fig 5
+8163,7353,Jia,2011.5,Grassland,None,NA,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,0.98,6,,,0.05,100,,,s.d. est from fig 5
+8163,7354,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.85,6,,,0.1,113,,,s.d. est from fig 5
+8163,7355,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.52,6,,,0.05,113,,,s.d. est from fig 5
+8163,7356,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.73,6,,,0.1,113,,,s.d. est from fig 5
+8163,7357,Jia,2011.5,Grassland,Irrigated,50 mm/yr,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.4,6,,,0.1,113,,,s.d. est from fig 5
 9557,7413,Martins,2013.5,Forest,Irrigated,"grey water N 0.6 mg/L, total P 3.0 mg/L",,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,205.84,NA,NA,4,12.865,,,153.984375,0.078,,SD estimated from Fig 1; MAP from Barton et al. ref
 9557,7416,Martins,2013.5,Forest,None,NA,,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,160.74,NA,NA,4,10.716,,,100,0.022,,SD estimated from Fig 1
 9557,7417,Martins,2013.5,Grassland,None,NA,,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,332.02,NA,NA,4,22.13466667,,,100,0.042,,SD estimated from Fig 1
