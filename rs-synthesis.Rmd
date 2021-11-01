@@ -37,20 +37,21 @@ read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
 
 srdb_raw %>% 
   select(Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type, 
-         Manipulation, Manipulation_level, Meas_method, Soil_type,
-         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation, Quality_flag)  %>% 
+         Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
+         Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Soil_clay, Elevation, Quality_flag)  %>% 
   filter(!grepl("Q1[0-5]", Quality_flag)) %>% 
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdcccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
-  select(Study_number, Record_number, N, SD_Rs_annual,	SD_Rh_annual, 
+         col_types = "ddcdccccdcccdddddddddddc") %>% #filter(Study_number==10526) %>% 
+  select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
   mutate(Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
-    TRUE ~ "Control")) -> dat_rs
+    Percent_control == 100 ~ "Control",
+    TRUE ~ NA_character_)) -> dat_rs
 ```
 
 # Manipulation Type Summaries {.tabset .tabset-pills}
@@ -86,33 +87,37 @@ water_manipulations %>%
 # the control and treatment values are in the same row
 
 # Construct the control data frame
+# Remove duplicate control record from a study (reference respiration from pre-treatment years)
 dat_rs %>% 
-  filter(Manipulation == "Control") %>% 
+  filter(Manipulation == "Control", Record_number != "2368") %>% 
   select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd)->
   controls
 
+# Isolate the control mean and standard deviations; reshape; and join together
 controls %>% 
   select(-starts_with("SD_"), -Percent_control) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
                names_to = "depvar", values_to = "Control_Resp") ->
-  cont1
+  cont_mean
 
 controls %>% 
   select(-Rs_annual, -Rh_annual, -Rs_growingseason, -Percent_control) %>% 
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason),
                names_to = "depvar", values_to = "Control_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
-  cont2
+  cont_sd
 
-cont1 %>% left_join(cont2) -> meta_control
+meta_control <- cont_mean
+meta_control$Control_SD <- cont_sd$Control_SD
+meta_control <- filter(meta_control, !is.na(Control_Resp))
 
-# and manipulation data frame
+# and the same thing with the manipulation data frame
 dat_rs %>% 
   filter(Manipulation != "Control") %>% 
   select(-starts_with("SD_")) %>% 
   pivot_longer(cols = c(Rs_annual, Rh_annual, Rs_growingseason), 
                names_to = "depvar", values_to = "Manip_Resp") ->
-  manip1
+  manip_mean
 
 dat_rs %>% 
   filter(Manipulation != "Control") %>% 
@@ -120,20 +125,57 @@ dat_rs %>%
   pivot_longer(cols = c(SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason), 
                names_to = "depvar", values_to = "Manip_SD") %>% 
   mutate(depvar = gsub("SD_", "", depvar)) ->
-  manip2
+  manip_sd
 
-manip1 %>% left_join(manip2) -> meta_manip
+meta_manip <- manip_mean
+meta_manip$Manip_SD <- manip_sd$Manip_SD
+meta_manip <- filter(meta_manip, !is.na(Manip_Resp))
+
+# Stop for a little defensive programming and qa/qc
+# Every study in the manipulation data frame should have an entry in the control one
+# (but the converse is not necessarily true)
+sn_diff <- setdiff(meta_manip$Study_number, meta_control$Study_number)
+stopifnot(length(sn_diff) == 0)
 
 # ...and join with the manipulation data
 meta_manip %>% 
+  select(-Quality_flag) %>% 
   left_join(meta_control, 
             by = c("Study_number", "Study_midyear", "Ecosystem_type",
-                   "Latitude", "Meas_method", "Soil_type", "Soil_drainage",
-                   "Elevation", "depvar")) %>% 
+                   "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species",
+                   "Soil_type", "Soil_drainage", "Soil_clay", "Elevation", "depvar")) %>% 
   filter(!is.na(Manip_Resp)) %>% 
-  rename("Variable" = "depvar", "Quality_flag" = "Quality_flag.x") %>% 
-  select(-Quality_flag.y) ->
+  rename("Variable" = "depvar") ->
   meta_df
+
+
+meta_df %>%
+  group_by(Ecosystem_type) %>%
+  count()
+
+
+# summarize missing data, 83 studies in dataset
+meta_df %>% 
+  group_by(N) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(N, n_studies) -> N_summary
+#1 study missing N
+
+meta_df %>% 
+  group_by(Elevation) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(Elevation, n_studies) -> Elevation_summary
+#34 studies are missing elevation
+
+meta_df %>% 
+  group_by(Soil_clay) %>% 
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+  arrange(desc(n_studies)) %>% 
+  select(Soil_clay, n_studies) -> Clay_summary
+#63 studies missing clay
+
 ```
 
 
@@ -173,7 +215,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
   print(summary(dat_condition$Percent_control))
   
   # Construct the meta-analysis variables and run the MA
-  metadat <- escalc(measure = "SMD",
+  metadat <- escalc(measure = "ROM",
                     m1i = Manip_Resp, m2i = Control_Resp, 
                     sd1i = Manip_SD, sd2i = Control_SD,
                     n1i = N, n2i = N, 
@@ -213,16 +255,26 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 
 ```{r irrigation}
 do_ma(meta_df, "Irrigation", "Rs_annual")
+#76 of 278 pairs
 do_ma(meta_df, "Irrigation", "Rh_annual")
+#11 of 278 pairs
 do_ma(meta_df, "Irrigation", "Rs_growingseason")
+#65 of 278 pairs
 ```
 
 ### Drought
 
 ```{r drought}
 do_ma(meta_df, "Drought", "Rs_annual")
+#83 of 278 pairs
 do_ma(meta_df, "Drought", "Rh_annual")
+#11 of 278 pairs
 do_ma(meta_df, "Drought", "Rs_growingseason")
+#37 of 278 pairs
+
+
+
+#N for all pairs is 283, but meta_df is only 278 rows long...
 ```
 
 ## Contrasting Soil Drainage
