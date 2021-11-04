@@ -149,32 +149,39 @@ meta_manip %>%
   meta_df
 
 
+#add study duration
 meta_df %>%
-  group_by(Ecosystem_type) %>%
-  count()
+  group_by(Study_number, OtherFactor, Ecosystem_type) %>%
+  mutate(Duration = Study_midyear - min(Study_midyear)) -> meta_df
 
 
 # summarize missing data, 83 studies in dataset
-meta_df %>% 
-  group_by(N) %>% 
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
-  arrange(desc(n_studies)) %>% 
-  select(N, n_studies) -> N_summary
-#1 study missing N
 
+#34 studies are missing elevation
 meta_df %>% 
   group_by(Elevation) %>% 
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   arrange(desc(n_studies)) %>% 
   select(Elevation, n_studies) -> Elevation_summary
-#34 studies are missing elevation
 
+
+#63 studies missing clay
+###think about how to add more clay data
 meta_df %>% 
   group_by(Soil_clay) %>% 
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   arrange(desc(n_studies)) %>% 
   select(Soil_clay, n_studies) -> Clay_summary
-#63 studies missing clay
+
+###compute effect sizes
+#compute effect sizes
+metadat <- escalc(measure = "ROM",
+                  m1i = Manip_Resp, m2i = Control_Resp, 
+                  sd1i = Manip_SD, sd2i = Control_SD,
+                  n1i = N, n2i = N, 
+                  slab = paste(Study_number, Author, Study_midyear),
+                  data = meta_df)
+
 
 ```
 
@@ -198,6 +205,9 @@ ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) +
 ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
   geom_point() +
   geom_vline(xintercept = 0)
+
+
+
 ```
 
 
