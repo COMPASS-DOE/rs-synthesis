@@ -568,25 +568,25 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 13007,3,Zhang,2014,Desert,None,NA,,36.22,103.78,IRGA,Haplic Calcisol,Dry,1780,364.55616,NA,NA,4,15.13728,NA,NA,100,NA,NA,Rs est from fig 3
 13007,4,Zhang,2014,Desert,Increased Precipitation,20% increase,,36.22,103.78,IRGA,Haplic Calcisol,Dry,1780,415.01376,NA,NA,4,37.8432,NA,NA,120,NA,NA,Rs est from fig 3
 13007,5,Zhang,2014,Desert,Increased Precipitation,40% increase,,36.22,103.78,IRGA,Haplic Calcisol,Dry,1780,507.7296,NA,NA,4,37.8432,NA,NA,140,NA,NA,Rs est from fig 3
-13008,1,Deng,2013.5,Forest,Decreased Precipitation,50% decrease,,23.17,112.17,IRGA,NA,Dry,NA,851.472,567.648,NA,NA,NA,NA,NA,50,NA,NA,Rs est from fig 4
-13008,2,Deng,2013.5,Forest,None,NA,,23.17,112.17,IRGA,NA,Dry,NA,1059.6096,586.5696,NA,NA,NA,NA,NA,100,NA,NA,Rs est from fig 4
-13008,3,Deng,2013.5,Forest,Increased Precipitation,50% increase,,23.17,112.17,IRGA,NA,Dry,NA,1154.2176,590.35392,NA,NA,NA,NA,NA,150,NA,NA,Rs est from fig 4
+13008,1,Deng,2013.5,Forest,Decreased Precipitation,50% decrease,,23.17,112.17,IRGA,NA,Dry,NA,851.472,567.648,NA,3,NA,NA,NA,50,NA,NA,Rs est from fig 4
+13008,2,Deng,2013.5,Forest,None,NA,,23.17,112.17,IRGA,NA,Dry,NA,1059.6096,586.5696,NA,3,NA,NA,NA,100,NA,NA,Rs est from fig 4
+13008,3,Deng,2013.5,Forest,Increased Precipitation,50% increase,,23.17,112.17,IRGA,NA,Dry,NA,1154.2176,590.35392,NA,3,NA,NA,NA,150,NA,NA,Rs est from fig 4
 13009,1,Li,2014,Grassland,None,NA,,43.63,116.7,IRGA,Calcic Chernozems,Dry,1200,832.5504,NA,NA,6,74.15722419,NA,NA,100,0.125,0.005,Rs and SM est from fig 1
 13009,2,Li,2014,Grassland,Increased Precipitation,30% increase,,43.63,116.7,IRGA,Calcic Chernozems,Dry,1200,1059.6096,NA,NA,6,74.15722419,NA,NA,130,0.151,0.005,Rs and SM est from fig 1
 13015,1,Zou,2015,Forest,None,NA,,52.95,-7.25,IRGA,Low humic surfacewater gley,Wet,260,710,295,1.3212415,3,40,90,0.13212415,100,NA,NA,Rs est from fig 4
 13015,2,Zou,2015,Forest,Increased Precipitation,20% increase,,52.95,-7.25,IRGA,Low humic surfacewater gley,Wet,260,620,280,1.18911735,3,60,20,0.2642483,120,NA,NA,Rs est from fig 4
-13018,1,Yu,2014.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.95,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-13018,2,Yu,2014.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.85,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-13018,3,Yu,2014.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-13018,4,Yu,2015.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-13018,5,Yu,2015.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.25,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-13018,6,Yu,2015.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.5,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-13018,7,Yu,2016.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.75,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-13018,8,Yu,2016.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.99,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-13018,9,Yu,2016.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.95,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
-13018,10,Yu,2017.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.5,NA,NA,NA,NA,100,NA,NA,Rs est from fig 1
-13018,11,Yu,2017.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.4,NA,NA,NA,NA,115,NA,NA,Rs est from fig 1
-13018,12,Yu,2017.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.9,NA,NA,NA,NA,130,NA,NA,Rs est from fig 1
+13018,1,Yu,2014.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.95,3,NA,NA,NA,100,NA,NA,Rs est from fig 1
+13018,2,Yu,2014.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.85,3,NA,NA,NA,115,NA,NA,Rs est from fig 1
+13018,3,Yu,2014.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.9,3,NA,NA,NA,130,NA,NA,Rs est from fig 1
+13018,4,Yu,2015.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.5,3,NA,NA,NA,100,NA,NA,Rs est from fig 1
+13018,5,Yu,2015.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.25,3,NA,NA,NA,115,NA,NA,Rs est from fig 1
+13018,6,Yu,2015.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,1.5,3,NA,NA,NA,130,NA,NA,Rs est from fig 1
+13018,7,Yu,2016.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.75,3,NA,NA,NA,100,NA,NA,Rs est from fig 1
+13018,8,Yu,2016.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.99,3,NA,NA,NA,115,NA,NA,Rs est from fig 1
+13018,9,Yu,2016.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,3.95,3,NA,NA,NA,130,NA,NA,Rs est from fig 1
+13018,10,Yu,2017.5,Grassland,None,NA,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.5,3,NA,NA,NA,100,NA,NA,Rs est from fig 1
+13018,11,Yu,2017.5,Grassland,Increased Precipitation,15% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.4,3,NA,NA,NA,115,NA,NA,Rs est from fig 1
+13018,12,Yu,2017.5,Grassland,Increased Precipitation,30% increase,,30.52,91.07,IRGA,NA,Dry,NA,NA,NA,2.9,3,NA,NA,NA,130,NA,NA,Rs est from fig 1
 13022,1,Ni,2017.5,Forest,Decreased Precipitation,0% precipitation,,41.78,-73.73,Gas chromatography,Lithic Dystrudepts,Dry,157,1575.583333,NA,NA,3,379.3191269,NA,NA,0,NA,NA,Rs and SD est from fig 1
 13022,2,Ni,2017.5,Forest,None,NA,,41.78,-73.73,Gas chromatography,Lithic Dystrudepts,Dry,157,1688.125,NA,NA,3,110.6347453,NA,NA,100,NA,NA,Rs and SD est from fig 1
 13022,3,Ni,2017.5,Forest,Increased Precipitation,50% increase,,41.78,-73.73,Gas chromatography,Lithic Dystrudepts,Dry,157,2165.666667,NA,NA,3,94.82978171,NA,NA,150,NA,NA,Rs and SD est from fig 1
