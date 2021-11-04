@@ -187,26 +187,20 @@ metadat <- escalc(measure = "ROM",
 
 
 ```{r diagnostic-plots}
-limit <- max(abs(meta_df$Percent_control), na.rm = TRUE) * c(-1, 1) + 100 
+metadat %>%
+  group_by(Ecosystem_type) %>%
+  count() -> Ecosystem_summary
 
-ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Percent_control)) +
-  geom_point(size = 4, na.rm = TRUE) + geom_abline() + 
-  scale_color_distiller(palette = "BrBG", direction = 1, limit = limit, 
-                        breaks = c(-200, 100, 400), labels = c(-200, 100, 400)) +
-  facet_wrap(~Variable, scales = "free")
+ggplot(metadat) + geom_histogram(aes(yi, fill=Manipulation), position = "identity") +
+  facet_grid(Variable~.)
 
-ggplot(meta_df, aes(Control_Resp, Manip_Resp, color = Manipulation)) +
-  geom_point(size = 3, na.rm = TRUE) + geom_abline() + 
-  facet_wrap(~Variable, scales = "free")
-
-ggplot(meta_df, aes(Manip_Resp / Control_Resp, color = Manipulation)) + 
+ggplot(metadat, aes(yi, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free")
 
-ggplot(meta_df, aes(log(Manip_Resp / Control_Resp), fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
-  geom_point() +
-  geom_vline(xintercept = 0)
-
-
+ggplot(metadat, aes(yi, fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
+   geom_vline(xintercept = 0, colour = "black") +
+  geom_point() + geom_errorbarh(aes(xmax = yi + vi, xmin = yi - vi))
+ 
 
 ```
 
