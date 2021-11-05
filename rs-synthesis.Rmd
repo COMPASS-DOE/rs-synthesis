@@ -22,6 +22,7 @@ library(kableExtra)
 library(forcats)
 library(DT)
 library(metafor)
+library(PerformanceAnalytics)
 
 theme_set(theme_minimal())
 
@@ -200,6 +201,8 @@ ggplot(metadat, aes(yi, color = Manipulation)) +
 ggplot(metadat, aes(yi, fct_reorder(paste(Study_number, Author), Percent_control), color = Manipulation)) +
    geom_vline(xintercept = 0, colour = "black") +
   geom_point() + geom_errorbarh(aes(xmax = yi + vi, xmin = yi - vi))
+
+metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
  
 
 #summarize mean effect size, 95%CI, and count by year of study (and manipulation type)
