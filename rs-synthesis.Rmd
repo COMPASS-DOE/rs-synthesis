@@ -202,6 +202,32 @@ ggplot(metadat, aes(yi, fct_reorder(paste(Study_number, Author), Percent_control
   geom_point() + geom_errorbarh(aes(xmax = yi + vi, xmin = yi - vi))
  
 
+#summarize mean effect size, 95%CI, and count by year of study (and manipulation type)
+
+lower_ci <- function(mean, se, n, conf_level = 0.95){
+  lower_ci <- mean - qt(1 - ((1 - conf_level) / 2), n - 1) * se
+}
+upper_ci <- function(mean, se, n, conf_level = 0.95){
+  upper_ci <- mean + qt(1 - ((1 - conf_level) / 2), n - 1) * se
+}
+
+test <- metadat %>%
+  group_by(Manipulation, Duration) %>%
+  summarise(average = mean(yi, na.rm = TRUE),
+            ssd = sd(yi, na.rm = TRUE),
+            count = n()) %>%
+  mutate(se = ssd/sqrt(count),
+         lower_ci = lower_ci(average, se, count),
+         upper_ci = upper_ci(average, se, count))
+
+ggplot(test, aes(average, Duration, label = count)) + 
+  geom_vline(xintercept = 0) +
+  geom_errorbarh(aes(xmax = upper_ci, xmin = lower_ci,
+                     na.rm = TRUE)) +
+  geom_point(size = 4, na.rm = TRUE) + 
+  scale_y_continuous(breaks=seq(0,13,1)) +
+  facet_grid(.~Manipulation) + geom_label()
+
 ```
 
 
