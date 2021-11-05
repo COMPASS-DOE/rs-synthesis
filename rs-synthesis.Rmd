@@ -70,7 +70,7 @@ srdb %>%
   filter(grepl(grep_string, Manipulation, ignore.case = TRUE)) %>% 
   distinct(Study_number) %>% 
   left_join(srdb, by = "Study_number") %>%
-  # Filter for rows with control and irrigation rows
+  # Filter for rows with control and drought rows
   group_by(Study_number) %>% 
   filter(Manipulation == "None" |
            grepl(grep_string, Manipulation, ignore.case = TRUE))  -> water_manipulations
@@ -238,17 +238,26 @@ ggplot(test, aes(average, Duration, label = count)) +
 
 #Ben help with getting this sorted by manipulation
 
-```{r diagnostic-plots}
+```{r}
 
 metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
 
+```
+
+# There is correlation between Duration and Latitude
+
+```{r}
 
 #rank importance of modifiers for two manipulations
 multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Irrigation",],
                      predictors = c("Ecosystem_type", "Duration", "Percent_control", "Soil_drainage"),
                      interaction = TRUE)
+```
 
+# Irrigation
+
+```{r}
 
 multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Drought",],
@@ -257,6 +266,7 @@ multimodel.inference(TE = "yi", seTE = "vi",
 
 ```
 
+# Drought
 
 ```{r do_ma, message = FALSE}
 
@@ -311,27 +321,29 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 ### Irrigation
 
 ```{r irrigation}
-do_ma(meta_df, "Irrigation", "Rs_annual")
-#76 of 278 pairs
-do_ma(meta_df, "Irrigation", "Rh_annual")
-#11 of 278 pairs
-do_ma(meta_df, "Irrigation", "Rs_growingseason")
-#65 of 278 pairs
+res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
+              mods = ~Ecosystem_type*Duration + Soil_drainage,
+              method = "ML",
+           data = metadat,
+           subset = Manipulation == "Irrigation")
+print(summary(res_irrigation))
+    profile(res_irrigation)
+    forest.rma(res_irrigation)
+    funnel(res_irrigation)
 ```
 
 ### Drought
 
 ```{r drought}
-do_ma(meta_df, "Drought", "Rs_annual")
-#83 of 278 pairs
-do_ma(meta_df, "Drought", "Rh_annual")
-#11 of 278 pairs
-do_ma(meta_df, "Drought", "Rs_growingseason")
-#37 of 278 pairs
-
-
-
-#N for all pairs is 283, but meta_df is only 278 rows long...
+res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
+              mods = ~Ecosystem_type + Percent_control,
+              method = "ML",
+           data = metadat,
+           subset = Manipulation == "Drought")
+print(summary(res_drought))
+    profile(res_drought)
+    forest.rma(res_drought)
+    funnel(res_drought)
 ```
 
 ## Contrasting Soil Drainage
@@ -386,15 +398,15 @@ drainage_type %>%
 
 # Data Summaries
 
-## Number of Studies Per Manipulation in Forest Ecosystems
+## Number of Studies Per Manipulation in All Ecosystem Types
 ```{r summary-table, message = FALSE}
 
-# We only want to see the number of studies for certain ecosystems 
+#Are drought vs irrigiation studies evenly distributed among ecosystems?
+# Maybe our strong predictors are a result of where studies take place
 water_manipulations %>% 
   ungroup %>% 
-  filter(Ecosystem_type == "Forest") %>% 
   pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
-  group_by(Manipulation, Variable) %>%
+  group_by(Ecosystem_type, Manipulation, Variable) %>%
   summarise(N_studies = sum(!is.na(Value))) %>% 
   pivot_wider(names_from = Variable, values_from = N_studies) %>% 
   DT::datatable()
