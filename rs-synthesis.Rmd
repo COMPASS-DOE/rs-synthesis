@@ -236,7 +236,10 @@ ggplot(test, aes(average, Duration, label = count)) +
 
 ## Check for Colinearity in potential modifiers
 
-#Ben help with getting this sorted by manipulation
+Ben help with getting this sorted by manipulation.
+There is correlation between Duration and Latitude,
+but we don't need to worry because Latitude is not
+an important modifier.
 
 ```{r}
 
@@ -244,8 +247,8 @@ metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
 
 ```
 
-# There is correlation between Duration and Latitude
-
+# Rank Modifiers
+##for Irrigation
 ```{r}
 
 #rank importance of modifiers for two manipulations
@@ -255,7 +258,7 @@ multimodel.inference(TE = "yi", seTE = "vi",
                      interaction = TRUE)
 ```
 
-# Irrigation
+#Now for Drought
 
 ```{r}
 
@@ -266,7 +269,7 @@ multimodel.inference(TE = "yi", seTE = "vi",
 
 ```
 
-# Drought
+
 
 ```{r do_ma, message = FALSE}
 
@@ -318,7 +321,7 @@ do_ma <- function(dat, condition, dv, output = TRUE) {
 }
 ```
 
-### Irrigation
+### Irrigation Results
 
 ```{r irrigation}
 res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
@@ -330,9 +333,10 @@ print(summary(res_irrigation))
     profile(res_irrigation)
     forest.rma(res_irrigation)
     funnel(res_irrigation)
+    #would be nice to run different versions of the model and see a print out of the lower AICc with the chosen modifiers
 ```
 
-### Drought
+### Drought Results
 
 ```{r drought}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
