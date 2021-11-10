@@ -334,6 +334,26 @@ print(summary(res_irrigation))
     forest.rma(res_irrigation)
     funnel(res_irrigation)
     #would be nice to run different versions of the model and see a print out of the lower AICc with the chosen modifiers
+  
+    
+metadat %>%
+  group_by(Manipulation, Ecosystem_type) %>%
+  summarise(average = mean(yi, na.rm = TRUE),
+            ssd = sd(yi, na.rm = TRUE),
+            count = n()) %>%
+  mutate(se = ssd/sqrt(count),
+         lower_ci = lower_ci(average, se, count),
+         upper_ci = upper_ci(average, se, count))-> Ecosystem_effect
+
+ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) + 
+  geom_vline(xintercept = 0) +
+  geom_errorbarh(aes(xmax = upper_ci, xmin = lower_ci,
+                     na.rm = TRUE)) +
+  geom_point(size = 4, na.rm = TRUE) + 
+  facet_grid(.~Manipulation) + geom_label()
+    
+#Want to make a graph using the effect sizes, how to do that?    
+    
 ```
 
 ### Drought Results
