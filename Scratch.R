@@ -36,7 +36,9 @@ multimodel.inference(TE = "yi", seTE = "vi",
 #would be nice to drop desert and wetland, as those are under represented
 #this didn't actually reduce the AIC very much
 metadat %>%
-  filter(Ecosystem_type != c("Wetland", "Desert")) -> metadat_short
+  filter(Ecosystem_type != "Savanna" &
+         Ecosystem_type != "Wetland") %>%
+  droplevels() -> metadat_short
 
 
 
@@ -57,12 +59,13 @@ metadat %>%
   filter(length(unique(Study_midyear)) > 2 ) -> md4year
 
 
-ggplot(md4year[md4year$Ecosystem_type == "Desert" | md4year$Ecosystem_type == "Forest",],
-       aes(Duration, yi, color=Manipulation)) + 
-  geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
-  facet_grid(.~Ecosystem_type, scales="free") #+ theme(legend.position = "bottom")
+ggplot(metadat_short,
+       aes(Duration, yi, color=Ecosystem_type)) + 
+  geom_hline(yintercept = 0)+
+  geom_point(na.rm = TRUE) + geom_smooth(method = lm, aes(fill = Ecosystem_type)) +
+  facet_grid(Manipulation~.) + theme(legend.position = "bottom")
 
-ggplot(md4year[md4year$Ecosystem_type == "Grassland" | md4year$Ecosystem_type == "Shrubland",],
+ggplot(metadat[metadat$Ecosystem_type == "Grassland" | metadat$Ecosystem_type == "Forest",],
        aes(Duration, yi, color=Manipulation)) + 
   geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
   facet_grid(.~Ecosystem_type, scales="free") #+ theme(legend.position = "bottom")
