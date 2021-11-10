@@ -74,6 +74,10 @@ ggplot(metadat,
        aes(yi, Latitude, color=Manipulation)) + 
   geom_point(na.rm = TRUE) + geom_smooth(method = lm)
 
+ggplot(metadat) +
+  geom_histogram(aes(Duration, fill=Ecosystem_type), position = "stack", bins = 11, col="black") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  facet_grid(Manipulation~.)
 
   
 

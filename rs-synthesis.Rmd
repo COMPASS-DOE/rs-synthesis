@@ -230,6 +230,11 @@ ggplot(test, aes(average, Duration, label = count)) +
   scale_y_continuous(breaks=seq(0,13,1)) +
   facet_grid(.~Manipulation) + geom_label()
 
+ggplot(metadat) +
+  geom_histogram(aes(Duration, fill=Ecosystem_type), position = "stack", bins = 11, col="black") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  facet_grid(Manipulation~.)
+
 ```
 
 # Prep for model run
