@@ -380,7 +380,7 @@ ggplot(metadat,
   facet_grid(Manipulation~.) + theme(legend.position = "bottom")
 ```
 
-### Effect of Intensityl
+### Effect of Intensity
 
 ```{r}
 ggplot(metadat,
