@@ -340,7 +340,7 @@ print(summary(res_irrigation))
 
 ```{r drought}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~Ecosystem_type + Percent_control,
+              mods = ~Ecosystem_type + Percent_control + Duration,
               method = "ML",
            data = metadat,
            subset = Manipulation == "Drought")
@@ -348,6 +348,33 @@ print(summary(res_drought))
     profile(res_drought)
     forest.rma(res_drought)
     funnel(res_drought)
+```
+
+### Effect of Duration
+
+```{r}
+ggplot(metadat,
+       aes(Duration, yi, color=Ecosystem_type)) + 
+  geom_hline(yintercept = 0)+
+  geom_point(na.rm = TRUE) + geom_smooth(method = lm, aes(fill = Ecosystem_type)) +
+  facet_grid(Manipulation~.) + theme(legend.position = "bottom")
+```
+
+### Effect of Intensityl
+
+```{r}
+ggplot(metadat,
+       aes(Percent_control, yi)) + 
+  geom_hline(yintercept = 0) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) + geom_smooth(method = lm) +
+  facet_grid(.~Manipulation, scales = "free") + theme(legend.position = "bottom") + ggtitle("Over-all Trend of Percent Control")
+
+ggplot(metadat[metadat$Percent_control < 300,],
+       aes(Percent_control, yi)) + 
+  geom_hline(yintercept = 0) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) + geom_smooth(method = lm) +
+  facet_grid(.~Manipulation, scales = "free") + theme(legend.position = "bottom") + ggtitle("Over-all Trend of Percent Control, excluding really wet study")
+
 ```
 
 ## Contrasting Soil Drainage
