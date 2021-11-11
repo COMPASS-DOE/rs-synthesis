@@ -264,7 +264,8 @@ print(summary(res_irrigation))
     profile(res_irrigation)
     forest.rma(res_irrigation)
     funnel(res_irrigation)
-    #would be nice to run different versions of the model and see a print out of the lower AICc with the chosen modifiers
+    plot(cooks.distance(res_irrigation), type = "o")
+
 
 #Fragile Code Ahead
 
@@ -310,17 +311,21 @@ res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
               method = "ML",
            data = metadat,
            subset = Manipulation == "Drought")
-print(summary(res_drought))
-    profile(res_drought)
-    forest.rma(res_drought)
-    funnel(res_drought)
+summary(res_drought)
+profile(res_drought)
+forest.rma(res_drought)
+funnel(res_drought)
+plot(cooks.distance(res_drought), type = "o")
+
+      
+Coef_drought <- coef(summary(res_drought))
     
-#see irrigation for a complete worked example
-    coef(res_irrigation) -> x
-et_entries <- grep("Ecosystem_type", names(x))
-et_entries
-x[et_entries] <- x[et_entries] + x[1]
-x
+#fragile code round 2
+Coef_drought$et_intercept <- NA
+et_entries <- grep("Ecosystem_type", row.names(Coef_drought))
+et_entries <- et_entries[et_entries <= N_ECO]
+Coef_drought$et_intercept[et_entries] <- Coef_drought$estimate[et_entries] + Coef_drought$estimate[1]
+Coef_drought$et_intercept[1] <- Coef_drought$estimate[1]
     
 ```
 
