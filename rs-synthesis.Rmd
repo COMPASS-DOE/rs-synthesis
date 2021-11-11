@@ -254,24 +254,34 @@ metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
 
 # Rank Modifiers
 ##for Irrigation
-```{r}
 
-#rank importance of modifiers for two manipulations
-multimodel.inference(TE = "yi", seTE = "vi",
+```{r mmi_irrigation, include=FALSE, cache=TRUE}
+#rank importance of modifiers for each manipulation, irrigation first
+#Stick this in a separate chunk so no progress bar sullies our output
+mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Irrigation",],
                      predictors = c("Ecosystem_type", "Duration", "Percent_control", "Soil_drainage"),
                      interaction = TRUE)
 ```
 
+
+```{r print mmi_irrigation}
+print(mmi_irrigation)
+```
+
 #Now for Drought
 
-```{r}
+```{r mmi_drought, include=FALSE, cache=TRUE}
 
-multimodel.inference(TE = "yi", seTE = "vi",
+mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Drought",],
                      predictors = c("Ecosystem_type", "Duration", "Percent_control", "Soil_drainage"),
                      interaction = TRUE)
 
+```
+
+```{r print mmi_drought}
+print(mmi_drought)
 ```
 
 ### Irrigation Results
