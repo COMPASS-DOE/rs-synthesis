@@ -274,58 +274,6 @@ multimodel.inference(TE = "yi", seTE = "vi",
 
 ```
 
-
-
-```{r do_ma, message = FALSE}
-
-do_ma <- function(dat, condition, dv, output = TRUE) {
-  dat %>% 
-    filter(Manipulation == condition, Variable == dv) -> 
-    dat_condition
-  
-  cat("condition = ", condition, "\n")
-  cat("var = ", dv, "\n")
-  cat("N = ", nrow(dat_condition), "\n")
-  cat("Percent control values:\n")
-  print(summary(dat_condition$Percent_control))
-  
-  # Construct the meta-analysis variables and run the MA
-  metadat <- escalc(measure = "ROM",
-                    m1i = Manip_Resp, m2i = Control_Resp, 
-                    sd1i = Manip_SD, sd2i = Control_SD,
-                    n1i = N, n2i = N, 
-                    slab = paste(Study_number, Author, Study_midyear),
-                    data = dat_condition)
-  
-  # Arrange by response ratio
-  metadat <- metadat[order(metadat$yi),]
-  
-  if(nrow(metadat) < 10) {
-    return(list(metadata = metadat, mam = NULL))  
-  }
-  
-  # BBL TODO: build formula dynamically and have a single model fit
-  if(length(unique(metadat$Soil_drainage)) > 1) {
-    mam <- rma(yi, vi, 
-               mods = ~ Soil_drainage + Ecosystem_type +  Percent_control, 
-               data = metadat)
-  } else {
-    mam <- rma(yi, vi, 
-               mods = ~ Ecosystem_type +  Percent_control, 
-               data = metadat)
-  } 
-  
-  if(output) {
-    # Diagnostics
-    print(summary(mam))
-    forest.rma(mam)
-    title(paste(condition, dv))
-    plot(mam)
-  }
-  invisible(list(metadat = metadat, mam = mam))
-}
-```
-
 ### Irrigation Results
 
 ```{r irrigation}
@@ -402,78 +350,6 @@ ggplot(metadat[metadat$Percent_control < 300,],
 
 ```
 
-## Contrasting Soil Drainage
-
-```{r filter-soildrainage, message = FALSE}
-
-drainage <- c("Dry", "Wet")
-# Need studies that have BOTH dry and wet drainage
-
-srdb %>%
-  group_by(Study_number) %>%
-  filter(grepl(paste(drainage, collapse = "|"), x = Soil_drainage)) %>%
-  # Count the number of unique soil drainage types per study
-  summarise(n_drain = length(unique(Soil_drainage)), .groups = "drop") %>%
-  # We only want studies with 2 or more soil drainage types
-  filter(n_drain > 1) %>%
-  left_join(srdb, by = "Study_number") -> drainage_type
-
-drainage_type %>%
-  group_by(Ecosystem_type) %>%
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
-  mutate(M_Type = "Soil drainage") %>%
-  arrange(desc(n_studies)) %>%
-  rename(Ecosystem_Type = Ecosystem_type) %>%
-  select(M_Type, Ecosystem_Type, n_studies) -> drain_summary
-# 
-# kable(drain_summary) %>% kable_styling(full_width = FALSE)
-# 
-# drainage_type %>% 
-#   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>% 
-#   group_by(Ecosystem_type, Soil_drainage) %>% 
-#   summarise(n_obs = n(), .groups = "drop")
-# 
-# # Isolate soil "wet" row and use that as 'treatment' to compute response ratio
-# drainage_type %>% 
-#   filter(Manipulation == "None", Soil_drainage == "Wet") %>% 
-#   group_by(Study_number, Ecosystem_type, Study_midyear) %>% 
-#   summarise(Rs_wet = mean(Rs_annual, na.rm = TRUE), .groups = "drop") %>% 
-#   filter(!is.na(Rs_wet)) %>% 
-#   left_join(drainage_type, by = c("Study_number", "Ecosystem_type", "Study_midyear")) %>% 
-#   filter(Soil_drainage == "Dry") %>% 
-#   mutate(rr = log(Rs_wet / Rs_annual), 
-#          Study = paste(Study_number, Author)) -> drainage_resp
-# 
-#   ggplot(drainage_resp, aes(x = rr, y = fct_reorder(Study, rr))) + 
-#     geom_point(colour = "darkblue") + 
-#     geom_vline(xintercept = 0, linetype = "dashed") + 
-#     labs(x = "Response Ratio of Wet vs Dry (control) Soil Drainage", y = "Study") +
-#     theme_light()
-
-```
-
-# Data Summaries
-
-## Number of Studies Per Manipulation in All Ecosystem Types
-```{r summary-table, message = FALSE}
-
-#Are drought vs irrigiation studies evenly distributed among ecosystems?
-# Maybe our strong predictors are a result of where studies take place
-water_manipulations %>% 
-  ungroup %>% 
-  pivot_longer(Rs_annual:Rs_growingseason, names_to = "Variable", values_to = "Value") %>% 
-  group_by(Ecosystem_type, Manipulation, Variable) %>%
-  summarise(N_studies = sum(!is.na(Value))) %>% 
-  pivot_wider(names_from = Variable, values_from = N_studies) %>% 
-  DT::datatable()
-
-# # Summary by level of manipulation
-# water_manipulations %>% 
-#   filter(Ecosystem_type %in% c("Forest", "Grassland", "Agriculture")) %>%
-#   group_by(Ecosystem_type, Manipulation, Manipulation_level) %>% 
-#   summarise(n_obs = n(), .groups = "drop")
-# ```
-```
 
 # The End
 
