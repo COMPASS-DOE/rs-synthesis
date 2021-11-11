@@ -245,7 +245,8 @@ but we don't need to worry because Latitude is not
 an important modifier.
 
 ```{r Autocorrelatoin_check, warning = FALSE}
-
+#if desired seperately by the two manipualtions
+#two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
 
 ```
@@ -264,7 +265,8 @@ mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
 
 
 ```{r print mmi_irrigation}
-print(mmi_irrigation)
+print(mmi_irrigation$top5.models)
+print(mmi_irrigation$predictor.importance.plot)
 ```
 
 ## Run meta-analysis
@@ -280,9 +282,22 @@ print(summary(res_irrigation))
     forest.rma(res_irrigation)
     funnel(res_irrigation)
     #would be nice to run different versions of the model and see a print out of the lower AICc with the chosen modifiers
-  
- 
-    
+
+#Fragile Code Ahead
+
+    #come back to this    
+      
+Coef_irrigation <- coef(summary(res_irrigation))
+#this produces a df with coefficients, but the effect of distinct ecosystem types has to be added to the intercept (Desert) this is workable, but not optimal
+
+#we have 5 ecosystem types
+N_ECO <- 5
+Coef_irrigation$et_intercept <- NA
+et_entries <- grep("Ecosystem_type", row.names(Coef_irrigation))
+et_entries <- et_entries[et_entries <= N_ECO]
+Coef_irrigation$et_intercept[et_entries] <- Coef_irrigation$estimate[et_entries] + Coef_irrigation$estimate[1]
+Coef_irrigation$et_intercept[1] <- Coef_irrigation$estimate[1]
+
 ```
 
 
@@ -299,7 +314,8 @@ mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
 ```
 
 ```{r print mmi_drought}
-print(mmi_drought)
+print(mmi_drought$top5.models)
+print(mmi_drought$predictor.importance.plot)
 ```
 
 
@@ -315,6 +331,14 @@ print(summary(res_drought))
     profile(res_drought)
     forest.rma(res_drought)
     funnel(res_drought)
+    
+#see irrigation for a complete worked example
+    coef(res_irrigation) -> x
+et_entries <- grep("Ecosystem_type", names(x))
+et_entries
+x[et_entries] <- x[et_entries] + x[1]
+x
+    
 ```
 
 # Effect of Duration
@@ -333,14 +357,11 @@ ggplot(metadat,
 ggplot(metadat,
        aes(Percent_control, yi)) + 
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) + geom_smooth(method = lm) +
-  facet_grid(.~Manipulation, scales = "free") + theme(legend.position = "bottom") + ggtitle("Over-all Trend of Percent Control")
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) +
+  geom_smooth(data = metadat[metadat$Manipulation == "Drought",],
+              method = lm) +
+  facet_grid(.~Manipulation, scales = "free") + theme(legend.position = "bottom") + ggtitle("Effect of Intensity")
 
-ggplot(metadat[metadat$Percent_control < 300,],
-       aes(Percent_control, yi)) + 
-  geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) + geom_smooth(method = lm) +
-  facet_grid(.~Manipulation, scales = "free") + theme(legend.position = "bottom") + ggtitle("Over-all Trend of Percent Control, excluding really wet study")
 
 ```
 
@@ -364,7 +385,8 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
   geom_point(size = 4, na.rm = TRUE) + 
   facet_grid(.~Manipulation) + geom_label()
     
-#Want to make a graph using the effect sizes, how to do that?   
+#Want to make a graph using the effect sizes, how to do that?
+#Use Coef_irrigation
 ```
 
 
