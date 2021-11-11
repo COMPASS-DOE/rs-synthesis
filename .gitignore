@@ -7,6 +7,7 @@ rs-synthesis_files/
 *.html
 .RData
 .Rhistory
+*_cache/*
 
 # Non-tracked files
 other/
