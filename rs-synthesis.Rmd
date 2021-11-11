@@ -50,7 +50,11 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
   select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
-  mutate(Manipulation = case_when(
+  mutate(SD_Rs_annual = SD_Rs_annual/378.43, #converting from g per yr to umol per s
+         SD_Rh_annual = SD_Rh_annual/378.43,#this will make all final estimates comparable
+         Rs_annual = Rs_annual/378.43,
+         Rh_annual = Rh_annual/378.43,
+    Manipulation = case_when(
     Percent_control < 100 ~ "Drought",
     Percent_control > 100 ~ "Irrigation",
     Percent_control == 100 ~ "Control",
