@@ -276,7 +276,7 @@ Coef_irrigation <- coef(summary(res_irrigation))
 #this produces a df with coefficients, but the effect of distinct ecosystem types has to be added to the intercept (Desert) this is workable, but not optimal
 
 #we have 5 ecosystem types
-N_ECO <- 5
+N_ECOi <- 5
 Coef_irrigation$et_intercept <- NA
 et_entries <- grep("Ecosystem_type", row.names(Coef_irrigation))
 et_entries <- et_entries[et_entries <= N_ECO]
@@ -322,9 +322,10 @@ plot(cooks.distance(res_drought), type = "o")
 Coef_drought <- coef(summary(res_drought))
     
 #fragile code round 2
+N_ECOd <- 6
 Coef_drought$et_intercept <- NA
 et_entries <- grep("Ecosystem_type", row.names(Coef_drought))
-et_entries <- et_entries[et_entries <= N_ECO]
+et_entries <- et_entries[et_entries <= N_ECOd]
 Coef_drought$et_intercept[et_entries] <- Coef_drought$estimate[et_entries] + Coef_drought$estimate[1]
 Coef_drought$et_intercept[1] <- Coef_drought$estimate[1]
     
@@ -357,7 +358,25 @@ ggplot(metadat,
 # Effect of Ecosystem_type
 
 ```{r Ecosystem_type_effect}
-    
+
+ggplot(Coef_drought, aes(et_intercept,
+                         row.names(Coef_drought),
+                         na.rm = TRUE)) + 
+  geom_vline(xintercept = 0) +
+  geom_errorbarh(aes(xmax = et_intercept + se,
+                     xmin = et_intercept - se,
+                     na.rm = TRUE)) +
+  geom_point(size = 4, na.rm = TRUE)
+
+ggplot(Coef_irrigation, aes(et_intercept,
+                         row.names(Coef_irrigation),
+                         na.rm = TRUE)) + 
+  geom_vline(xintercept = 0) +
+  geom_errorbarh(aes(xmax = et_intercept + se,
+                     xmin = et_intercept - se,
+                     na.rm = TRUE)) +
+  geom_point(size = 4, na.rm = TRUE)
+  
 metadat %>%
   group_by(Manipulation, Ecosystem_type) %>%
   summarise(average = mean(yi, na.rm = TRUE),
