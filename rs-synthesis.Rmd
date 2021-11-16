@@ -279,7 +279,7 @@ Coef_irrigation <- coef(summary(res_irrigation))
 N_ECOi <- 5
 Coef_irrigation$et_intercept <- NA
 et_entries <- grep("Ecosystem_type", row.names(Coef_irrigation))
-et_entries <- et_entries[et_entries <= N_ECO]
+et_entries <- et_entries[et_entries <= N_ECOi]
 Coef_irrigation$et_intercept[et_entries] <- Coef_irrigation$estimate[et_entries] + Coef_irrigation$estimate[1]
 Coef_irrigation$et_intercept[1] <- Coef_irrigation$estimate[1]
 
