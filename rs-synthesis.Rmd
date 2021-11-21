@@ -176,46 +176,29 @@ ggplot(metadat, aes(yi, color = Manipulation)) +
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free") +
   ggtitle("Smoothed Density Estimates for Effect Sizes of Measure Variables")
 
-ggplot(metadat,
-       aes(yi,
-           fct_reorder(paste(Study_number, Author), 
-                       Percent_control), color = Manipulation)) +
-  geom_vline(xintercept = 0, colour = "black") +
-  ylab("Percentage of Annual Average Precipitation") +
-  geom_point() + geom_errorbarh(aes(xmax = yi + vi, xmin = yi - vi)) +
-  ggtitle("Effect Sizes by Change in Precipitation") + theme(legend.position = "bottom")
+#plot distribution of studies by their duration, manipulation  type, and ecosystem type
+max_duration <- metadat %>%
+  group_by(Study_number, Manipulation, Ecosystem_type) %>%
+  summarise(max = max(Duration, na.rm = TRUE))
 
-#summarize mean effect size, 95%CI, and count by year of study (and manipulation type)
+Manip_labs <- c("Drought" = "Decreased Precipitaiton",
+                "Irrigation" = "Increased Precipitaiotn")
 
-lower_ci <- function(mean, se, n, conf_level = 0.95){
-  lower_ci <- mean - qt(1 - ((1 - conf_level) / 2), n - 1) * se
-}
-upper_ci <- function(mean, se, n, conf_level = 0.95){
-  upper_ci <- mean + qt(1 - ((1 - conf_level) / 2), n - 1) * se
-}
+ggplot(max_duration) +
+  geom_histogram(aes(max, fill=Ecosystem_type),
+                 position = "stack", bins = 12,
+                 col="black") +
+  ylab("Count") +
+  facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
+  ggtitle("Few Studies Lasting > 1 yr") +
+  scale_x_continuous(breaks=seq(0,max(max_duration$max), 1),
+                     labels = seq(1, max(max_duration$max) +1, 1),
+                     name = "Study Duration") +
+  theme(legend.position = "bottom") +
+  guides(fill=guide_legend("Ecosystem Type"))
 
-test <- metadat %>%
-  group_by(Manipulation, Duration) %>%
-  summarise(average = mean(yi, na.rm = TRUE),
-            ssd = sd(yi, na.rm = TRUE),
-            count = n()) %>%
-  mutate(se = ssd/sqrt(count),
-         lower_ci = lower_ci(average, se, count),
-         upper_ci = upper_ci(average, se, count))
 
-ggplot(test, aes(average, Duration, label = count)) + 
-  geom_vline(xintercept = 0) +
-  geom_errorbarh(aes(xmax = upper_ci, xmin = lower_ci,
-                     na.rm = TRUE)) +
-  geom_point(size = 4, na.rm = TRUE) + 
-  scale_y_continuous(breaks=seq(0,13,1)) +
-  facet_grid(.~Manipulation) + geom_label() +
-  ggtitle("Number of Studies by Ecosystem and Study Duration v1")
 
-ggplot(metadat) +
-  geom_histogram(aes(Duration, fill=Ecosystem_type), position = "stack", bins = 11, col="black") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  facet_grid(Manipulation~.) + ggtitle("Number of Studies by Ecosystem and Study Duration v2")
 
 ```
 
@@ -359,21 +342,28 @@ ggplot(metadat,
 
 ```{r Ecosystem_type_effect}
 
-ggplot(Coef_drought, aes(et_intercept,
+lower_ci <- function(mean, se, n, conf_level = 0.95){
+  lower_ci <- mean - qt(1 - ((1 - conf_level) / 2), n - 1) * se
+}
+upper_ci <- function(mean, se, n, conf_level = 0.95){
+  upper_ci <- mean + qt(1 - ((1 - conf_level) / 2), n - 1) * se
+}
+
+ggplot(Coef_drought, aes(estimate,
                          row.names(Coef_drought),
                          na.rm = TRUE)) + 
   geom_vline(xintercept = 0) +
-  geom_errorbarh(aes(xmax = et_intercept + se,
-                     xmin = et_intercept - se,
+  geom_errorbarh(aes(xmax = estimate + se,
+                     xmin = estimate - se,
                      na.rm = TRUE)) +
   geom_point(size = 4, na.rm = TRUE)
 
-ggplot(Coef_irrigation, aes(et_intercept,
+ggplot(Coef_irrigation, aes(estimate,
                          row.names(Coef_irrigation),
                          na.rm = TRUE)) + 
   geom_vline(xintercept = 0) +
-  geom_errorbarh(aes(xmax = et_intercept + se,
-                     xmin = et_intercept - se,
+  geom_errorbarh(aes(xmax = estimate + se,
+                     xmin = estimate - se,
                      na.rm = TRUE)) +
   geom_point(size = 4, na.rm = TRUE)
   

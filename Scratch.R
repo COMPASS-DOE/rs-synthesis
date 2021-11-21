@@ -1,7 +1,4 @@
 
-
-
-
 # #Studies that last @least four years
 # #no forest studies longer than 3 years
 # metadat %>%
@@ -50,5 +47,4 @@ text(-2, 7.2, "Ecosystem Type") # For this code, enter x-position of text, then 
 text(-.9, 7.2, "Sample Size")
 text(1.8, 7.2, "ln(Response Ratio) [95% CI]")
 text(0,7.9, "Decreased Precipitation Studies")
-
 
