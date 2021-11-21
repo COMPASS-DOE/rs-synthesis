@@ -317,11 +317,19 @@ Coef_drought <- coef(summary(res_drought))
 # Effect of Duration
 
 ```{r Duration_effect}
-ggplot(metadat,
-       aes(Duration, yi, color=Ecosystem_type)) + 
+EcoTitle <- guide_legend("Ecosystem Type")
+
+ggplot(metadat[metadat$Ecosystem_type == "Desert" | metadat$Ecosystem_type == "Forest",],
+       aes(Duration, yi, color=Ecosystem_type, fill = Ecosystem_type)) + 
   geom_hline(yintercept = 0)+
   geom_point(na.rm = TRUE) + geom_smooth(method = lm, aes(fill = Ecosystem_type)) +
-  facet_grid(Manipulation~.) + theme(legend.position = "bottom")
+theme(legend.position = "bottom") +
+    facet_grid(.~Manipulation, labeller = as_labeller(Manip_labs)) +
+  ggtitle("Effect of Study Duration CHANGE COLORS TO MATCH OTHER PLOTS") +
+  scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
+                     labels = seq(1, max(metadat$Duration) +1, 1),
+                     name = "Study Duration (years)") +
+  guides(fill= EcoTitle, colour = EcoTitle)
 ```
 
 # Effect of Intensity
