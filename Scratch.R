@@ -49,7 +49,37 @@ text(1.3, 7.2, "ln(Response Ratio) [95% CI]")
 text(0,8.2, "Decreased Precipitation Studies")
 
 
+library(ggpmisc)
 
+ggplot(metadat,
+       aes(Duration, yi)) +
+  geom_hline(yintercept = 0)+
+  geom_point(na.rm = TRUE) + geom_smooth(method = lm) +
+  facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
+  ggtitle("Effect of Study Duration") +
+  scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
+                     labels = seq(1, max(metadat$Duration) +1, 1),
+                     name = "Study Duration (years)") +
+  stat_poly_eq()
+
+
+  ggplot(metadat,
+         aes(Duration, yi, color=Ecosystem_type, fill = Ecosystem_type)) + 
+    geom_hline(yintercept = 0)+
+    geom_point(na.rm = TRUE) + 
+    geom_smooth(data = metadat[metadat$Manipulation == "Irrigation" &
+                                 metadat$Ecosystem_type == "Forest" |
+                                 metadat$Manipulation == "Irrigation" &
+                                 metadat$Ecosystem_type == "Grassland",],
+                               method = lm, aes(fill = Ecosystem_type)) +
+    theme(legend.position = "bottom") +
+    facet_grid(.~Manipulation, labeller = as_labeller(Manip_labs)) +
+    ggtitle("Effect of Study Duration By Ecosystem") +
+    scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
+                       labels = seq(1, max(metadat$Duration) +1, 1),
+                       name = "Study Duration (years)") +
+    guides(fill= EcoTitle, colour = EcoTitle)
+  
 ###For dealing with suspicious rows
 ##come back to this, study #13079
 
