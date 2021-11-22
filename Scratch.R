@@ -7,7 +7,7 @@
 
 
 plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
-Ecoi_ss <- c("13","35","83","7","5")
+Ecoi_ss <- c("13","36","83","7","5")
 
 Foresti <- forest(Coef_irrigation[1:5,]$estimate,
                   ci.lb = Coef_irrigation[1:5,]$ci.lb,
@@ -22,13 +22,13 @@ Foresti <- forest(Coef_irrigation[1:5,]$estimate,
 
 text(-.25, rev(seq(5:1)), Ecoi_ss, cex = 1) # Code to write sample size of sub-groups on graph
 op <- par(cex=1, font=2) # Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
-text(-.5, 6.2, "Ecosystem Type") # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
-text(-.22, 6.2, "Sample Size")
-text(0.9, 6.2, "ln(Response Ratio) [95% CI]")
+text(-.5, 6.2, "Ecosystem") # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
+text(-.25, 6.2, "Sample Size")
+text(0.7, 6.2, "ln(Response Ratio) [95% CI]")
 text(0,7, "Increased Precipitation Studies")
 
 plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
-Ecod_ss <- c("7","39","55","1","27","2")
+Ecod_ss <- c("7","38","55","1","27","2")
 
 Forestd <- forest(Coef_drought[1:6,]$estimate,
                   ci.lb = Coef_drought[1:6,]$ci.lb,
@@ -41,19 +41,29 @@ Forestd <- forest(Coef_drought[1:6,]$estimate,
                   cex = 1,
                   digits = 2)
 
-text(-.9, rev(seq(6:1)), Ecod_ss, cex = 1) # Code to write sample size of sub-groups on graph
+text(-1.2, rev(seq(6:1)), Ecod_ss, cex = 1) # Code to write sample size of sub-groups on graph
 op <- par(cex=1, font=2) # Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
-text(-2, 7.2, "Ecosystem Type") # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
-text(-.9, 7.2, "Sample Size")
-text(1.8, 7.2, "ln(Response Ratio) [95% CI]")
-text(0,7.9, "Decreased Precipitation Studies")
+text(-2.25, 7.2, "Ecosystem") # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
+text(-1.2, 7.2, "Sample Size")
+text(1.3, 7.2, "ln(Response Ratio) [95% CI]")
+text(0,8.2, "Decreased Precipitation Studies")
 
 
 
-###For dealing with suspicous rows
+###For dealing with suspicious rows
+##come back to this, study #13079
 
-suspects <- cooks.distance(res_drought) > 33
-targets <- metadat[metadat$Manipulation == "Drought",]
-suspects <- targets[suspects,]
+cooksd <- cooks.distance(res_drought)
+influential <- names(cooksd)[(cooksd > 50)]
 
+res_ALTdrought <- rma.mv(yi, vi, random = ~ 1|Study_number,
+                      mods = ~Ecosystem_type + Percent_control + Duration -1,
+                      method = "ML",
+                      data = metadat[metadat$Study_number != "13079",],
+                      subset = Manipulation == "Drought")
+summary(res_ALTdrought)
+profile(res_ALTdrought)
+forest.rma(res_ALTdrought)
+funnel(res_ALTdrought)
+plot(cooks.distance(res_ALTdrought), type = "o")
  
