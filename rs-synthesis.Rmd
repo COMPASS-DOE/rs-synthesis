@@ -244,12 +244,16 @@ res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
               method = "ML",
            data = metadat,
            subset = Manipulation == "Irrigation")
-print(summary(res_irrigation))
-    profile(res_irrigation)
-    forest.rma(res_irrigation)
-    funnel(res_irrigation)
-    plot(cooks.distance(res_irrigation), type = "o")
+summary(res_irrigation)
+profile(res_irrigation)
+forest.rma(res_irrigation)
+funnel(res_irrigation)
+plot(cooks.distance(res_irrigation), type = "o")
 
+#Cook's Distance n/4 for irrigation studies
+    length(metadat[metadat$Manipulation == "Irrigation",]$Manipulation)/4
+    #Looks good!
+    
 # 
 # #Fragile Code Ahead
 # 
@@ -301,6 +305,10 @@ forest.rma(res_drought)
 funnel(res_drought)
 plot(cooks.distance(res_drought), type = "o")
 
+#Cook's Distance n/4 for drought studies
+    length(metadat[metadat$Manipulation == "Drought",]$Manipulation)/4
+    #Looks like we might have some outliers
+
       
 Coef_drought <- coef(summary(res_drought))
 #     
@@ -319,13 +327,13 @@ Coef_drought <- coef(summary(res_drought))
 ```{r Duration_effect}
 EcoTitle <- guide_legend("Ecosystem Type")
 
-ggplot(metadat[metadat$Ecosystem_type == "Desert" | metadat$Ecosystem_type == "Forest",],
+ggplot(metadat[metadat$Ecosystem_type != "Shrubland",],
        aes(Duration, yi, color=Ecosystem_type, fill = Ecosystem_type)) + 
   geom_hline(yintercept = 0)+
   geom_point(na.rm = TRUE) + geom_smooth(method = lm, aes(fill = Ecosystem_type)) +
 theme(legend.position = "bottom") +
     facet_grid(.~Manipulation, labeller = as_labeller(Manip_labs)) +
-  ggtitle("Effect of Study Duration CHANGE COLORS TO MATCH OTHER PLOTS") +
+  ggtitle("Effect of Study Duration SHRUBLAND NOT SHOWN") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
                      labels = seq(1, max(metadat$Duration) +1, 1),
                      name = "Study Duration (years)") +

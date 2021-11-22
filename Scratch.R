@@ -48,3 +48,12 @@ text(-.9, 7.2, "Sample Size")
 text(1.8, 7.2, "ln(Response Ratio) [95% CI]")
 text(0,7.9, "Decreased Precipitation Studies")
 
+
+
+###For dealing with suspicous rows
+
+suspects <- cooks.distance(res_drought) > 33
+targets <- metadat[metadat$Manipulation == "Drought",]
+suspects <- targets[suspects,]
+
+ 
