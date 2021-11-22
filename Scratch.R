@@ -73,7 +73,7 @@ ggplot(metadat,
                                  metadat$Ecosystem_type == "Grassland",],
                                method = lm, aes(fill = Ecosystem_type)) +
     theme(legend.position = "bottom") +
-    facet_grid(.~Manipulation, labeller = as_labeller(Manip_labs)) +
+    facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
     ggtitle("Effect of Study Duration By Ecosystem") +
     scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
                        labels = seq(1, max(metadat$Duration) +1, 1),
