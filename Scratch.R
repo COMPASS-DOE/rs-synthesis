@@ -1,9 +1,15 @@
 
+#rm(list=ls())
+
 # #Studies that last @least four years
 # #no forest studies longer than 3 years
 # metadat %>%
 #   group_by(Study_number) %>%
 #   filter(length(unique(Study_midyear)) > 2 ) -> md4year
+
+library(gganimate)
+
+SD + transition_reveal(yi)
 
 
 plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
@@ -65,6 +71,7 @@ ggplot(metadat,
 
   ggplot(metadat,
          aes(Duration, yi, color=Ecosystem_type, fill = Ecosystem_type)) + 
+    scale_fill_viridis_d() +
     geom_hline(yintercept = 0)+
     geom_point(na.rm = TRUE) + 
     geom_smooth(data = metadat[metadat$Manipulation == "Irrigation" &
@@ -78,6 +85,7 @@ ggplot(metadat,
     scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
                        labels = seq(1, max(metadat$Duration) +1, 1),
                        name = "Study Duration (years)") +
+    scale_fill_viridis_d() +
     guides(fill= EcoTitle, colour = EcoTitle)
   
 ###For dealing with suspicious rows
