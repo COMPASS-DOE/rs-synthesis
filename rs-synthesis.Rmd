@@ -181,15 +181,15 @@ metadat$Ecosystem_type <- factor(metadat$Ecosystem_type,
 #plot distribution of effect sizes amongst different Variable types
 ggplot(metadat, aes(yi, color = Manipulation)) + 
   geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free") +
-  ggtitle("Smoothed Density Estimates for Effect Sizes of Measure Variables")
+  ggtitle("Distribution of Data")
 
 #plot distribution of studies by their duration, manipulation  type, and ecosystem type
 max_duration <- metadat %>%
   group_by(Study_number, Manipulation, Ecosystem_type) %>%
   summarise(max = max(Duration, na.rm = TRUE))
 
-Manip_labs <- c("Drought" = "Decreased Precipitaiton",
-                "Irrigation" = "Increased Precipitaiotn")
+Manip_labs <- c("Drought" = "Decreased Precip",
+                "Irrigation" = "Increased Precip")
 
 ggplot(max_duration) +
   geom_histogram(aes(max, fill=Ecosystem_type),
