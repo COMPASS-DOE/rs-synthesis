@@ -8,8 +8,16 @@
 #   filter(length(unique(Study_midyear)) > 2 ) -> md4year
 
 library(gganimate)
+library(transformr)
 
-SD + transition_reveal(yi)
+tidyMD <- metadat[complete.cases(metadat$yi),] 
+SD <- 
+  ggplot(tidyMD, aes(yi, color = Manipulation)) + 
+  geom_density() + transition_reveal(along = yi)#+ facet_grid(Variable~., scales = "free") +
+  #ggtitle("Distribution of Data")
+animateSD <- animate(SD)
+
+
 
 
 plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
