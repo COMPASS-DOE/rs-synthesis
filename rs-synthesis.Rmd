@@ -261,22 +261,9 @@ plot(cooks.distance(res_irrigation), type = "o")
 #Cook's Distance n/4 for irrigation studies
     length(metadat[metadat$Manipulation == "Irrigation",]$Manipulation)/4
     #Looks good!
-    
-# 
-# #Fragile Code Ahead
-# 
-#     #come back to this    
-#       
- Coef_irrigation <- coef(summary(res_irrigation))
-# #this produces a df with coefficients, but the effect of distinct ecosystem types has to be added to the intercept (Desert) this is workable, but not optimal
-# 
-# #we have 5 ecosystem types
-# N_ECOi <- 5
-# Coef_irrigation$et_intercept <- NA
-# et_entries <- grep("Ecosystem_type", row.names(Coef_irrigation))
-# et_entries <- et_entries[et_entries <= N_ECOi]
-# Coef_irrigation$et_intercept[et_entries] <- Coef_irrigation$estimate[et_entries] + Coef_irrigation$estimate[1]
-# Coef_irrigation$et_intercept[1] <- Coef_irrigation$estimate[1]
+
+  Coef_irrigation <- coef(summary(res_irrigation))
+
 
 ```
 
@@ -315,18 +302,10 @@ plot(cooks.distance(res_drought), type = "o")
 
 #Cook's Distance n/4 for drought studies
     length(metadat[metadat$Manipulation == "Drought",]$Manipulation)/4
-    #Looks like we might have some outliers
+  #One study has a strong influence, 4 years of data for grassland and desert
 
-      
 Coef_drought <- coef(summary(res_drought))
-#     
-# #fragile code round 2
-# N_ECOd <- 6
-# Coef_drought$et_intercept <- NA
-# et_entries <- grep("Ecosystem_type", row.names(Coef_drought))
-# et_entries <- et_entries[et_entries <= N_ECOd]
-# Coef_drought$et_intercept[et_entries] <- Coef_drought$estimate[et_entries] + Coef_drought$estimate[1]
-# Coef_drought$et_intercept[1] <- Coef_drought$estimate[1]
+
     
 ```
 
@@ -361,9 +340,11 @@ library(ggExtra)
 Drought_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Drought",],
        aes(Percent_control, yi)) + 
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
+  scale_color_viridis_d() +
  geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
-  theme(legend.position = "none")
+  ggtitle("\n Decreased Precipitation") +
+  theme(legend.position = "none", text=element_text(size=18))
 
 DI_margH <- ggMarginal(Drought_Intensity, type = "histogram", 
                               margins = 'x', size=4)
@@ -372,7 +353,10 @@ DI_margH
 Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigation",],
        aes(Percent_control, yi)) + 
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type)) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type,  size = 1)) +
+  scale_color_viridis_d() + 
+  ggtitle("\n Increased Precipitation") +
+  theme(legend.position = "none", text=element_text(size=18)) +
   xlab("Percent of Control Precipitation")
 
 II_margH <- ggMarginal(Irrigation_Intensity, type = "histogram", 
