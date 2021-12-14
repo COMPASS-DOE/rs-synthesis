@@ -366,6 +366,7 @@ Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigatio
   geom_hline(yintercept = 0) +
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type,  size = 1)) +
   scale_color_viridis_d() + 
+    ylab("ln(Response Ratio)") +
   ggtitle("\n Increased Precipitation") +
   theme(legend.position = "none", text=element_text(size=22)) +
   xlab("Percent of Control Precipitation")
