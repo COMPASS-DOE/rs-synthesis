@@ -177,11 +177,17 @@ metadat$Ecosystem_type <- factor(metadat$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
                                             "Savanna", "Grassland", "Desert"))
 
+VarLabs <- c("Rh_annual" = "Microbial Annual",
+             "Rs_annual" = "Annual",
+             "Rs_growingseason" = "Growing Season")
 
 #plot distribution of effect sizes amongst different Variable types
-ggplot(metadat, aes(yi, color = Manipulation)) + 
-  geom_density(na.rm = TRUE) + facet_grid(Variable~., scales = "free") +
-  ggtitle("Distribution of Data")
+ggplot(metadat, aes(yi, color = Manipulation)) +
+  xlab("ln(Response Ratio)") +
+  geom_density(na.rm = TRUE) +
+  facet_grid(Variable~., scales = "free", labeller = labeller(Variable = VarLabs)) +
+  ggtitle("Distribution of Data") +
+  theme(text=element_text(size = 18))
 
 #plot distribution of studies by their duration, manipulation  type, and ecosystem type
 max_duration <- metadat %>%
@@ -202,7 +208,8 @@ ggplot(max_duration) +
                      labels = seq(1, max(max_duration$max) +1, 1),
                      name = "Study Duration") +
   scale_fill_viridis_d() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        text=element_text(15)) +
   guides(fill=guide_legend("Ecosystem Type"))
 
 
@@ -251,6 +258,7 @@ res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
               mods = ~Ecosystem_type*Duration + Soil_drainage -1,
               method = "ML",
            data = metadat,
+           slab = Ecosystem_type,
            subset = Manipulation == "Irrigation")
 summary(res_irrigation)
 profile(res_irrigation)
@@ -322,13 +330,15 @@ ggplot(data = metadat,
               method = lm, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
     facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Water-Limitation and Study Duration") +
+  ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
                      labels = seq(1, max(metadat$Duration) +1, 1),
                      name = "Study Duration (years)") +
       scale_color_viridis_d() +
   scale_fill_viridis_d() +
   guides(fill= EcoTitle, colour = EcoTitle) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+        text = element_text(size = 22))
 ```
 
 # Effect of Intensity
@@ -343,8 +353,9 @@ Drought_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Drought",],
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
   scale_color_viridis_d() +
  geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
+  ylab("ln(Response Ratio)") +
   ggtitle("\n Decreased Precipitation") +
-  theme(legend.position = "none", text=element_text(size=18))
+  theme(legend.position = "none", text=element_text(size=22))
 
 DI_margH <- ggMarginal(Drought_Intensity, type = "histogram", 
                               margins = 'x', size=4)
@@ -356,7 +367,7 @@ Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigatio
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type,  size = 1)) +
   scale_color_viridis_d() + 
   ggtitle("\n Increased Precipitation") +
-  theme(legend.position = "none", text=element_text(size=18)) +
+  theme(legend.position = "none", text=element_text(size=22)) +
   xlab("Percent of Control Precipitation")
 
 II_margH <- ggMarginal(Irrigation_Intensity, type = "histogram", 
