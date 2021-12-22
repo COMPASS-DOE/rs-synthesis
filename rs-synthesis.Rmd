@@ -47,7 +47,7 @@ srdb_raw %>%
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdccccdcccdddddddddddc") %>% filter(Study_number != 6066) %>% 
+         col_types = "ddcdccccddcccdddddddddddc") %>% filter(Study_number != 6066) %>% 
   select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
@@ -143,7 +143,7 @@ meta_df %>%
   group_by(Ecosystem_type, Manipulation) %>%
   count() -> Ecosystem_summary
 
-#take a peak at missing data, 83 studies in dataset
+#take a peek at missing data, 83 studies in dataset
 
 #34 studies are missing elevation
 meta_df %>% 
