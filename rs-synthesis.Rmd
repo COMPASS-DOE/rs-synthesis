@@ -161,6 +161,19 @@ meta_df %>%
   select(Soil_clay, n_studies) -> Clay_summary
 ```
 
+```{r soilgrids, cache=TRUE}
+# This is slow
+library(raster)
+clay <- raster("./soilgrids/clay_15-30cm_mean.tif")
+meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")], 
+                        proj4string = CRS("+proj=longlat +datum=WGS84"))
+meta_points <- spTransform(meta_points, projection(clay))
+meta_df$sg_clay <- extract(clay, meta_points, buffer = 1000, fun = mean)
+
+ocs <- raster("./soilgrids/ocs_0-30cm_mean.tif")
+meta_df$sg_ocs <- extract(ocs, meta_points, buffer = 1000, fun = mean)
+```
+
 
 ```{r diagnostic-plots, warning = FALSE, message = FALSE}
 
