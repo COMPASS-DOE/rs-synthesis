@@ -1,0 +1,3 @@
+# The soilgrids files are very large; don't commit to repo!
+*.tif
+
