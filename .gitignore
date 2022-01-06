@@ -5,6 +5,7 @@
 .Rproj.user
 rs-synthesis_files/
 *.html
+.png
 .RData
 .Rhistory
 *_cache/*
