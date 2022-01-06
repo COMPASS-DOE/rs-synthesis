@@ -15,7 +15,6 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 # Load packages
-# test comment with link
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -182,7 +181,7 @@ meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 
 ```{r diagnostic-plots, warning = FALSE, message = FALSE}
 
-#compute effect sizes
+#compute effect sizes using log response ratio
 metadat <- escalc(measure = "ROM",
                   m1i = Manip_Resp, m2i = Control_Resp, 
                   sd1i = Manip_SD, sd2i = Control_SD,
@@ -239,7 +238,6 @@ ggplot(max_duration) +
 
 ## Check for Colinearity in potential modifiers
 
-Ben help with getting this sorted by manipulation.
 There is correlation between Duration and Latitude,
 but we don't need to worry because Latitude is not
 an important modifier.
@@ -272,8 +270,11 @@ print(mmi_irrigation$predictor.importance.plot)
 ## Run meta-analysis
 
 ```{r irrigation}
+
+#rma.mv conducts a meta-analysis multivariate mixed effects model
+#the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~Ecosystem_type*Duration + Soil_drainage -1,
+              mods = ~ Ecosystem_type * Duration + Soil_drainage -1,
               method = "ML",
            data = metadat,
            slab = Ecosystem_type,
@@ -316,7 +317,7 @@ print(mmi_drought$predictor.importance.plot)
 
 ```{r drought_model}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~Ecosystem_type + Percent_control + Duration -1,
+              mods = ~ Ecosystem_type + Percent_control + Duration -1,
               method = "ML",
            data = metadat,
            subset = Manipulation == "Drought")

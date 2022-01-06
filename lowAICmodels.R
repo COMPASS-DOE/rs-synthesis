@@ -7,7 +7,7 @@
 #the "/" notation gives the nested effect of ecosystem type within individual studies
 
 res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number/Ecosystem_type,
-              mods = ~Duration*Percent_control*Latitude - 1,
+              mods = ~ Duration * Percent_control * Latitude - 1,
               method = "ML",
            data = metadat[metadat$Manipulation == "Irrigation",])
 summary.rma(res_irrigation)
@@ -16,7 +16,7 @@ profile(res_irrigation)
 #here is the lowest AIC model for drought studies
 
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number/Ecosystem_type,
-                      mods = ~Duration*Percent_control*Latitude - 1,
+                      mods = ~ Duration * Percent_control * Latitude - 1,
                       method = "ML",
                       data = metadat[metadat$Manipulation == "Drought",])
 summary.rma(res_drought)
