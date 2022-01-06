@@ -48,7 +48,7 @@ srdb_raw %>%
   bind_rows(new_studies) -> srdb
 
 read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
-         col_types = "ddcdccccdcccdddddddddddc") %>% filter(Study_number != 6066) %>% 
+         col_types = "ddcdccccddcccdddddddddddc") %>% filter(Study_number != 6066) %>% 
   select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
@@ -144,7 +144,7 @@ meta_df %>%
   group_by(Ecosystem_type, Manipulation) %>%
   count() -> Ecosystem_summary
 
-#take a peak at missing data, 83 studies in dataset
+#take a peek at missing data, 83 studies in dataset
 
 #34 studies are missing elevation
 meta_df %>% 
@@ -160,6 +160,23 @@ meta_df %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   arrange(desc(n_studies)) %>% 
   select(Soil_clay, n_studies) -> Clay_summary
+```
+
+```{r soilgrids, cache=TRUE}
+# Extract clay and organic carbon storage values from global Soilgrids datasets
+# We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
+library(raster)
+clay <- raster("./soilgrids/clay_15-30cm_mean.tif")
+meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")], 
+                        proj4string = CRS("+proj=longlat +datum=WGS84"))
+# Reproject our long-lat points to the UTM used by the geoTIFF
+meta_points <- spTransform(meta_points, projection(clay))
+# ...and extract the values we want, averaging nearest 1000m
+meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
+
+# Second file, same operation
+ocs <- raster("./soilgrids/ocs_0-30cm_mean.tif")
+meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 ```
 
 
