@@ -245,7 +245,7 @@ an important modifier.
 ```{r Autocorrelatoin_check, warning = FALSE}
 #if desired seperately by the two manipualtions
 #two steps using filter(Manipulation) and select(variables for correlation)
-metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
+metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
 
 ```
 
@@ -257,14 +257,17 @@ metadat[,c("Duration","Percent_control","Latitude")] %>% chart.Correlation()
 #Stick this in a separate chunk so no progress bar sullies our output
 mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Irrigation",],
-                     predictors = c("Ecosystem_type", "Duration", "Percent_control", "Soil_drainage"),
+                     predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
                      interaction = TRUE)
+
+#here sg_clay is excluded to allow for interactions after seeing that it had very low estimated importance in a none-interactive model
 ```
 
 
 ```{r print mmi_irrigation}
 print(mmi_irrigation$top5.models)
 print(mmi_irrigation$predictor.importance.plot)
+#soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
 ```
 
 ## Run meta-analysis
@@ -274,7 +277,7 @@ print(mmi_irrigation$predictor.importance.plot)
 #rma.mv conducts a meta-analysis multivariate mixed effects model
 #the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~ Ecosystem_type * Duration + Soil_drainage -1,
+              mods = ~ Ecosystem_type* Duration + sg_ocs -1,
               method = "ML",
            data = metadat,
            slab = Ecosystem_type,
@@ -302,14 +305,15 @@ plot(cooks.distance(res_irrigation), type = "o")
 
 mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
                      data = metadat[metadat$Manipulation == "Drought",],
-                     predictors = c("Ecosystem_type", "Duration", "Percent_control", "Soil_drainage"),
+                     predictors = c("Ecosystem_type", "sg_ocs", "sg_clay", "Percent_control", "Duration"),
                      interaction = TRUE)
-
+#interactions cannot be calcualted because we are using 5 factors
 ```
 
 ```{r print mmi_drought}
 print(mmi_drought$top5.models)
 print(mmi_drought$predictor.importance.plot)
+#ecosystem, soil organic carbon, clay, and percent_control are all highly important
 ```
 
 
@@ -317,7 +321,7 @@ print(mmi_drought$predictor.importance.plot)
 
 ```{r drought_model}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~ Ecosystem_type + Percent_control + Duration -1,
+              mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control -1,
               method = "ML",
            data = metadat,
            subset = Manipulation == "Drought")
