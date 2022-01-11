@@ -3,12 +3,15 @@
 title: "rs-synthesis"
 date: "`r Sys.time()`"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
     df_print: paged
     toc: yes
     toc_depth: '4'
     toc_float: yes
-    number_sections: true
+    number_sections: yes
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
@@ -455,30 +458,31 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
 ggplot(data = metadat,
        aes(sg_ocs/10, yi)) +
   geom_hline(yintercept = 0)+
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = Percent_control),
-             na.rm = TRUE) +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
+             size = 5, na.rm = TRUE) +
     geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("High SOM soils are resistant to precipitation change") +
-  ylab("ln(Response Ratio)") + xlab("Organic Carbon Stock (kg/m^2, 0-30 cm)") + 
+  ylab("ln(Response Ratio)") +
+  xlab(expression(~"Organic Carbon Stock"~("0-30 cm")~"kg m"^{"-2"})) + 
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(fill= EcoTitle, colour = EcoTitle) +
+  guides(colour = guide_legend(override.aes = list(size=10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 22))
 
 ggplot(data = metadat,
        aes(sg_clay/10, yi)) +
   geom_hline(yintercept = 0)+
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = Percent_control),
-             na.rm = TRUE) +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
+              size = 5, na.rm = TRUE) +
   geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
-  ggtitle("Clay had high predictor importance for IP, high for DP") + 
-  ylab("ln(Response Ratio)") + xlab("%Clay, 15-30 cm") +
+  ggtitle("Clay had low predictor importance for IP, high for DP") + 
+  ylab("ln(Response Ratio)") + xlab("%Clay (15-30 cm)") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(fill= EcoTitle, colour = EcoTitle) +
+  guides(colour = guide_legend(override.aes = list(size=10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 22))
 
