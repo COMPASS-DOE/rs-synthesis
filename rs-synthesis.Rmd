@@ -19,7 +19,10 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 # Load packages
-library(raster) # this needs to come before dplyr load so 'select' isn't masked
+# raster needs to come before dplyr load so 'select' isn't masked; we use `require`
+# because only need it if the geotiffs are available (and not on GitHub Actions)
+require(raster) 
+# Normal package loads
 library(readr)
 library(dplyr)
 library(tidyr)
