@@ -19,7 +19,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 # Load packages
-library(raster) # this needds to come before dplyr load so 'select' isn't masked
+library(raster) # this needs to come before dplyr load so 'select' isn't masked
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -56,8 +56,8 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
   select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
-  mutate(SD_Rs_annual = SD_Rs_annual/378.43, #converting from g per yr to umol per s
-         SD_Rh_annual = SD_Rh_annual/378.43,#this will make all final estimates comparable
+  mutate(SD_Rs_annual = SD_Rs_annual/378.43, #converting from g per yr to µmol per s
+         SD_Rh_annual = SD_Rh_annual/378.43, #this will make all final estimates comparable
          Rs_annual = Rs_annual/378.43,
          Rh_annual = Rh_annual/378.43,
          Manipulation = case_when(
@@ -366,7 +366,7 @@ ggplot(data = metadat,
   ggtitle("Water-Limitation and Study Duration") +
   ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
-                     labels = seq(1, max(metadat$Duration) +1, 1),
+                     labels = seq(1, max(metadat$Duration) + 1, 1),
                      name = "Study Duration (years)") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
@@ -389,10 +389,10 @@ Drought_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Drought",],
   geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
   ylab("ln(Response Ratio)") +
   ggtitle("\n Decreased Precipitation") +
-  theme(legend.position = "none", text=element_text(size=22))
+  theme(legend.position = "none", text=element_text(size = 22))
 
 DI_margH <- ggMarginal(Drought_Intensity, type = "histogram", 
-                       margins = 'x', size=4)
+                       margins = 'x', size = 4)
 DI_margH
 
 Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigation",],
@@ -402,11 +402,11 @@ Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigatio
   scale_color_viridis_d() + 
   ylab("ln(Response Ratio)") +
   ggtitle("\n Increased Precipitation") +
-  theme(legend.position = "none", text=element_text(size=22)) +
+  theme(legend.position = "none", text=element_text(size = 22)) +
   xlab("Percent of Control Precipitation")
 
 II_margH <- ggMarginal(Irrigation_Intensity, type = "histogram", 
-                       margins = 'x', size=4)
+                       margins = 'x', size = 4)
 II_margH
 
 ```
@@ -475,7 +475,7 @@ ggplot(data = metadat,
   xlab(expression(~"Organic Carbon Stock"~("0-30 cm")~"kg m"^{"-2"})) + 
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size=10))) +
+  guides(colour = guide_legend(override.aes = list(size = 10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 22))
 
@@ -490,11 +490,9 @@ ggplot(data = metadat,
   ylab("ln(Response Ratio)") + xlab("%Clay (15-30 cm)") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size=10))) +
+  guides(colour = guide_legend(override.aes = list(size = 10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 22))
-
-
 
 ```
 
@@ -503,4 +501,3 @@ ggplot(data = metadat,
 ```{r}
 sessionInfo()
 ```
-
