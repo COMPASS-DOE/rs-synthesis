@@ -1,23 +1,25 @@
 
 ---
 title: "rs-synthesis"
+author: "Kendalynn Morris"
 date: "`r Sys.time()`"
 output:
-pdf_document:
-toc: yes
-toc_depth: '4'
-html_document:
-df_print: paged
-toc: yes
-toc_depth: '4'
-toc_float: yes
-number_sections: yes
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '4'
+    toc_float: yes
+    number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
 # Load packages
+library(raster) # this needds to come before dplyr load so 'select' isn't masked
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -167,7 +169,6 @@ meta_df %>%
 ```{r soilgrids, cache=TRUE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 # We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
-library(raster)
 clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
 ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
 if(file.exists(clayfile) && file.exists(ocsfile)) {
@@ -240,9 +241,8 @@ ggplot(max_duration) +
                      name = "Study Duration") +
   scale_fill_viridis_d() +
   theme(legend.position = "bottom",
-        text=element_text(15)) +
+        text = element_text(size = 10)) +
   guides(fill=guide_legend("Ecosystem Type"))
-
 ```
 
 # Prep for model run
@@ -254,7 +254,7 @@ but we don't need to worry because Latitude is not
 an important modifier.
 
 ```{r Autocorrelation_check, warning = FALSE}
-#if desired seperately by the two manipualtions
+#if desired separately by the two manipualtions
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
 
