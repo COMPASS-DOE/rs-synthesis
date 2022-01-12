@@ -23,8 +23,9 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown and needed packages
         run: |
-          install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2"))
-          install.packages(c("kableExtra", "forcats", "metafor", "DT", "PerformanceAnalytics", "MuMIn", "dmetar"))
+          install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "remotes"))
+          install.packages(c("kableExtra", "forcats", "metafor", "DT", "PerformanceAnalytics", "MuMIn"))
+          remotes::install_github("MathiasHarrer/dmetar")
         shell: Rscript {0}
       - name: Render Rmarkdown files
         run: |
