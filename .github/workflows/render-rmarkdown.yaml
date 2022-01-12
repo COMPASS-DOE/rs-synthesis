@@ -23,7 +23,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install raster
         run: |
-          sudo apt-get install -y r-cran-raster
+          sudo apt-get install -y r-cran-sp r-cran-rcpp r-cran-raster
       - name: Install rmarkdown and needed packages
         run: |
           install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "ggExtra", "remotes"))
