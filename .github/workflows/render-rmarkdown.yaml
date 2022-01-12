@@ -12,7 +12,7 @@ name: Render Rmarkdown files
 jobs:
   render:
     name: Render Rmarkdown files
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -21,9 +21,14 @@ jobs:
           fetch-depth: 2 # This is important to set for `git diff-tree` to work below
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
+      - name: Install libcurl
+        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
       - name: Install rmarkdown and needed packages
         run: |
-          install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "kableExtra", "forcats", "metafor", "DT"))
+          install.packages("kableExtra")
+          install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "ggExtra", "remotes"))
+          install.packages(c("forcats", "metafor", "DT", "PerformanceAnalytics", "MuMIn"))
+          remotes::install_github("MathiasHarrer/dmetar")
         shell: Rscript {0}
       - name: Render Rmarkdown files
         run: |
