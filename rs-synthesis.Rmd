@@ -146,12 +146,7 @@ meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
                                             "Savanna", "Grassland", "Desert"))
 
-#How many of each manipulation for each ecosystem?
-meta_df %>%
-  group_by(Manipulation, Ecosystem_type) %>%
-  count() %>%
-  pivot_wider(names_from = Manipulation,
-              values_from = n) -> Ecosystem_table
+
 
 #63 studies missing clay
 meta_df %>% 
@@ -189,11 +184,16 @@ metadat <- escalc(measure = "ROM",
                   slab = paste(Study_number, Author, Study_midyear),
                   data = meta_df)
 
-
-
 VarLabs <- c("Rh_annual" = "Microbial Annual",
              "Rs_annual" = "Annual",
              "Rs_growingseason" = "Growing Season")
+
+#How many effect size values for each manipulation for each ecosystem?
+metadat %>%
+  group_by(Manipulation, Ecosystem_type) %>%
+  count() %>%
+  pivot_wider(names_from = Manipulation,
+              values_from = n) -> Ecosystem_table
 
 #plot distribution of effect sizes amongst different Variable types
 ggplot(metadat, aes(yi, color = Manipulation)) +
@@ -243,6 +243,11 @@ an important modifier.
 #if desired seperately by the two manipualtions
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
+
+#this should be noted in the methods and possibly discussion
+#could this be a result of the types of studies that are done?
+#Ex: If you have a small MAP it's easier to get a large percent_control value
+#and this might be related to inherently low ocs or clay
 
 ```
 
