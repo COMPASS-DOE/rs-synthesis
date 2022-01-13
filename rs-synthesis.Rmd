@@ -141,20 +141,17 @@ meta_df %>%
   group_by(Study_number, OtherFactor, Ecosystem_type) %>%
   mutate(Duration = Study_midyear - min(Study_midyear)) -> meta_df
 
-#How many of each type of study in each ecosystem type?
+#level ecosystem types by water-limitation
+meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
+                                 levels = c("Wetland","Forest","Shrubland",
+                                            "Savanna", "Grassland", "Desert"))
+
+#How many of each manipulation for each ecosystem?
 meta_df %>%
-  group_by(Ecosystem_type, Manipulation) %>%
-  count() -> Ecosystem_summary
-
-#take a peek at missing data, 83 studies in dataset
-
-#34 studies are missing elevation
-meta_df %>% 
-  group_by(Elevation) %>% 
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
-  arrange(desc(n_studies)) %>% 
-  select(Elevation, n_studies) -> Elevation_summary
-
+  group_by(Manipulation, Ecosystem_type) %>%
+  count() %>%
+  pivot_wider(names_from = Manipulation,
+              values_from = n) -> Ecosystem_table
 
 #63 studies missing clay
 meta_df %>% 
@@ -192,10 +189,7 @@ metadat <- escalc(measure = "ROM",
                   slab = paste(Study_number, Author, Study_midyear),
                   data = meta_df)
 
-#level ecosystem types by water-limitation
-metadat$Ecosystem_type <- factor(metadat$Ecosystem_type,
-                                 levels = c("Wetland","Forest","Shrubland",
-                                            "Savanna", "Grassland", "Desert"))
+
 
 VarLabs <- c("Rh_annual" = "Microbial Annual",
              "Rs_annual" = "Annual",
@@ -220,7 +214,7 @@ Manip_labs <- c("Drought" = "Decreased Precip",
 ggplot(max_duration) +
   geom_histogram(aes(max, fill=Ecosystem_type),
                  position = "stack", bins = 12,
-                 col="black") +
+                 col="black", size = 1) +
   ylab("Count") +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Few Studies Lasting > 1 yr") +
