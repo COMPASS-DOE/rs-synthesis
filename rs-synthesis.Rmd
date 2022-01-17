@@ -3,15 +3,15 @@
 title: "rs-synthesis"
 date: "`r Sys.time()`"
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '4'
   html_document:
     df_print: paged
     toc: yes
     toc_depth: '4'
     toc_float: yes
     number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
@@ -210,6 +210,10 @@ ggplot(metadat, aes(Percent_control, color = Ecosystem_type)) +
   theme(text=element_text(size = 18))
 
 #histogram of study duration among ecosystem types
+max_duration <- metadat %>%
+  group_by(Study_number, Manipulation, Ecosystem_type) %>%
+  summarise(max = max(Duration, na.rm = TRUE))
+
 Manip_labs <- c("Drought" = "Decreased Precip",
                 "Irrigation" = "Increased Precip")
 
