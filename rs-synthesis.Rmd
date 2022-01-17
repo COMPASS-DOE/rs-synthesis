@@ -141,12 +141,10 @@ meta_df %>%
   group_by(Study_number, OtherFactor, Ecosystem_type) %>%
   mutate(Duration = Study_midyear - min(Study_midyear)) -> meta_df
 
-#level ecosystem types by water-limitation
+#sort ecosystem types by water-limitation
 meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
                                             "Savanna", "Grassland", "Desert"))
-
-
 
 #63 studies missing clay
 meta_df %>% 
@@ -154,6 +152,7 @@ meta_df %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   arrange(desc(n_studies)) %>% 
   select(Soil_clay, n_studies) -> Clay_summary
+
 ```
 
 ```{r soilgrids, cache=TRUE}
@@ -195,7 +194,7 @@ metadat %>%
   pivot_wider(names_from = Manipulation,
               values_from = n) -> Ecosystem_table
 
-#plot distribution of effect sizes amongst different Variable types
+#plot distribution of effect sizes among different Variable types
 ggplot(metadat, aes(yi, color = Manipulation)) +
   xlab("ln(Response Ratio)") +
   geom_density(na.rm = TRUE) +
@@ -203,11 +202,7 @@ ggplot(metadat, aes(yi, color = Manipulation)) +
   ggtitle("Distribution of Data") +
   theme(text=element_text(size = 18))
 
-#plot distribution of studies by their duration, manipulation  type, and ecosystem type
-max_duration <- metadat %>%
-  group_by(Study_number, Manipulation, Ecosystem_type) %>%
-  summarise(max = max(Duration, na.rm = TRUE))
-
+#plot distribution of study duration among ecosystem types
 Manip_labs <- c("Drought" = "Decreased Precip",
                 "Irrigation" = "Increased Precip")
 
