@@ -146,12 +146,35 @@ meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
                                             "Savanna", "Grassland", "Desert"))
 
-#63 studies missing clay
+#69 studies missing clay
 meta_df %>% 
   group_by(Soil_clay) %>% 
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
   arrange(desc(n_studies)) %>% 
   select(Soil_clay, n_studies) -> Clay_summary
+
+#How many effect unique studies and effect sizes for each ecosystem?
+meta_df %>%
+  group_by(Manipulation, Ecosystem_type) %>%
+  count() %>%
+  pivot_wider(names_from = Manipulation,
+              values_from = n) -> EES_table
+
+EES_table %>%
+  rename(Drought_EffectSizes = Drought) %>%
+  rename(Irrigation_EffectSizes = Irrigation) -> EES_table
+
+meta_df %>%
+   group_by(Manipulation, Ecosystem_type) %>%
+   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
+     pivot_wider(names_from = Manipulation,
+               values_from = n_studies) -> Estudies_table
+
+EES_table %>%
+   left_join(Estudies_table) %>%
+  rename(Drought_Studies = Drought) %>%
+  rename(Irrigation_Studies = Irrigation) -> EES_table
+
 
 ```
 
