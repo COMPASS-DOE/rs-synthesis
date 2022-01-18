@@ -177,7 +177,11 @@ EES_table %>%
 
 
 ```
-
+```{r}
+knitr::kable(EES_table,
+             caption = "Number of Studies and Effect Sizes per Ecosystem and Manipulation")
+```
+Here is some text I'm going to add.
 ```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 # We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
