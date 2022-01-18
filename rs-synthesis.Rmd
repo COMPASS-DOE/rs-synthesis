@@ -188,8 +188,11 @@ length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))
 length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number))
 
 
-knitr::kable(EES_table,
-             caption = "Table 1. Number of Studies and Effect Sizes per Ecosystem and Manipulation")
+EES_table %>%
+  kable(caption = "Table 1. Studies and Effect Sizes per Ecosystem and Manipulation",
+        col.names = c("Ecosystem", " -P ", " +P ", " -P ", " +P ")) %>%
+  add_header_above(c("    " = 1, " Effect Sizes " = 2, " Studies " = 2))
+  
 ```
 
 
