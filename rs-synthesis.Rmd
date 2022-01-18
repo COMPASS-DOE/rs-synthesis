@@ -3,15 +3,15 @@
 title: "rs-synthesis"
 date: "`r Sys.time()`"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
     df_print: paged
     toc: yes
     toc_depth: '4'
     toc_float: yes
     number_sections: yes
-  pdf_document:
-    toc: yes
-    toc_depth: '4'
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
@@ -67,7 +67,7 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
 
 # Manipulation Type Summaries {.tabset .tabset-pills}
 
-```{r filter-manipulations, message = FALSE}
+```{r filter-manipulations, message = FALSE, warning = FALSE, echo = FALSE}
 # The SRDB and google sheet data have control and manipulations from the same
 # study in different rows, which isn't what we want
 # Rebuild the data frame to meet metafor requirements: for a given study,
@@ -178,7 +178,7 @@ EES_table %>%
 
 ```
 
-```{r soilgrids, cache=TRUE}
+```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 # We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
 library(raster)
@@ -196,7 +196,7 @@ meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 ```
 
 
-```{r diagnostic-plots, warning = FALSE, message = FALSE}
+```{r diagnostic-plots, warning = FALSE, message = FALSE, echo = FALSE}
 
 #compute effect sizes using log response ratio
 metadat <- escalc(measure = "ROM",
@@ -268,7 +268,7 @@ There is correlation between Duration and Latitude,
 but we don't need to worry because Latitude is not
 an important modifier.
 
-```{r Autocorrelatoin_check, warning = FALSE}
+```{r Autocorrelatoin_check, message = FALSE, warning = FALSE, echo = FALSE}
 #if desired seperately by the two manipualtions
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
@@ -295,7 +295,7 @@ mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
 ```
 
 
-```{r print mmi_irrigation}
+```{r print mmi_irrigation, message = FALSE, warning = FALSE, echo = FALSE}
 print(mmi_irrigation$top5.models)
 print(mmi_irrigation$predictor.importance.plot)
 #soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
@@ -303,7 +303,7 @@ print(mmi_irrigation$predictor.importance.plot)
 
 ## Run meta-analysis
 
-```{r irrigation}
+```{r irrigation, message = FALSE, warning = FALSE, echo = FALSE}
 
 #rma.mv conducts a meta-analysis multivariate mixed effects model
 #the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
@@ -341,7 +341,7 @@ mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
 #interactions cannot be calculated because we are using 5 factors
 ```
 
-```{r print mmi_drought}
+```{r print mmi_drought, message = FALSE, warning = FALSE, echo = FALSE}
 print(mmi_drought$top5.models)
 print(mmi_drought$predictor.importance.plot)
 #ecosystem, soil organic carbon, clay, and percent_control are all highly important
@@ -350,7 +350,7 @@ print(mmi_drought$predictor.importance.plot)
 
 ## Run meta-analysis
 
-```{r drought_model}
+```{r drought_model, message = FALSE, warning = FALSE, echo = FALSE}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
               mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control -1,
               method = "ML",
