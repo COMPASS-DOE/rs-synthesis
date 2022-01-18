@@ -179,14 +179,16 @@ EES_table %>%
 ```
 
 # Results {.tabset .tabset-pills}
-## Data Summaries 
+## Data Summaries  
 
-We found 82 studies within SRDB that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.
+We found 82 studies within SRDB that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.  \
 
-```{r}
+```{r echo = TRUE}
 length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))
 length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number))
+```
 
+```{r}
 
 EES_table %>%
   kable(caption = "Table 1. Studies and Effect Sizes per Ecosystem and Manipulation",
@@ -213,6 +215,7 @@ ocs <- raster("./soilgrids/ocs_0-30cm_mean.tif")
 meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 ```
 
+We found that the majority of studies lasted only one year (55 of 83) and only 16% (13 of 83) last longer than two years.  \
 
 ```{r diagnostic-plots, warning = FALSE, message = FALSE, echo = FALSE}
 
@@ -236,19 +239,13 @@ metadat %>%
               values_from = n) -> Ecosystem_table
 
 #plot distribution of effect sizes among different Variable types
-ggplot(metadat, aes(yi, color = Manipulation)) +
-  xlab("ln(Response Ratio)") +
-  geom_density(na.rm = TRUE) +
-  facet_grid(Variable~., scales = "free", labeller = labeller(Variable = VarLabs)) +
-  ggtitle("Distribution of Data") +
-  theme(text=element_text(size = 18))
+# ggplot(metadat, aes(yi, color = Manipulation)) +
+#   xlab("ln(Response Ratio)") +
+#   geom_density(na.rm = TRUE) +
+#   facet_grid(Variable~., scales = "free", labeller = labeller(Variable = VarLabs)) +
+#   ggtitle("Distribution of Data") +
+#   theme(text=element_text(size = 18))
 
-#plot distribution of percent_control among different Variable types
-ggplot(metadat, aes(Percent_control, color = Ecosystem_type)) +
-  xlab("Manipulations") +
-  geom_density(na.rm = TRUE) +
-  ggtitle("Distribution of Manipulations") +
-  theme(text=element_text(size = 18))
 
 #histogram of study duration among ecosystem types
 max_duration <- metadat %>%
@@ -257,6 +254,8 @@ max_duration <- metadat %>%
 
 Manip_labs <- c("Drought" = "Decreased Precip",
                 "Irrigation" = "Increased Precip")
+
+length(unique(max_duration[max_duration$max > 1,]$Study_number))
 
 ggplot(max_duration) +
   geom_histogram(aes(max, fill=Ecosystem_type),
@@ -270,9 +269,16 @@ ggplot(max_duration) +
                      name = "Study Duration") +
   scale_fill_viridis_d() +
   theme(legend.position = "bottom",
-        text=element_text(15)) +
+        text=element_text(22)) +
   guides(fill=guide_legend("Ecosystem Type"))
 
+
+#plot distribution of percent_control among different Variable types
+ggplot(metadat, aes(Percent_control, color = Ecosystem_type)) +
+  xlab("Manipulations") +
+  geom_density(na.rm = TRUE) +
+  ggtitle("Distribution of Manipulations") +
+  theme(text=element_text(size = 18))
 
 
 
