@@ -3,15 +3,15 @@
 title: "rs-synthesis"
 date: "`r Sys.time()`"
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '4'
   html_document:
     df_print: paged
     toc: yes
     toc_depth: '4'
     toc_float: yes
     number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
@@ -65,7 +65,6 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
     TRUE ~ NA_character_)) -> dat_rs
 ```
 
-# Manipulation Type Summaries {.tabset .tabset-pills}
 
 ```{r filter-manipulations, message = FALSE, warning = FALSE, echo = FALSE}
 # The SRDB and google sheet data have control and manipulations from the same
@@ -146,12 +145,13 @@ meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
                                             "Savanna", "Grassland", "Desert"))
 
-#69 studies missing clay
-meta_df %>% 
-  group_by(Soil_clay) %>% 
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
-  arrange(desc(n_studies)) %>% 
-  select(Soil_clay, n_studies) -> Clay_summary
+# #69 studies missing clay
+# May be time to delete this...
+# meta_df %>% 
+#   group_by(Soil_clay) %>% 
+#   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>% 
+#   arrange(desc(n_studies)) %>% 
+#   select(Soil_clay, n_studies) -> Clay_summary
 
 #How many effect unique studies and effect sizes for each ecosystem?
 meta_df %>%
@@ -177,11 +177,22 @@ EES_table %>%
 
 
 ```
+
+# Results {.tabset .tabset-pills}
+## Data Summaries 
+
+We found 82 studies within SRDB that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.
+
 ```{r}
+length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))
+length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number))
+
+
 knitr::kable(EES_table,
-             caption = "Number of Studies and Effect Sizes per Ecosystem and Manipulation")
+             caption = "Table 1. Number of Studies and Effect Sizes per Ecosystem and Manipulation")
 ```
-Here is some text I'm going to add.
+
+
 ```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 # We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
