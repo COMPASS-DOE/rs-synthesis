@@ -140,6 +140,11 @@ meta_df %>%
   group_by(Study_number, OtherFactor, Ecosystem_type) %>%
   mutate(Duration = Study_midyear - min(Study_midyear)) -> meta_df
 
+#and set-up dataframe for graphing down the line
+max_duration <- meta_df %>%
+  group_by(Study_number, Manipulation, Ecosystem_type) %>%
+  summarise(max = max(Duration, na.rm = TRUE))
+
 #sort ecosystem types by water-limitation
 meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  levels = c("Wetland","Forest","Shrubland",
@@ -174,21 +179,21 @@ EES_table %>%
    left_join(Estudies_table) %>%
   rename(Drought_Studies = Drought) %>%
   rename(Irrigation_Studies = Irrigation) -> EES_table
-
-
 ```
 
 # Results {.tabset .tabset-pills}
 ## Data Summaries  
-
-We found 82 studies within SRDB that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.  \
+ \
+Within SRDB there were 82 studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.  
+Study sites were distributed across the terrestrial biosphere....DESCRIPTION TO ACCOMPANY STEPH'S FIGURE (Figure 1.)
+ \
 
 ```{r echo = TRUE}
 length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))
 length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number))
 ```
 
-```{r}
+```{r Studies and Effect Sizes Summary Table}
 
 EES_table %>%
   kable(caption = "Table 1. Studies and Effect Sizes per Ecosystem and Manipulation",
@@ -214,9 +219,16 @@ meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
 ocs <- raster("./soilgrids/ocs_0-30cm_mean.tif")
 meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 ```
+ \
+The majority of studies lasted only one year (55 of 83) and only 16% (13 of 83) last longer than two years (Figure 2.). 
+ \
+```{r echo = TRUE}
 
-We found that the majority of studies lasted only one year (55 of 83) and only 16% (13 of 83) last longer than two years.  \
-
+length(unique(max_duration[max_duration$max > 1,]$Study_number))
+ 
+```
+\
+\
 ```{r diagnostic-plots, warning = FALSE, message = FALSE, echo = FALSE}
 
 #compute effect sizes using log response ratio
@@ -248,22 +260,22 @@ metadat %>%
 
 
 #histogram of study duration among ecosystem types
-max_duration <- metadat %>%
-  group_by(Study_number, Manipulation, Ecosystem_type) %>%
-  summarise(max = max(Duration, na.rm = TRUE))
-
 Manip_labs <- c("Drought" = "Decreased Precip",
                 "Irrigation" = "Increased Precip")
 
-length(unique(max_duration[max_duration$max > 1,]$Study_number))
 
+####
+####
+#TO FIX: Issue with theme not adjusting text size
+####
+####
 ggplot(max_duration) +
   geom_histogram(aes(max, fill=Ecosystem_type),
                  position = "stack", bins = 12,
                  col="black", size = 1) +
   ylab("Count") +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
-  ggtitle("Few Studies Lasting > 1 yr") +
+  ggtitle("Figure 2. Few Studies Lasting > 1 yr") +
   scale_x_continuous(breaks=seq(0,max(max_duration$max), 1),
                      labels = seq(1, max(max_duration$max) +1, 1),
                      name = "Study Duration") +
@@ -271,16 +283,25 @@ ggplot(max_duration) +
   theme(legend.position = "bottom",
         text=element_text(22)) +
   guides(fill=guide_legend("Ecosystem Type"))
-
+```
+\
+\
+Manipulation intensity (how much a study increased or decreased precipitation) was not evenly distributed among ecosystems (Figure 3.). This is perhaps better illustrated in Figure 4 below.
+\
+\
+```{r distribution of manipulations, warning = FALSE, message = FALSE, echo = FALSE}
 
 #plot distribution of percent_control among different Variable types
-ggplot(metadat, aes(Percent_control, color = Ecosystem_type)) +
-  xlab("Manipulations") +
-  geom_density(na.rm = TRUE) +
-  ggtitle("Distribution of Manipulations") +
+ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
+  xlab("Percent of MAP") + 
+  geom_histogram(na.rm = TRUE,
+                 position = "stack",
+                 col="black", size = 1,
+                 bins = 19) +
+  scale_fill_viridis_d() +
+  geom_vline(xintercept = 100, linetype = "dashed", color = "red") +
+  ggtitle("Figure 3. Distribution of Manipulations") +
   theme(text=element_text(size = 18))
-
-
 
 ```
 
