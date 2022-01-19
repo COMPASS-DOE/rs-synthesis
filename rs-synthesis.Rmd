@@ -269,10 +269,12 @@ Manip_labs <- c("Drought" = "Decreased Precip",
 #TO FIX: Issue with theme not adjusting text size
 ####
 ####
+
+
 ggplot(max_duration) +
   geom_histogram(aes(max, fill=Ecosystem_type),
                  position = "stack", bins = 12,
-                 col="black", size = 1) +
+                 col="black", size = 0.5) +
   ylab("Count") +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Figure 2. Few Studies Lasting > 1 yr") +
@@ -305,16 +307,8 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
 
 ```
 
-# Prep for model run
-
-## Check for Colinearity in potential modifiers
-
-There is correlation between Duration and Latitude,
-but we don't need to worry because Latitude is not
-an important modifier.
-
-```{r Autocorrelatoin_check, message = FALSE, warning = FALSE, echo = FALSE}
-#if desired seperately by the two manipualtions
+```{r Autocorrelatoin_check, include=FALSE}
+#if desired separately by the two manipualtions
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
 
@@ -325,8 +319,7 @@ metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% char
 
 ```
 
-# Increased Precipitaiton Studies
-## Rank modifiers
+# Ecosystem Effects
 
 ```{r mmi_irrigation, include=FALSE, cache=TRUE}
 #rank importance of modifiers for each manipulation, irrigation first
@@ -341,13 +334,17 @@ mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
 
 
 ```{r print mmi_irrigation, message = FALSE, warning = FALSE, echo = FALSE}
-print(mmi_irrigation$top5.models)
+# print(mmi_irrigation$top5.models)
 print(mmi_irrigation$predictor.importance.plot)
 #soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
 ```
 
-## Run meta-analysis
-
+## Increased Precipitation
+\
+\
+While in general soil respiration rates were greater with increased precipitation, only desert ecosystems showed a statistically significant increase (p = 0.016, Figure 5A). There was a significant interaction between the duration of studies and the strength and direction of the respiration response in forest and grassland ecosystems (Figure 6). The initial increase in soil respiration decreased over time, more strongly in forests than in grasslands.
+\
+\
 ```{r irrigation, message = FALSE, warning = FALSE, echo = FALSE}
 
 #rma.mv conducts a meta-analysis multivariate mixed effects model
@@ -370,6 +367,35 @@ plot(cooks.distance(res_irrigation), type = "o")
 
   Coef_irrigation <- coef(summary(res_irrigation))
 
+  #Forest plot for Irrigation studies
+
+#would be better to bind all of this into one thing, not sure how
+plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
+Ecoi_ss <- c("36","5","7","83","13")
+
+Foresti <- forest(100 * (10^Coef_irrigation[1:5,]$estimate - 1),
+                  ci.lb = 100 * (10^Coef_irrigation[1:5,]$ci.lb -1),
+                  ci.ub = 100 * (10^Coef_irrigation[1:5,]$ci.ub -1),
+                  annotate = TRUE,
+                  xlab = "Percent Change in Soil Respiration",
+                  slab = c("Forest", "Shrubland",
+                           "Savanna", "Grassland", "Desert"),
+                  cex = 2,
+                  cex.lab = 2,
+                  cex.main = 3,
+                  digits = 1,
+                  lwd = 3
+                  )
+
+#Code to write sample size of sub-groups on graph
+#For this code, enter x-position of text, then y-position. You may have to experiment a bit.
+text(-80, rev(seq(5:1)), Ecoi_ss, cex = 1.5)
+# Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
+op <- par(cex=2, font=2)
+text(-200, 6.2, "Ecosystem")
+text(-60, 6.2, "Sample Size")
+text(350, 6.2, "Mean[95% CI]")
+text(0,7, "Figure 5A. Increased Precipitation Studies", cex = 1.2)
 
 ```
 
@@ -523,35 +549,7 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
   geom_point(size = 4, na.rm = TRUE) + 
   facet_grid(.~Manipulation) + geom_label()
 
-#Forest plot for Irrigation studies
 
-#would be better to bind all of this into one thing, not sure how
-plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
-Ecoi_ss <- c("36","5","7","83","13")
-
-Foresti <- forest(100 * (10^Coef_irrigation[1:5,]$estimate - 1),
-                  ci.lb = 100 * (10^Coef_irrigation[1:5,]$ci.lb -1),
-                  ci.ub = 100 * (10^Coef_irrigation[1:5,]$ci.ub -1),
-                  annotate = TRUE,
-                  xlab = "Percent Change in Soil Respiration",
-                  slab = c("Forest", "Shrubland",
-                           "Savanna", "Grassland", "Desert"),
-                  cex = 2,
-                  cex.lab = 2,
-                  cex.main = 3,
-                  digits = 1,
-                  lwd = 3
-                  )
-
-#Code to write sample size of sub-groups on graph
-#For this code, enter x-position of text, then y-position. You may have to experiment a bit.
-text(-80, rev(seq(5:1)), Ecoi_ss, cex = 1.5)
-# Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
-op <- par(cex=2, font=2)
-text(-200, 6.2, "Ecosystem")
-text(-60, 6.2, "Sample Size")
-text(350, 6.2, "Mean[95% CI]")
-text(0,7, "Increased Precipitation Studies", cex = 1.2)
 
 
 #Forest plot for Drought studies
