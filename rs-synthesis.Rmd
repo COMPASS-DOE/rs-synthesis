@@ -308,7 +308,8 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
 ```
 
 ```{r Autocorrelatoin_check, include=FALSE}
-#if desired separately by the two manipualtions
+
+#if desired separately by the two manipulations
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
 
@@ -333,7 +334,7 @@ mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
 ```
 
 
-```{r print mmi_irrigation, message = FALSE, warning = FALSE, echo = FALSE}
+```{r print mmi_irrigation, include = FALSE}
 # print(mmi_irrigation$top5.models)
 print(mmi_irrigation$predictor.importance.plot)
 #soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
@@ -345,7 +346,7 @@ print(mmi_irrigation$predictor.importance.plot)
 While in general soil respiration rates were greater with increased precipitation, only desert ecosystems showed a statistically significant increase (p = 0.016, Figure 5A). There was a significant interaction between the duration of studies and the strength and direction of the respiration response in forest and grassland ecosystems (Figure 6). The initial increase in soil respiration decreased over time, more strongly in forests than in grasslands.
 \
 \
-```{r irrigation, message = FALSE, warning = FALSE, echo = FALSE}
+```{r irrigation, include = FALSE}
 
 #rma.mv conducts a meta-analysis multivariate mixed effects model
 #the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
@@ -399,10 +400,6 @@ text(0,7, "Figure 5A. Increased Precipitation Studies", cex = 1.2)
 
 ```
 
-
-# Decreased Precipitation Studies
-## Rank Modifiers
-
 ```{r mmi_drought, include=FALSE, cache=TRUE}
 
 mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
@@ -412,16 +409,13 @@ mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
 #interactions cannot be calculated because we are using 5 factors
 ```
 
-```{r print mmi_drought, message = FALSE, warning = FALSE, echo = FALSE}
-print(mmi_drought$top5.models)
+```{r print mmi_drought, include=FALSE}
+#print(mmi_drought$top5.models)
 print(mmi_drought$predictor.importance.plot)
 #ecosystem, soil organic carbon, clay, and percent_control are all highly important
 ```
 
-
-## Run meta-analysis
-
-```{r drought_model, message = FALSE, warning = FALSE, echo = FALSE}
+```{r drought_model, include=FALSE}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
               mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control -1,
               method = "ML",
@@ -439,7 +433,42 @@ plot(cooks.distance(res_drought), type = "o")
 
 Coef_drought <- coef(summary(res_drought))
 
-    
+```
+## Decreased Precipitation
+\
+\
+In contrast, when precipitation was decreased, soil respiration rates were lower relative to control rates (Figure 5B.). Wetlands were an exception and showed elevated soil respiration rates although this effect was not significant. 
+\
+
+```{r}
+
+#Forest plot for Drought studies
+
+#bind all of this into one thing
+plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
+Ecod_ss <- c("2","38","27","1","55","7")
+
+Forestd <- forest(100 * (10^Coef_drought[1:6,]$estimate - 1),
+                  ci.lb = 100 * (10^Coef_drought[1:6,]$ci.lb - 1),
+                  ci.ub = 100 * (10^Coef_drought[1:6,]$ci.ub - 1),
+                  annotate = TRUE,
+                  xlab = "Percent Change in Soil Respiration",
+                  slab = c("Wetland", "Forest", "Shrubland",
+                           "Savanna", "Grassland", "Desert"),
+                  cex = 1,
+                  cex.lab = 2,
+                  cex.main = 1.5,
+                  digits = 1,
+                  lwd = 3
+)
+
+text(-125, rev(seq(6:1)), Ecod_ss, cex = 1)
+op <- par(cex=2, font=2)
+text(-225, 7.2, "Ecosystem")
+text(-120, 7.2, "Sample Size")
+text(150, 7.2, "Mean[95% CI]")
+text(0,8, "Figure 5B. Decreased Precipitation Studies", cex = 1.2)
+
 ```
 
 # Effect of Duration
@@ -447,14 +476,13 @@ Coef_drought <- coef(summary(res_drought))
 ```{r Duration_effect}
 EcoTitle <- guide_legend("Ecosystem Type")
 
-ggplot(data = metadat,
+ggplot(data = metadat[metadat$Manipulation == "Irrigation",],
        aes(Duration, yi)) +
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), na.rm = TRUE) +
   geom_smooth(data = metadat[metadat$Ecosystem_type != "Shrubland",],
               method = lm, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
-    facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
-  ggtitle("Water-Limitation and Study Duration") +
+  ggtitle("Figure 6. Water-Limitation and Study Duration") +
   ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
                      labels = seq(1, max(metadat$Duration) +1, 1),
@@ -549,36 +577,6 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
   geom_point(size = 4, na.rm = TRUE) + 
   facet_grid(.~Manipulation) + geom_label()
 
-
-
-
-#Forest plot for Drought studies
-
-#bind all of this into one thing
-plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
-Ecod_ss <- c("2","38","27","1","55","7")
-
-Forestd <- forest(100 * (10^Coef_drought[1:6,]$estimate - 1),
-                  ci.lb = 100 * (10^Coef_drought[1:6,]$ci.lb - 1),
-                  ci.ub = 100 * (10^Coef_drought[1:6,]$ci.ub - 1),
-                  annotate = TRUE,
-                  xlab = "Percent Change in Soil Respiration",
-                  slab = c("Wetland", "Forest", "Shrubland",
-                           "Savanna", "Grassland", "Desert"),
-                  cex = 1,
-                  cex.lab = 2,
-                  cex.main = 1.5,
-                  digits = 1,
-                  lwd = 3
-)
-
-text(-125, rev(seq(6:1)), Ecod_ss, cex = 1)
-op <- par(cex=2, font=2)
-text(-225, 7.2, "Ecosystem")
-text(-120, 7.2, "Sample Size")
-text(150, 7.2, "Mean[95% CI]")
-text(0,8, "Decreased Precipitation Studies", cex = 1.2)
-    
 ```
 
 
