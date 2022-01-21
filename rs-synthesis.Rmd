@@ -544,7 +544,7 @@ DI_margH
 ```
 \
 \
-The relationship is intuitive, as the stronger the decrease in precipitation, the stronger the decrease in soil respiration.
+The relationship is intuitive, the stronger the decrease in precipitation, the stronger the decrease in soil respiration (Figure 6A). No such relationship was foudn in increased precipitation studies (Figure 6B).
 \
 \
 ```{r}
@@ -614,10 +614,10 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
 
 # Soil content effects
 \
-This is a paragraph about soil organic C and clay. It is very well written.
+The organic C content of soil was highly significant for both manipulation types (p < 0.001 for -P, < 0.01 for +P). The overall effect of soil organic C was positive, meaning that soils with more C had higher respiration rates in response to treatments. However, when effect sizes are plotted against orgnaic C stocks (Figure 7), we found that soils with the highest organic contetn were the most resistant to changes in precipitation. 
 \
 
-```{r Soil_grid_effect, echo = FALSE, warning = FALSE}
+```{r Soil_grid_ocs, echo = FALSE, warning = FALSE}
 
 ggplot(data = metadat,
        aes(sg_ocs/10, yi)) +
@@ -626,7 +626,7 @@ ggplot(data = metadat,
              size = 5, na.rm = TRUE) +
     geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
-  ggtitle("High SOM soils are resistant to precipitation change") +
+  ggtitle("Figure 7.") +
   ylab("ln(Response Ratio)") +
   xlab(expression(~"Organic Carbon Stock"~("0-30 cm")~"kg m"^{"-2"})) + 
   scale_color_viridis_d() +
@@ -634,6 +634,13 @@ ggplot(data = metadat,
   guides(colour = guide_legend(override.aes = list(size=10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 16))
+```
+\
+\
+Clay had low predictor importance for IP, high for DP. The linear regression between effect sizes and clay content supports this result (Figure 8). However, the effect was not significant in the deceased precipitation model, and clay content was not of sufficient importance to include in the increased precipitation model.
+\
+\
+```{r Soil_grid_clay, echo = FALSE, warning = FALSE}
 
 ggplot(data = metadat,
        aes(sg_clay/10, yi)) +
@@ -642,16 +649,13 @@ ggplot(data = metadat,
               size = 5, na.rm = TRUE) +
   geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
-  ggtitle("Clay had low predictor importance for IP, high for DP") + 
+  ggtitle("Figure 8.") + 
   ylab("ln(Response Ratio)") + xlab("%Clay (15-30 cm)") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
   guides(colour = guide_legend(override.aes = list(size=10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 16))
-
- 
-    
 ```
 
 # The End
