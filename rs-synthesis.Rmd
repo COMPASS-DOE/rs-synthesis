@@ -212,7 +212,7 @@ meta_df %>%
   ) -> Estudies_table
 
 EES_table %>%
-  left_join(Estudies_table) %>%
+  left_join(Estudies_table, by = "Ecosystem_type") %>%
   rename(Drought_Studies = Drought,
          Irrigation_Studies = Irrigation) -> EES_table
 ```
@@ -763,6 +763,36 @@ ggplot(
     text = element_text(size = 16)
   )
 ```
+
+# Study table
+
+Summary of the studies included in this meta-analysis:
+
+```{r studies-table}
+read_csv("rs/srdb-studies.csv", 
+                    col_types = "iccccccciccccccicccccciic") %>% 
+  select(Study_number, Authors, Title, Source, PubYear, DOI) ->
+  studies
+
+# Three studies are missing DOIs in the SRDB data
+# Opened an issue to correct: https://github.com/bpbond/srdb/issues/133
+studies[studies$Study_number == 1268, "DOI"] <- "10.1139/x98-145"
+studies[studies$Study_number == 1421, "DOI"] <- "10.2136/sssaj1999.6361848x"
+studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
+# Note that a fourth (7593 Wang) has no DOI at all, according to Scopus 
+
+meta_df %>% 
+  group_by(Study_number) %>% 
+  summarise(Observations = n()) %>% 
+  left_join(studies, by = "Study_number") %>% 
+  mutate(Authors = gsub(",.*$", "", Authors),
+         Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
+  arrange(PubYear) %>% 
+  select(ID = Study_number, Authors, DOI, Observations) %>% 
+  knitr::kable() %>% 
+  kable_paper("striped")
+```
+
 
 # The End
 
