@@ -1,6 +1,7 @@
 
 ---
 title: "rs-synthesis"
+author: "Kendalynn Morris"
 date: "`r Sys.time()`"
 output:
   html_document:
@@ -18,6 +19,10 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 # Load packages
+# raster needs to come before dplyr load so 'select' isn't masked; we use `require`
+# because only need it if the geotiffs are available (and not on GitHub Actions)
+require(raster) 
+# Normal package loads
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -54,15 +59,15 @@ read_csv("rs/Variance and N - Water manipulations.csv", skip = 2,
   select(Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual,	SD_Rh_annual, 
          SD_Rs_growingseason, Percent_control, SM_mean, SM_sd) %>% 
   left_join(srdb, by = c("Study_number", "Record_number")) %>% 
-  mutate(SD_Rs_annual = SD_Rs_annual/378.43, #converting from g per yr to umol per s
-         SD_Rh_annual = SD_Rh_annual/378.43,#this will make all final estimates comparable
+  mutate(SD_Rs_annual = SD_Rs_annual/378.43, #converting from g per yr to µmol per s
+         SD_Rh_annual = SD_Rh_annual/378.43, #this will make all final estimates comparable
          Rs_annual = Rs_annual/378.43,
          Rh_annual = Rh_annual/378.43,
-    Manipulation = case_when(
-    Percent_control < 100 ~ "Drought",
-    Percent_control > 100 ~ "Irrigation",
-    Percent_control == 100 ~ "Control",
-    TRUE ~ NA_character_)) -> dat_rs
+         Manipulation = case_when(
+           Percent_control < 100 ~ "Drought",
+           Percent_control > 100 ~ "Irrigation",
+           Percent_control == 100 ~ "Control",
+           TRUE ~ NA_character_)) -> dat_rs
 ```
 
 
@@ -206,18 +211,28 @@ EES_table %>%
 ```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 # We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
-library(raster)
-clay <- raster("./soilgrids/clay_15-30cm_mean.tif")
-meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")], 
-                        proj4string = CRS("+proj=longlat +datum=WGS84"))
-# Reproject our long-lat points to the UTM used by the geoTIFF
-meta_points <- spTransform(meta_points, projection(clay))
-# ...and extract the values we want, averaging nearest 1000m
-meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
+clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
+ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
+if(file.exists(clayfile) && file.exists(ocsfile)) {
+  clay <- raster(clayfile)
+  meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")], 
+                               proj4string = CRS("+proj=longlat +datum=WGS84"))
+  # Reproject our long-lat points to the UTM used by the geoTIFF
+  meta_points <- spTransform(meta_points, projection(clay))
+  # ...and extract the values we want, averaging nearest 1000m
+  meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
+  
+  # Second file, same operation
+  ocs <- raster(ocsfile)
+  meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
+} else {
+  # geoTIFF files are not present
+  # issue a warning
+  warning("geoTIFF files are not present! Analysis will not be correct")
+  meta_df$sg_clay <- 1
+  meta_df$sg_ocs <- 1
+}
 
-# Second file, same operation
-ocs <- raster("./soilgrids/ocs_0-30cm_mean.tif")
-meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 ```
  \
 The majority of studies lasted only one year (55 of 83) and only 16% (13 of 83) last longer than two years (Figure 2.). 
@@ -283,7 +298,7 @@ ggplot(max_duration) +
                      name = "Study Duration") +
   scale_fill_viridis_d() +
   theme(legend.position = "bottom",
-        text=element_text(22)) +
+        text = element_text(size = 10)) +
   guides(fill=guide_legend("Ecosystem Type"))
 ```
 \
@@ -307,8 +322,7 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
 
 ```
 
-```{r Autocorrelatoin_check, include=FALSE}
-
+```{r Autocorrelation_check, warning = FALSE}
 #if desired separately by the two manipulations
 #two steps using filter(Manipulation) and select(variables for correlation)
 metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% chart.Correlation()
@@ -326,9 +340,9 @@ metadat[,c("Duration","Percent_control","Latitude","sg_clay","sg_ocs")] %>% char
 #rank importance of modifiers for each manipulation, irrigation first
 #Stick this in a separate chunk so no progress bar sullies our output
 mmi_irrigation <- multimodel.inference(TE = "yi", seTE = "vi",
-                     data = metadat[metadat$Manipulation == "Irrigation",],
-                     predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
-                     interaction = TRUE)
+                                       data = metadat[metadat$Manipulation == "Irrigation",],
+                                       predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
+                                       interaction = TRUE)
 
 #here sg_clay is excluded to allow for interactions after seeing that it had very low estimated importance in a none-interactive model
 ```
@@ -351,11 +365,11 @@ While in general soil respiration rates were greater with increased precipitatio
 #rma.mv conducts a meta-analysis multivariate mixed effects model
 #the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 res_irrigation <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
-              method = "ML",
-           data = metadat,
-           slab = Ecosystem_type,
-           subset = Manipulation == "Irrigation")
+                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
+                         method = "ML",
+                         data = metadat,
+                         slab = Ecosystem_type,
+                         subset = Manipulation == "Irrigation")
 summary(res_irrigation)
 profile(res_irrigation)
 forest.rma(res_irrigation)
@@ -363,10 +377,10 @@ funnel(res_irrigation)
 plot(cooks.distance(res_irrigation), type = "o")
 
 #Cook's Distance n/4 for irrigation studies
-    length(metadat[metadat$Manipulation == "Irrigation",]$Manipulation)/4
-    #Looks good!
+length(metadat[metadat$Manipulation == "Irrigation",]$Manipulation)/4
+#Looks good!
 
-  Coef_irrigation <- coef(summary(res_irrigation))
+Coef_irrigation <- coef(summary(res_irrigation))
 ```
 
 ```{r}  
@@ -405,9 +419,9 @@ text(0,7, "Figure 4A. Increased Precipitation Studies")
 ```{r mmi_drought, include=FALSE, cache=TRUE}
 
 mmi_drought <- multimodel.inference(TE = "yi", seTE = "vi",
-                     data = metadat[metadat$Manipulation == "Drought",],
-                     predictors = c("Ecosystem_type", "sg_ocs", "sg_clay", "Percent_control", "Duration"),
-                     interaction = TRUE)
+                                    data = metadat[metadat$Manipulation == "Drought",],
+                                    predictors = c("Ecosystem_type", "sg_ocs", "sg_clay", "Percent_control", "Duration"),
+                                    interaction = TRUE)
 #interactions cannot be calculated because we are using 5 factors
 ```
 
@@ -419,10 +433,10 @@ print(mmi_drought$predictor.importance.plot)
 
 ```{r drought_model, include=FALSE}
 res_drought <- rma.mv(yi, vi, random = ~ 1|Study_number,
-              mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control -1,
-              method = "ML",
-           data = metadat,
-           subset = Manipulation == "Drought")
+                      mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control -1,
+                      method = "ML",
+                      data = metadat,
+                      subset = Manipulation == "Drought")
 summary(res_drought)
 profile(res_drought)
 forest.rma(res_drought)
@@ -430,12 +444,12 @@ funnel(res_drought)
 plot(cooks.distance(res_drought), type = "o")
 
 #Cook's Distance n/4 for drought studies
-    length(metadat[metadat$Manipulation == "Drought",]$Manipulation)/4
-  #One study has a strong influence, 4 years of data for grassland and desert
+length(metadat[metadat$Manipulation == "Drought",]$Manipulation)/4
+#One study has a strong influence, 4 years of data for grassland and desert
 
 Coef_drought <- coef(summary(res_drought))
-
 ```
+
 ## Decreased Precipitation
 \
 \
@@ -507,7 +521,7 @@ ggplot(data = metadat[metadat$Manipulation == "Drought",],
   ggtitle("Figure 5B. -P Studies") +
   ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
-                     labels = seq(1, max(metadat$Duration) +1, 1),
+                     labels = seq(1, max(metadat$Duration) + 1, 1),
                      name = "Study Duration (years)") +
    #facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
       scale_color_viridis_d() +
@@ -515,7 +529,6 @@ ggplot(data = metadat[metadat$Manipulation == "Drought",],
   guides(fill= EcoTitle, colour = EcoTitle) +
   theme(legend.position = "bottom",
         text = element_text(size = 16))
-
 ```
 
 # Effect of Manipulation Intensity
@@ -529,17 +542,17 @@ The intensity of the manipulation was ranked with higher importance for decrease
 library(ggExtra)
 
 Drought_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Drought",],
-       aes(Percent_control, yi)) + 
+                            aes(Percent_control, yi)) + 
   geom_hline(yintercept = 0) +
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
   scale_color_viridis_d() +
- geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
+  geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
   ylab("ln(Response Ratio)") +
   ggtitle("\n Figure 6A. Decreased Precipitation") +
   theme(legend.position = "none", text=element_text(size=18))
 
 DI_margH <- ggMarginal(Drought_Intensity, type = "histogram", 
-                              margins = 'x', size=4)
+                       margins = 'x', size = 4)
 DI_margH
 ```
 \
@@ -549,7 +562,7 @@ The relationship is intuitive, the stronger the decrease in precipitation, the s
 \
 ```{r}
 Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigation",],
-       aes(Percent_control, yi)) + 
+                               aes(Percent_control, yi)) + 
   geom_hline(yintercept = 0) +
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type,  size = 1)) +
   scale_color_viridis_d() + 
@@ -559,7 +572,7 @@ Irrigation_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Irrigatio
   xlab("Percent of Control Precipitation")
 
 II_margH <- ggMarginal(Irrigation_Intensity, type = "histogram", 
-                              margins = 'x', size=4)
+                       margins = 'x', size = 4)
 II_margH
 
 ```
@@ -584,16 +597,14 @@ ggplot(Coef_drought, aes(estimate,
   geom_point(size = 4, na.rm = TRUE)
 
 ggplot(Coef_irrigation, aes(estimate,
-                         row.names(Coef_irrigation),
-                         na.rm = TRUE)) + 
+                            row.names(Coef_irrigation),
+                            na.rm = TRUE)) + 
   geom_vline(xintercept = 0) +
   geom_errorbarh(aes(xmax = estimate + se,
                      xmin = estimate - se,
                      na.rm = TRUE)) +
   geom_point(size = 4, na.rm = TRUE)
 
-
-  
 metadat %>%
   group_by(Manipulation, Ecosystem_type) %>%
   summarise(average = mean(yi, na.rm = TRUE),
@@ -609,7 +620,6 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
                      na.rm = TRUE)) +
   geom_point(size = 4, na.rm = TRUE) + 
   facet_grid(.~Manipulation) + geom_label()
-
 ```
 
 # Soil content effects
@@ -624,14 +634,14 @@ ggplot(data = metadat,
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
              size = 5, na.rm = TRUE) +
-    geom_smooth(method = lm) +
+  geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Figure 7.") +
   ylab("ln(Response Ratio)") +
   xlab(expression(~"Organic Carbon Stock"~("0-30 cm")~"kg m"^{"-2"})) + 
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size=10))) +
+  guides(colour = guide_legend(override.aes = list(size = 10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 16))
 ```
@@ -646,14 +656,14 @@ ggplot(data = metadat,
        aes(sg_clay/10, yi)) +
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
-              size = 5, na.rm = TRUE) +
+             size = 5, na.rm = TRUE) +
   geom_smooth(method = lm) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Figure 8.") + 
   ylab("ln(Response Ratio)") + xlab("%Clay (15-30 cm)") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size=10))) +
+  guides(colour = guide_legend(override.aes = list(size = 10))) +
   theme(legend.position = "bottom",
         text = element_text(size = 16))
 ```
@@ -663,4 +673,3 @@ ggplot(data = metadat,
 ```{r}
 sessionInfo()
 ```
-
