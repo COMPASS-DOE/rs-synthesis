@@ -27,6 +27,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(ggExtra)
 library(kableExtra)
 library(forcats)
 library(DT)
@@ -602,9 +603,6 @@ The intensity of the manipulation was ranked with higher importance for decrease
 \
 \
 ```{r Intensity_effect, echo = FALSE, warning = FALSE}
-
-library(ggExtra)
-
 Drought_Intensity <- ggplot(
   data = metadat[metadat$Manipulation == "Drought", ],
   aes(Percent_control, yi)
