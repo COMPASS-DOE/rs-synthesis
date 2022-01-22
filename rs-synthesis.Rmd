@@ -500,7 +500,7 @@ ggplot(data = metadat[metadat$Manipulation == "Irrigation",],
        aes(Duration, yi)) +
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), na.rm = TRUE) +
-  geom_smooth(method = lm, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
+  geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
   ggtitle("Figure 5A. +P Studies") +
   ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
@@ -517,7 +517,7 @@ ggplot(data = metadat[metadat$Manipulation == "Drought",],
        aes(Duration, yi)) +
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), na.rm = TRUE) +
-  geom_smooth(method = lm, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
+  geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
   ggtitle("Figure 5B. -P Studies") +
   ylab("ln(Response Ratio)") +
   scale_x_continuous(breaks=seq(0,max(metadat$Duration), 1),
@@ -546,7 +546,8 @@ Drought_Intensity <- ggplot(data = metadat[metadat$Manipulation == "Drought",],
   geom_hline(yintercept = 0) +
   geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
   scale_color_viridis_d() +
-  geom_smooth(method = lm) + xlab("Percent of Control Precipitation") +
+  geom_smooth(method = lm, formula = y ~ x) +
+  xlab("Percent of Control Precipitation") +
   ylab("ln(Response Ratio)") +
   ggtitle("\n Figure 6A. Decreased Precipitation") +
   theme(legend.position = "none", text=element_text(size=18))
@@ -634,7 +635,7 @@ ggplot(data = metadat,
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
              size = 5, na.rm = TRUE) +
-  geom_smooth(method = lm) +
+  geom_smooth(method = lm, formula = y ~ x) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Figure 7.") +
   ylab("ln(Response Ratio)") +
@@ -657,7 +658,7 @@ ggplot(data = metadat,
   geom_hline(yintercept = 0)+
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
              size = 5, na.rm = TRUE) +
-  geom_smooth(method = lm) +
+  geom_smooth(method = lm, formula = y ~ x) +
   facet_grid(Manipulation~., labeller = as_labeller(Manip_labs)) +
   ggtitle("Figure 8.") + 
   ylab("ln(Response Ratio)") + xlab("%Clay (15-30 cm)") +
