@@ -223,12 +223,6 @@ EES_table %>%
 Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
 Study sites were distributed across the terrestrial biosphere....DESCRIPTION TO ACCOMPANY STEPH'S FIGURE (Figure 1.)
 \
-
-```{r echo = TRUE}
-length(unique(meta_df[meta_df$Ecosystem_type == "Forest", ]$Study_number))
-length(unique(meta_df[meta_df$Ecosystem_type == "Grassland", ]$Study_number))
-```
-
 ```{r Studies and Effect Sizes Summary Table}
 
 EES_table %>%
@@ -268,11 +262,6 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
 ```
 \
 The majority of studies lasted only one year (55 of 83) and only 16% (13 of 83) last longer than two years (Figure 2.). 
-\
-```{r echo = TRUE}
-
-length(unique(max_duration[max_duration$max > 1, ]$Study_number))
-```
 \
 \
 ```{r diagnostic-plots, warning = FALSE, message = FALSE, echo = FALSE}
@@ -315,14 +304,6 @@ Manip_labs <- c(
   "Irrigation" = "Increased Precip"
 )
 
-
-####
-####
-# TO FIX: Issue with theme not adjusting text size
-####
-####
-
-
 ggplot(max_duration) +
   geom_histogram(aes(max, fill = Ecosystem_type),
     position = "stack", bins = 12,
@@ -361,7 +342,7 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   ggtitle("Figure 3. Distribution of Manipulations")
 ```
 
-```{r Autocorrelation_check, warning = FALSE}
+```{r Autocorrelation_check, include = FALSE}
 # if desired separately by the two manipulations
 # two steps using filter(Manipulation) and select(variables for correlation)
 metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs")] %>% chart.Correlation()
