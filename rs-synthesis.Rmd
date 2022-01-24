@@ -220,7 +220,7 @@ EES_table %>%
 # Results {.tabset .tabset-pills}
 ## Data Summaries  
 \
-Within SRDB there were 82 studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in 34 individual studies each. Seven studies contributed data on shrublands, four on deserts, three on savannas, and one on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 1.  
+Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
 Study sites were distributed across the terrestrial biosphere....DESCRIPTION TO ACCOMPANY STEPH'S FIGURE (Figure 1.)
 \
 
@@ -233,7 +233,7 @@ length(unique(meta_df[meta_df$Ecosystem_type == "Grassland", ]$Study_number))
 
 EES_table %>%
   kable(
-    caption = "Table 1. Studies and Effect Sizes per Ecosystem and Manipulation",
+    caption = "Table 2. Studies and Effect Sizes per Ecosystem and Manipulation",
     col.names = c("Ecosystem", " -P ", " +P ", " -P ", " +P ")
   ) %>%
   add_header_above(c("    " = 1, " Effect Sizes " = 2, " Studies " = 2))
