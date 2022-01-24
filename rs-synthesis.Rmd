@@ -38,6 +38,23 @@ library(dmetar)
 
 theme_set(theme_minimal() + theme(text = element_text(size = 16)))
 
+# 'Pretty n' function to round a numeric value and print that # of digits
+pn <- function(x, n) {
+formatC(round(unlist(x), n), digits = n, format = "f")
+}
+
+# 'Clean p value' function to pretty-print p value(s), specifically
+pclean <- function(x, digits = 3, printP = TRUE) {
+x <- as.vector(x)
+ltstring <- paste0("< 0.", paste(rep("0", digits - 1), collapse = ""), "1")
+valstring <- ifelse(x < 10 ^ -digits, ltstring, pn(x, digits))
+if(printP) {
+paste("P", ifelse(x < 10 ^ -digits, valstring, paste("=", valstring)))
+} else {
+valstring
+}
+}
+
 # Read in SRDB and filter out bad values using the Quality_flag column
 srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
@@ -375,12 +392,6 @@ print(mmi_irrigation$predictor.importance.plot)
 # soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
 ```
 
-## Increased Precipitation
-\
-\
-While in general soil respiration rates were greater with increased precipitation, only desert ecosystems showed a statistically significant increase (p = 0.016, Figure 4A). There was a significant interaction between the duration of studies and the strength and direction of the respiration response in forest and grassland ecosystems (Figure 5A). The initial increase in soil respiration decreased over time, more strongly in forests than in grasslands (NOTE this is what is indicated by the estimates, which are positive for both ecosystems as primary effects but negative for both in the interaction effect, this might be better represnted in a forest plot than the current linear regression).
-\
-\
 ```{r irrigation, include = FALSE}
 
 # rma.mv conducts a meta-analysis multivariate mixed effects model
@@ -406,6 +417,12 @@ length(metadat[metadat$Manipulation == "Irrigation", ]$Manipulation) / 4
 Coef_irrigation <- coef(summary(res_irrigation))
 ```
 
+## Increased Precipitation
+\
+\
+While in general soil respiration rates were greater with increased precipitation, only desert ecosystems showed a statistically significant increase (p = 0.016, Figure 4A). There was a significant interaction between the duration of studies and the strength and direction of the respiration response in forest and grassland ecosystems (Figure 5A). The initial increase in soil respiration decreased over time, more strongly in forests than in grasslands (NOTE this is what is indicated by the estimates, which are positive for both ecosystems as primary effects but negative for both in the interaction effect, this might be better represnted in a forest plot than the current linear regression).
+\
+\
 ```{r}  
 # Forest plot for Irrigation studies
 
