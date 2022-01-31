@@ -593,6 +593,7 @@ metadat %>%
   na.omit() -> metadat_d
 
 #this doesn't work for some mysterious reason
+#generates warning: NAs in study labels.
 # metadat_dmodel <- rma.mv(yi, vi,
 #                       random = ~ 1 | Study_number,
 #                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
