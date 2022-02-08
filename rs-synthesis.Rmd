@@ -417,7 +417,7 @@ metadat %>%
 metadat_imodel <- rma.mv(yi, vi,
   random = ~ 1 | Study_number,
   mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
-  method = "ML",
+  method = "REML",
   data = metadat_i,
   slab = Ecosystem_type,
 )
@@ -497,26 +497,26 @@ print(mmi_drought$predictor.importance.plot)
 ```
 
 ```{r drought_model, include=FALSE}
-res_drought <- rma.mv(yi, vi,
+metadat_dmodel <- rma.mv(yi, vi,
   random = ~ 1 | Study_number,
   mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
-  method = "ML",
+  method = "REML",
   data = metadat,
   subset = Manipulation == "Drought"
 )
-summary(res_drought)
-dp <- tidy(res_drought)
+summary(metadat_dmodel)
+dp <- tidy(metadat_dmodel)
 ocs_dp <- dp$p.value[dp$term == "sg_ocs"]
-profile(res_drought)
-forest.rma(res_drought)
-funnel(res_drought)
-plot(cooks.distance(res_drought), type = "o")
+profile(metadat_dmodel)
+forest.rma(metadat_dmodel)
+funnel(metadat_dmodel)
+plot(cooks.distance(metadat_dmodel), type = "o")
 
 # Cook's Distance n/4 for drought studies
 length(metadat[metadat$Manipulation == "Drought", ]$Manipulation) / 4
 # One study has a strong influence, 4 years of data for grassland and desert
 
-Coef_drought <- coef(summary(res_drought))
+Coef_drought <- coef(summary(metadat_dmodel))
 ```
 
 ```{r -P_forest, fig.cap = " Ecosystem effect for decreased precipitation manipulations."}
@@ -598,17 +598,17 @@ metadat %>%
 
 #this doesn't work for some mysterious reason
 #generates warning: NAs in study labels.
-# metadat_dmodel <- rma.mv(yi, vi,
+# metadat_dmodel2 <- rma.mv(yi, vi,
 #                       random = ~ 1 | Study_number,
 #                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
-#                       method = "ML",
+#                       method = "REML",
 #                       data = metadat_d)
 
 #this works just fine
 metadat_dmodel2 <- rma.mv(yi, vi,
                       random = ~ 1 | Study_number,
                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
-                      method = "ML",
+                      method = "REML",
                       data = metadat,
                       subset = Manipulation == "Drought"
 )
