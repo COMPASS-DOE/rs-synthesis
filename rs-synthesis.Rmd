@@ -365,6 +365,7 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
     col = "black", size = 1,
     bins = 19
   ) +
+  ylab("Count") +  
   scale_fill_viridis_d() +
   geom_vline(xintercept = 100, linetype = "dashed", color = "red")
   #+ ggtitle("Figure 3. Distribution of Manipulations")
@@ -589,14 +590,16 @@ ggplot(
 ```{r Supplement_-P_duration_plot, fig.cap = " Supplmental Figure", message = FALSE}
 #supplemental figure, the -P version of the +P vs Duration Plot
 #create of subset of metadat which only includes our model inputs
-metadat %>%
-  filter(Manipulation == "Drought") %>%
-  select("Study_number", "Ecosystem_type",
-         "Duration", "sg_ocs",
-         "yi", "vi") %>%
-  na.omit() -> metadat_d
 
 #this doesn't work for some mysterious reason
+# metadat %>%
+#   filter(Manipulation == "Drought") %>%
+#   select("Study_number", "Ecosystem_type",
+#          "Duration", "sg_ocs",
+#          "yi", "vi") %>%
+#   na.omit() -> metadat_d
+
+
 #generates warning: NAs in study labels.
 # metadat_dmodel2 <- rma.mv(yi, vi,
 #                       random = ~ 1 | Study_number,
