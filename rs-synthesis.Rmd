@@ -247,27 +247,36 @@ Study sites were distributed across the terrestrial biosphere...description to a
 \
 
 ```{r study-map, echo = FALSE}
+# Extract coordinates and useful columns, remove any duplicate coordinates
 meta_df %>% 
   ungroup() %>% 
   select(Study_number, Latitude, Longitude, Ecosystem_type) %>% 
   distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
 
-world <- map_data("world")
+
+# First map: good for QA/QC. Shows terrain and vegetation and points are colored by ecosystem type
 smap <- get_stamenmap(bbox = c(left = -180, bottom = -50, right = 179.9999, top = 80), zoom = 3)
 
 ggmap(smap) +
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude))
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, color = Ecosystem_type)) +
+  theme_void()
 
 #OR
 
+# Second map: good for spatial distribution. Outline map with points in red
 world <- map_data("world")
 
 ggplot() +
   geom_map(
     data = world, map = world,
     aes(long, lat, map_id = region),
-    color = "lightblue", fill = "lightgrey", size = 0.1) + 
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude))
+    color = "darkgrey", fill = "white", size = 0.1) + 
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude), color = "red", alpha = 0.5) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "lightblue",
+                                colour = "lightblue",
+                                size = 0.5, linetype = "solid"))
+
 ```
 
 
