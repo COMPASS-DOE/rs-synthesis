@@ -25,7 +25,7 @@ jobs:
         run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
       - name: Install rmarkdown and needed packages
         run: |
-          install.packages(c("kableExtra", "bookdown", "broom", "ggmap"))
+          install.packages(c("kableExtra", "bookdown", "broom", "ggmap", "maps", "raster"))
           install.packages(c("rmarkdown", "readr", "dplyr", "tidyr", "ggplot2", "ggExtra", "remotes"))
           install.packages(c("forcats", "metafor", "DT", "PerformanceAnalytics", "MuMIn"))
           remotes::install_github("MathiasHarrer/dmetar")
