@@ -1,5 +1,5 @@
 
-#a bit of scratch code which does not function seperately of rs-synthesis.Rmd
+#a bit of scratch code which does not function separately of rs-synthesis.Rmd
 #Exploring the relationship between effect size and soil moisture
 
 ggplot(metadat, aes(SM_mean, yi)) +

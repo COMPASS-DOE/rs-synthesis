@@ -570,8 +570,7 @@ metadat_i %>%
 #plot using linear predictions from model
 ggplot(
   data = metadat_ipreds,
-  aes(Duration, pred)
-) +
+  aes(Duration, 100 * ((10^pred) - 1))) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), na.rm = TRUE) +
   geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
@@ -585,6 +584,80 @@ ggplot(
   scale_fill_viridis_d() +
   guides(fill = EcoTitle, colour = EcoTitle) +
   theme(legend.position = "none")
+
+```
+```{r TEMPEST, fig.cap = "Prediction of TEMPEST treatment effects on soil respiration"}
+metadat %>%
+  filter(Manipulation == "Irrigation") %>%
+  select("Study_number", "Ecosystem_type",
+         "Duration", "Percent_control", "sg_ocs", "yi",
+         "vi") %>%
+  na.omit() -> metadat_i2
+
+# rma.mv conducts a meta-analysis multivariate mixed effects model
+# the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
+metadat_imodel2 <- rma.mv(yi, vi,
+                         random = ~ 1 | Study_number,
+                         mods = ~ Ecosystem_type * Duration + Percent_control + sg_ocs - 1,
+                         method = "REML",
+                         data = metadat_i2,
+                         slab = Ecosystem_type,
+)
+summary(metadat_imodel2)
+ip2 <- tidy(metadat_imodel2)
+
+#extract values for predicting TEMPEST response
+forest_est <- ip2$estimate[ip2$term == "Ecosystem_typeForest"]
+ocs_est <- ip2$estimate[ip2$term == "sg_ocs"]
+pc_est <- ip2$estimate[ip2$term == "Percent_control"]
+dur_est <- ip2$estimate[ip2$term == "Duration"]
+fordur_est <- ip2$estimate[ip2$term == "Ecosystem_typeForest:Duration"]
+ipreds2 <- predict.rma(metadat_imodel2)
+
+#base effect for one flood event which is ~+16% of MAP
+base1 <- forest_est + (ocs_est * 45) + (pc_est * 116)
+#base effect for two flood events
+base2 <- forest_est + (ocs_est * 45) + (pc_est * 132)
+#base effect for three flood events
+base3 <- forest_est + (ocs_est * 45) + (pc_est * 148)
+
+#relative effect of duration in forests
+Fdur <- dur_est + fordur_est
+
+
+#propagating errors
+#come back to this
+forest_se <- ip2$std.error[ip2$term == "Ecosystem_typeForest"]
+ocs_se <- ip2$std.error[ip2$term == "sg_ocs"]
+pc_se <- ip2$std.error[ip2$term == "Percent_control"]
+dur_se <- ip2$std.error[ip2$term == "Duration"]
+fordur_se <- ip2$std.error[ip2$term == "Ecosystem_typeForest:Duration"]
+
+yr <- c(0,1,2,3)
+base_est <- c(base1, base1, base1, base1,
+              base2, base2, base2, base2,
+              base3, base3, base3, base3)
+Flood_number <- c(1,1,1,1,
+                 2,2,2,2,
+                 3,3,3,3)
+
+temp_est <- data.frame(yr, base_est, Flood_number, Fdur)
+temp_est$final_est <- temp_est$base_est + (temp_est$Fdur * temp_est$yr)
+
+ggplot(
+  data = temp_est,
+  aes(yr, 100 * ((10^final_est) - 1),
+      group = as.factor(Flood_number))) +
+  geom_hline(yintercept = 0) +
+  geom_point(aes(fill = as.factor(Flood_number),
+                 colour = as.factor(Flood_number))) +
+  geom_line() +
+  ylab("%Change Soil Respiration") +
+  scale_color_viridis_d() +
+  scale_fill_viridis_d() +
+  theme(legend.position = "bottom")
+
+
 ```
 ## Decreased Precipitation
 ```{r Supplement_-P_duration_plot, fig.cap = " Supplmental Figure", message = FALSE}
@@ -605,7 +678,8 @@ ggplot(
 #                       random = ~ 1 | Study_number,
 #                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
 #                       method = "REML",
-#                       data = metadat_d)
+#                       data = metadat_d,
+#new line **********    slab = Ecosystem_type,)
 
 #this works just fine
 metadat_dmodel2 <- rma.mv(yi, vi,
@@ -613,7 +687,8 @@ metadat_dmodel2 <- rma.mv(yi, vi,
                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
                       method = "REML",
                       data = metadat,
-                      subset = Manipulation == "Drought"
+                      subset = Manipulation == "Drought",
+                      slab = Ecosystem_type,
 )
 
 d2preds <- predict.rma(metadat_dmodel2)
@@ -764,7 +839,7 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
 
 ggplot(
   data = metadat,
-  aes(sg_ocs / 10, yi)
+  aes(sg_ocs / 10, yi) #convert from t/ha (as stored in soil grids) to kg/m^2
 ) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
@@ -793,7 +868,7 @@ The organic C content of soil was highly significant for both manipulation types
 
 ggplot(
   data = metadat,
-  aes(sg_clay / 10, yi)
+  aes(sg_clay / 10, yi) #convert from g/kg (as stored in soil grids) to g/100 g
 ) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
