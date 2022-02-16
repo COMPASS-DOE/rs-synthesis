@@ -498,13 +498,22 @@ print(mmi_drought$predictor.importance.plot)
 ```
 
 ```{r drought_model, include=FALSE}
+metadat %>%
+  filter(Manipulation == "Drought") %>%
+  select("Study_number", "Ecosystem_type",
+         "Duration", "Percent_control",
+         "sg_clay", "sg_ocs",
+         "yi", "vi") %>%
+  na.omit() -> metadat_d
+
 metadat_dmodel <- rma.mv(yi, vi,
   random = ~ 1 | Study_number,
   mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
   method = "REML",
-  data = metadat,
-  subset = Manipulation == "Drought"
+  data = metadat_d,
+  slab = Ecosystem_type,
 )
+
 summary(metadat_dmodel)
 dp <- tidy(metadat_dmodel)
 ocs_dp <- dp$p.value[dp$term == "sg_ocs"]
@@ -512,6 +521,12 @@ profile(metadat_dmodel)
 forest.rma(metadat_dmodel)
 funnel(metadat_dmodel)
 plot(cooks.distance(metadat_dmodel), type = "o")
+
+dpreds <- predict.rma(metadat_dmodel)
+
+#combine columns into one dataframe
+metadat_d %>%
+  bind_cols(as.data.frame(dpreds)) -> metadat_dpreds
 
 # Cook's Distance n/4 for drought studies
 length(metadat[metadat$Manipulation == "Drought", ]$Manipulation) / 4
@@ -570,11 +585,11 @@ metadat_i %>%
 #plot using linear predictions from model
 ggplot(
   data = metadat_ipreds,
-  aes(Duration, 100 * ((10^pred) - 1))) +
+  aes(Duration, pred)) +
   geom_hline(yintercept = 0) +
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), na.rm = TRUE) +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = 1/vi), na.rm = TRUE) +
   geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
-  ylab("ln(Response Ratio)") +
+  ylab("predicted ln(Response Ratio)") +
   scale_x_continuous(
   breaks = seq(0, max(metadat$Duration), 1),
   labels = seq(1, max(metadat$Duration) + 1, 1),
@@ -605,6 +620,11 @@ metadat_imodel2 <- rma.mv(yi, vi,
 )
 summary(metadat_imodel2)
 ip2 <- tidy(metadat_imodel2)
+ipreds2 <- predict.rma(metadat_imodel2)
+
+#combine columns into one dataframe
+metadat_i2 %>%
+  bind_cols(as.data.frame(ipreds2)) -> metadat_ipreds2
 
 #extract values for predicting TEMPEST response
 forest_est <- ip2$estimate[ip2$term == "Ecosystem_typeForest"]
@@ -633,6 +653,8 @@ pc_se <- ip2$std.error[ip2$term == "Percent_control"]
 dur_se <- ip2$std.error[ip2$term == "Duration"]
 fordur_se <- ip2$std.error[ip2$term == "Ecosystem_typeForest:Duration"]
 
+
+#build the dataset
 yr <- c(0,1,2,3)
 base_est <- c(base1, base1, base1, base1,
               base2, base2, base2, base2,
@@ -640,21 +662,24 @@ base_est <- c(base1, base1, base1, base1,
 Flood_number <- c(1,1,1,1,
                  2,2,2,2,
                  3,3,3,3)
-
 temp_est <- data.frame(yr, base_est, Flood_number, Fdur)
+
+#calculate the effect size over duration
 temp_est$final_est <- temp_est$base_est + (temp_est$Fdur * temp_est$yr)
 
+#graph it
 ggplot(
   data = temp_est,
-  aes(yr, 100 * ((10^final_est) - 1),
+  aes(yr+1, 100 * ((10^final_est) - 1),
       group = as.factor(Flood_number))) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = as.factor(Flood_number),
                  colour = as.factor(Flood_number))) +
-  geom_line() +
+  geom_line(aes(fill = as.factor(Flood_number),
+                 colour = as.factor(Flood_number))) +
   ylab("%Change Soil Respiration") +
-  scale_color_viridis_d() +
-  scale_fill_viridis_d() +
+  scale_color_brewer() +
+  scale_fill_brewer() +
   theme(legend.position = "bottom")
 
 
@@ -662,32 +687,12 @@ ggplot(
 ## Decreased Precipitation
 ```{r Supplement_-P_duration_plot, fig.cap = " Supplmental Figure", message = FALSE}
 #supplemental figure, the -P version of the +P vs Duration Plot
-#create of subset of metadat which only includes our model inputs
-
-#this doesn't work for some mysterious reason
-# metadat %>%
-#   filter(Manipulation == "Drought") %>%
-#   select("Study_number", "Ecosystem_type",
-#          "Duration", "sg_ocs",
-#          "yi", "vi") %>%
-#   na.omit() -> metadat_d
-
-
-#generates warning: NAs in study labels.
-# metadat_dmodel2 <- rma.mv(yi, vi,
-#                       random = ~ 1 | Study_number,
-#                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
-#                       method = "REML",
-#                       data = metadat_d,
-#new line **********    slab = Ecosystem_type,)
-
-#this works just fine
+#run a secondary rma.mv 
 metadat_dmodel2 <- rma.mv(yi, vi,
                       random = ~ 1 | Study_number,
                       mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
                       method = "REML",
-                      data = metadat,
-                      subset = Manipulation == "Drought",
+                      data = metadat_d,
                       slab = Ecosystem_type,
 )
 
@@ -705,7 +710,7 @@ ggplot(
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = 1/vi), na.rm = TRUE) +
   geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
-  ylab("ln(Response Ratio)") +
+  ylab("predicted ln(Response Ratio)") +
   scale_x_continuous(
   breaks = seq(0, max(metadat$Duration), 1),
   labels = seq(1, max(metadat$Duration) + 1, 1),
@@ -727,15 +732,15 @@ The duration of manipulations strongly affected the direction and magnitude of r
 ## Decreased Precipitation
 ```{r Intensity_effect_-P, fig.cap = " Linear regression of manipulation intensity and effect size for decreased precipitaiton studies.", message = FALSE}
 Drought_Intensity <- ggplot(
-  data = metadat[metadat$Manipulation == "Drought", ],
-  aes(Percent_control, yi)
+  data = metadat_dpreds,
+  aes(Percent_control, pred)
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = vi/1)) +
   scale_color_viridis_d() +
   geom_smooth(method = lm, formula = y ~ x) +
   xlab("Percent of Control Precipitation") +
-  ylab("ln(Response Ratio)") +
+  ylab("predicted ln(Response Ratio)") +
   #ggtitle("\n Figure 6A. Decreased Precipitation") +
   theme(legend.position = "none")
 
@@ -748,13 +753,14 @@ DI_margH
 ## Increased Precipitation
 ```{r Intensity_effect_+P, fig.cap = " Linear regression of manipulation intensity and effect size for increased precipitaiton studies.", message = FALSE}
 Irrigation_Intensity <- ggplot(
-  data = metadat[metadat$Manipulation == "Irrigation", ],
-  aes(Percent_control, yi)
+  data = metadat_ipreds2,
+  aes(Percent_control, pred)
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = 1)) +
+  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = vi/1)) +
   scale_color_viridis_d() +
-  ylab("ln(Response Ratio)") +
+  geom_smooth(method = lm, formula = y ~ x) +
+  ylab("predicted ln(Response Ratio)") +
  # ggtitle("\n Figure 6B. Increased Precipitation") +
   theme(legend.position = "none") +
   xlab("Percent of Control Precipitation")
