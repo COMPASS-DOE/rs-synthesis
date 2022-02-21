@@ -40,6 +40,10 @@ library(dmetar)
 library(broom)
 library(bookdown)
 library(ggmap)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggspatial)
+library(sf)
 
 theme_set(theme_minimal() + theme(text = element_text(size = 16)))
 
@@ -253,29 +257,20 @@ meta_df %>%
   select(Study_number, Latitude, Longitude, Ecosystem_type) %>% 
   distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
 
+world <- ne_countries(scale = "medium", returnclass = "sf")
 
-# First map: good for QA/QC. Shows terrain and vegetation and points are colored by ecosystem type
-smap <- get_stamenmap(bbox = c(left = -180, bottom = -50, right = 179.9999, top = 80), zoom = 3)
-
-ggmap(smap) +
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, color = Ecosystem_type)) +
-  theme_void()
-
-#OR
-
-# Second map: good for spatial distribution. Outline map with points in red
-world <- map_data("world")
-
-ggplot() +
-  geom_map(
-    data = world, map = world,
-    aes(long, lat, map_id = region),
-    color = "darkgrey", fill = "white", size = 0.1) + 
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude), color = "red", alpha = 0.5) +
-  theme_void() +
-  theme(panel.background = element_rect(fill = "lightblue",
-                                colour = "lightblue",
-                                size = 0.5, linetype = "solid"))
+ggplot(data = world) +
+     geom_sf(lwd = 0.1, fill = "white") +
+  coord_sf(expand = FALSE) +
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, color = Ecosystem_type), size = 2) +
+  theme(panel.grid.major = element_blank(),
+        panel.background = element_rect(fill = "lightskyblue2"),
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+    labs(color = "Ecosystem Type") +
+  scale_color_viridis_d()
 
 ```
 
