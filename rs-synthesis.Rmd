@@ -39,6 +39,11 @@ library(MuMIn)
 library(dmetar)
 library(broom)
 library(bookdown)
+library(ggmap)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggspatial)
+library(sf)
 
 theme_set(theme_minimal() + theme(text = element_text(size = 16)))
 
@@ -244,6 +249,32 @@ EES_table %>%
 Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2. Manipulated precipitation ranged from `r min(meta_df$Percent_control)`% to `r signif(max(meta_df$Percent_control), 3)`% of MAP, with a mean of `r signif(mean(meta_df[meta_df$Manipulation == "Irrigation",]$Percent_control), 3)`% of MAP for increased precipitation studies, and `r signif(mean(meta_df[meta_df$Manipulation == "Drought",]$Percent_control), 2)`% of MAP for decreased precipitation studies.  
 Study sites were distributed across the terrestrial biosphere...description to accompany Steph's figure (Placeholder).  
 \
+
+```{r study-map, echo = FALSE}
+# Extract coordinates and useful columns, remove any duplicate coordinates
+meta_df %>% 
+  ungroup() %>% 
+  select(Study_number, Latitude, Longitude, Ecosystem_type) %>% 
+  distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+ggplot(data = world) +
+     geom_sf(lwd = 0.1, fill = "white") +
+  coord_sf(expand = FALSE) +
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, color = Ecosystem_type), size = 2) +
+  theme(panel.grid.major = element_blank(),
+        panel.background = element_rect(fill = "lightskyblue2"),
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+    labs(color = "Ecosystem Type") +
+  scale_color_viridis_d()
+
+```
+
+
 ```{r Studies_EffectSizes, echo = FALSE}
 EES_table %>%
   kable(
