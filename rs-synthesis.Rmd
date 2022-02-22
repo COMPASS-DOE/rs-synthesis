@@ -49,16 +49,20 @@ theme_set(theme_minimal() + theme(text = element_text(size = 16)))
 
 # 'Pretty n' function to round a numeric value and print that # of digits
 pn <- function(x, n) {
-  formatC(round(unlist(x), n), digits = n, format = "f")
+  formatC(round(unlist(x), n),
+          digits = n, format = "f")
 }
 
 # 'Clean p value' function to pretty-print p value(s), specifically
 pclean <- function(x, digits = 3, printP = TRUE) {
   x <- as.vector(x)
-  ltstring <- paste0("< 0.", paste(rep("0", digits - 1), collapse = ""), "1")
-  valstring <- ifelse(x < 10 ^ -digits, ltstring, pn(x, digits))
+  ltstring <- paste0("< 0.", paste(rep("0", digits - 1), 
+                                   collapse = ""), "1")
+  valstring <- ifelse(x < 10 ^ -digits, 
+                      ltstring, pn(x, digits))
   if(printP) {
-    paste("P", ifelse(x < 10 ^ -digits, valstring, paste("=", valstring)))
+    paste("P", ifelse(x < 10 ^ -digits, 
+                      valstring, paste("=", valstring)))
   } else {
     valstring
   }
@@ -203,44 +207,11 @@ meta_df$Ecosystem_type <- factor(meta_df$Ecosystem_type,
                                  )
 )
 
-# and set-up dataframe for graphing down the line
+# and set-up a max duration dataframe for graphing down the line
 max_duration <- meta_df %>%
   group_by(Study_number, Manipulation, Ecosystem_type) %>%
   summarise(max = max(Duration, na.rm = TRUE))
 
-# #69 studies missing clay
-# May be time to delete this...
-# meta_df %>%
-#   group_by(Soil_clay) %>%
-#   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
-#   arrange(desc(n_studies)) %>%
-#   select(Soil_clay, n_studies) -> Clay_summary
-
-# How many effect unique studies and effect sizes for each ecosystem?
-meta_df %>%
-  group_by(Manipulation, Ecosystem_type) %>%
-  count() %>%
-  pivot_wider(
-    names_from = Manipulation,
-    values_from = n
-  ) -> EES_table
-
-EES_table %>%
-  rename(Drought_EffectSizes = Drought,
-         Irrigation_EffectSizes = Irrigation) -> EES_table
-
-meta_df %>%
-  group_by(Manipulation, Ecosystem_type) %>%
-  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
-  pivot_wider(
-    names_from = Manipulation,
-    values_from = n_studies
-  ) -> Estudies_table
-
-EES_table %>%
-  left_join(Estudies_table, by = "Ecosystem_type") %>%
-  rename(Drought_Studies = Drought,
-         Irrigation_Studies = Irrigation) -> EES_table
 ```
 
 # Results
@@ -274,8 +245,58 @@ ggplot(data = world) +
 
 ```
 
+# Study table
+
+Summary of the studies included in this meta-analysis:
+
+```{r studies-table}
+read_csv("rs/srdb-studies.csv", 
+         col_types = "iccccccciccccccicccccciic") %>% 
+  select(Study_number, Authors, Title, Source, PubYear, DOI) ->
+  studies
+
+# Three studies are missing DOIs in the SRDB data
+# Opened an issue to correct: https://github.com/bpbond/srdb/issues/133
+studies[studies$Study_number == 1268, "DOI"] <- "10.1139/x98-145"
+studies[studies$Study_number == 1421, "DOI"] <- "10.2136/sssaj1999.6361848x"
+studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
+# Note that a fourth (7593 Wang) has no DOI at all, according to Scopus 
+
+meta_df %>% 
+  group_by(Study_number, Ecosystem_type, Manipulation) %>% 
+  summarise(Observations = n()) %>% 
+  left_join(studies, by = "Study_number") %>% 
+  mutate(Authors = gsub(",.*$", "", Authors),
+         Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
+  arrange(PubYear) %>% 
+  select(ID = Study_number, Authors, DOI, Observations, Ecosystem_type, Manipulation) %>% 
+  knitr::kable(caption = "  Table 1. Studies included in this dataset.") %>% 
+  kable_paper("striped")
+```
 
 ```{r Studies_EffectSizes, echo = FALSE}
+#By Ecosystem and Manipulation
+#summarize the number of effect size pairs
+#and the number of studies they came from
+meta_df %>%
+  group_by(Manipulation, Ecosystem_type) %>%
+  count() %>%
+  pivot_wider(
+    names_from = Manipulation,
+    values_from = n
+  ) -> EffectSizePairs
+
+meta_df %>%
+  group_by(Manipulation, Ecosystem_type) %>%
+  summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
+  pivot_wider(
+    names_from = Manipulation,
+    values_from = n_studies
+  ) -> Ecosystem_studies
+
+EffectSizePairs %>%
+  left_join(Ecosystem_studies, by = "Ecosystem_type") -> EES_table
+
 EES_table %>%
   kable(
     caption = "  Table 2. Studies and Effect Sizes per Ecosystem and Manipulation",
@@ -312,6 +333,8 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
 }
 ```
 
+# Summary Plots
+
 ```{r diagnostic-plots, fig.cap = "Few studies lasting >1 year", warning = FALSE, message = FALSE, echo = FALSE}
 
 # compute effect sizes using log response ratio
@@ -330,21 +353,12 @@ VarLabs <- c(
   "Rs_growingseason" = "Growing Season"
 )
 
-# How many effect size values for each manipulation for each ecosystem?
-metadat %>%
-  group_by(Manipulation, Ecosystem_type) %>%
-  count() %>%
-  pivot_wider(
-    names_from = Manipulation,
-    values_from = n
-  ) -> Ecosystem_table
-
-# histogram of study duration among ecosystem types
 Manip_labs <- c(
   "Drought" = "-P",
   "Irrigation" = "+P"
 )
 
+# histogram of study duration among ecosystem types
 ggplot(max_duration) +
   geom_histogram(aes(max, fill = Manipulation),
                  position = "stack", bins = 13,
@@ -359,13 +373,85 @@ ggplot(max_duration) +
   ) +
   theme(legend.position = "bottom")
 ```
-```{r var_dist, include = FALSE}
+```{r var_dist, echo = FALSE}
 ggplot(metadat, aes(yi, color = Manipulation)) +
   xlab("ln(Response Ratio)") +
   geom_density(na.rm = TRUE) +
   facet_grid(Variable~., scales = "free", labeller = labeller(Variable = VarLabs)) +
   ggtitle("Distribution of Data")
 
+```
+
+```{r dependentVars, echo = FALSE}
+#irrigation studies
+metadat_imodel_var <- rma.mv(yi, vi,
+                             random = ~ 1 | Study_number,
+                             mods = ~ Variable - 1,
+                             method = "REML",
+                             data = metadat[metadat$Manipulation == "Irrigation",],
+                             slab = Variable,
+)
+summary(metadat_imodel_var)
+Coef_ivar <- coef(summary(metadat_imodel_var))
+
+#plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Variable)
+Vari_ss <- c("6", "77", "61")
+Forestivar <- forest(Coef_ivar$estimate,
+                  ci.lb = Coef_ivar$ci.lb,
+                  ci.ub = Coef_ivar$ci.ub,
+                  annotate = TRUE,
+                  slab = c(
+                    "Rh_annual", "Rs_annual",
+                    "Rs_growingseason"
+                  ),
+                  xlim = c(-0.18, 0.5),
+                  cex = 1,
+                  cex.lab = 1,
+                  cex.main = 2,
+                  digits = 2,
+                  lwd = 2
+)
+text(0.05, rev(seq(3:1)), Vari_ss)
+op <- par(cex=1, font=2)
+text(-.089, 4.2, "Dependent Variable")
+text(.05, 4.2, "Sample Size")
+text(.42, 4.2, "ln(RR) [95% CI]")
+
+#drought studies
+metadat_dmodel_var <- rma.mv(yi, vi,
+                         random = ~ 1 | Study_number,
+                         mods = ~ Variable - 1,
+                         method = "REML",
+                         data = metadat[metadat$Manipulation == "Drought",],
+                         slab = Variable,
+)
+summary(metadat_dmodel_var)
+Coef_dvar <- coef(summary(metadat_dmodel_var))
+
+#plyr::count(metadat[metadat$Manipulation == "Drought",]$Variable)
+Vard_ss <- c("11", "82", "37")
+Forestdvar <- forest(Coef_dvar$estimate,
+                     ci.lb = Coef_dvar$ci.lb,
+                     ci.ub = Coef_dvar$ci.ub,
+                     annotate = TRUE,
+                     slab = c(
+                       "Rh_annual", "Rs_annual",
+                       "Rs_growingseason"
+                     ),
+                     cex = 1,
+                     cex.lab = 1,
+                     cex.main = 2,
+                     digits = 2,
+                     lwd = 2
+)
+text(-.28, rev(seq(3:1)), Vard_ss)
+op <- par(cex=1, font=2)
+text(-.47, 4.2, "Dependent Variable")
+text(-.28, 4.2, "Sample Size")
+text(.2, 4.2, "ln(RR) [95% CI]")
+```
+
+```{r in_textVals, include = FALSE}
 #studies lasting only one year
 ss <- length(unique(max_duration[max_duration$max == "0",]$Study_number))
 #studies longer than two years
@@ -374,14 +460,7 @@ ls <- length(unique(max_duration[max_duration$max > "1",]$Study_number))
 all <- length(unique(meta_df$Study_number))
 
 ```
-\
-\
-The majority of studies lasted only one year (`r ss` of `r all`) and only `r as.numeric(pn(ls/all, 2))*100`% (`r ls` of `r all`) were longer than two years (Figure \autoref(fig:diagnostic-plots)).  
-\
-\
-Manipulation intensity (how much a study increased or decreased precipitation) was not evenly distributed among ecosystems (Figure \autoref(fig:dist_manip)).  
-\
-\
+
 ```{r dist_manip, fig.cap = " Distribution of manipulations, dashed red line indicates break between -P and +P treatments", warning = FALSE, message = FALSE, echo = FALSE}
 
 # plot distribution of percent_control among different Variable types
@@ -400,6 +479,7 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   scale_fill_viridis_d(name = "Ecosystem") +
   theme(legend.position = "bottom")
 ```
+
 ```{r alt_dist_manip}
 #alt plot
 ggplot(metadat, aes(Percent_control)) +
@@ -415,16 +495,18 @@ ggplot(metadat, aes(Percent_control)) +
              labeller = as_labeller(Manip_labs)) +
   ylab("Count")  
 ```
-
+\
+\
+The majority of studies lasted only one year (`r ss` of `r all`) and only `r as.numeric(pn(ls/all, 2))*100`% (`r ls` of `r all`) were longer than two years (Figure \autoref(fig:diagnostic-plots)).  
+\
+\
+Manipulation intensity (how much a study increased or decreased precipitation) was not evenly distributed among ecosystems (Figure \autoref(fig:dist_manip)).  
+\
+\
 ```{r Autocorrelation_check, include = FALSE}
 # if desired separately by the two manipulations
 # two steps using filter(Manipulation) and select(variables for correlation)
 metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs")] %>% chart.Correlation()
-
-# this should be noted in the methods and possibly discussion
-# could this be a result of the types of studies that are done?
-# Ex: If you have a small MAP it's easier to get a large percent_control value
-# and this might be related to inherently low ocs or clay
 ```
 
 # Ecosystem Effects    
@@ -921,7 +1003,7 @@ The organic C content of soil was highly significant for both manipulation types
 \
 \
 
-```{r Soil_grid_clay, fig.cap = " Clay content was not a strong predictor of soil respiration resonse to precipitation change.", echo = FALSE, warning = FALSE, message = FALSE}
+```{r Soil_grid_clay, fig.cap = " Clay content was not a strong predictor of soil respiration resonse to precipitation change.", echo = FALSE}
 
 ggplot(
   data = metadat_dpreds,
@@ -956,38 +1038,6 @@ ggplot(
 Clay had low predictor importance for +P, high for -P. The linear regression between effect sizes and clay content supports this result (Figure \autoref(fig:Soil_grid_clay)). However, the effect was not significant in the deceased precipitation model, and clay content was not of sufficient importance to include in the increased precipitation model.
 \
 \
-
-# Study table
-
-Summary of the studies included in this meta-analysis:
-
-```{r studies-table}
-read_csv("rs/srdb-studies.csv", 
-         col_types = "iccccccciccccccicccccciic") %>% 
-  select(Study_number, Authors, Title, Source, PubYear, DOI) ->
-  studies
-
-# Three studies are missing DOIs in the SRDB data
-# Opened an issue to correct: https://github.com/bpbond/srdb/issues/133
-studies[studies$Study_number == 1268, "DOI"] <- "10.1139/x98-145"
-studies[studies$Study_number == 1421, "DOI"] <- "10.2136/sssaj1999.6361848x"
-studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
-# Note that a fourth (7593 Wang) has no DOI at all, according to Scopus 
-
-meta_df %>% 
-  group_by(Study_number, Ecosystem_type, Manipulation) %>% 
-  summarise(Observations = n()) %>% 
-  left_join(studies, by = "Study_number") %>% 
-  mutate(Authors = gsub(",.*$", "", Authors),
-         Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
-  arrange(PubYear) %>% 
-  select(ID = Study_number, Authors, DOI, Observations, Ecosystem_type, Manipulation) %>% 
-  knitr::kable() %>% 
-  kable_paper("striped")
-```
-
-
-
 # The End
 
 ```{r end}
