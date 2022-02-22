@@ -310,26 +310,23 @@ metadat %>%
 
 # histogram of study duration among ecosystem types
 Manip_labs <- c(
-  "Drought" = "Decreased Precip",
-  "Irrigation" = "Increased Precip"
+  "Drought" = "-P",
+  "Irrigation" = "+P"
 )
 
 ggplot(max_duration) +
-  geom_histogram(aes(max, fill = Ecosystem_type),
-                 position = "stack", bins = 12,
+  geom_histogram(aes(max, fill = Manipulation),
+                 position = "stack", bins = 13,
                  col = "black", size = 0.5
   ) +
+  scale_fill_discrete(label = Manip_labs) +
   ylab("Count") +
-  facet_grid(Manipulation ~ ., labeller = as_labeller(Manip_labs)) +
-  #ggtitle("Figure 2. Few Studies Lasting > 1 yr") +
-  scale_x_continuous(
+    scale_x_continuous(
     breaks = seq(0, max(max_duration$max), 1),
     labels = seq(1, max(max_duration$max) + 1, 1),
-    name = "Study Duration"
+    name = "Study Duration (yrs)"
   ) +
-  scale_fill_viridis_d() +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend("Ecosystem Type"))
+  theme(legend.position = "bottom")
 ```
 ```{r var_dist, include = FALSE}
 ggplot(metadat, aes(yi, color = Manipulation)) +
@@ -362,13 +359,30 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   geom_histogram(
     na.rm = TRUE,
     position = "stack",
-    col = "black", size = 1,
-    bins = 19
+    col = "black", size = 0.5,
+    bins = 10
   ) +
+  facet_grid(. ~ Manipulation,
+             scales = "free",
+             labeller = as_labeller(Manip_labs)) +
   ylab("Count") +  
-  scale_fill_viridis_d() +
-  geom_vline(xintercept = 100, linetype = "dashed", color = "red")
-#+ ggtitle("Figure 3. Distribution of Manipulations")
+  scale_fill_viridis_d(name = "Ecosystem") +
+  theme(legend.position = "bottom")
+```
+```{r alt_dist_manip}
+#alt plot
+ggplot(metadat, aes(Percent_control)) +
+  xlab("Percent of MAP") +
+  geom_histogram(
+    na.rm = TRUE,
+    position = "stack",
+    col = "black", size = 0.5,
+    bins = 10
+  ) +
+  facet_grid(. ~ Manipulation,
+             scales = "free",
+             labeller = as_labeller(Manip_labs)) +
+  ylab("Count")  
 ```
 
 ```{r Autocorrelation_check, include = FALSE}
@@ -467,10 +481,10 @@ Foresti <- forest(100 * (10^Coef_irrigation[1:5, ]$estimate - 1),
 text(-80, rev(seq(5:1)), Ecoi_ss)
 # Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
 op <- par(cex = 1, font = 2)
-text(-200, 6.2, "Ecosystem")
-text(-60, 6.2, "Sample Size")
-text(350, 6.2, "Mean[95% CI]")
-#text(0, 7, "Figure 4A. Increased Precipitation Studies")
+text(-220, 6.25, "Ecosystem")
+text(-80, 6.25, "Sample Size")
+text(350, 6.25, "Mean [95% CI]")
+
 ```
 \
 \
@@ -561,10 +575,10 @@ Forestd <- forest(100 * (10^Coef_drought[1:6, ]$estimate - 1),
 
 text(-125, rev(seq(6:1)), Ecod_ss)
 op <- par(cex = 1, font = 2)
-text(-225, 7.2, "Ecosystem")
-text(-120, 7.2, "Sample Size")
-text(150, 7.2, "Mean[95% CI]")
-#text(0, 8, "Figure 4B. Decreased Precipitation Studies")
+text(-235, 7.3, "Ecosystem")
+text(-120, 7.3, "Sample Size")
+text(160, 7.3, "Mean [95% CI]")
+
 ```
 
 \
@@ -587,18 +601,18 @@ ggplot(
   data = metadat_ipreds,
   aes(Duration, pred)) +
   geom_hline(yintercept = 0) +
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = 1/vi), na.rm = TRUE) +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type), size = 3) +
   geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
-  ylab("predicted ln(Response Ratio)") +
+  ylab("predicted ln(RR)") +
   scale_x_continuous(
     breaks = seq(0, max(metadat$Duration), 1),
     labels = seq(1, max(metadat$Duration) + 1, 1),
-    name = "Study Duration (years)"
+    name = "Study Duration (yrs)"
   ) +
-  scale_color_viridis_d() +
-  scale_fill_viridis_d() +
-  guides(fill = EcoTitle, colour = EcoTitle) +
-  theme(legend.position = "none")
+  scale_color_viridis_d(name = "Ecosystem") +
+  scale_fill_viridis_d(name = "Ecosystem") +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(ncol = 3))
 
 
 ```
@@ -706,18 +720,19 @@ ggplot(
   aes(Duration, pred)
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type, size = 1/vi), na.rm = TRUE) +
-  geom_smooth(method = lm, formula = y ~ x, aes(fill = Ecosystem_type, color = Ecosystem_type)) +
-  ylab("predicted ln(Response Ratio)") +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
+             size = 3, na.rm = TRUE) +
+  geom_smooth(method = lm, formula = y ~ x,
+              aes(fill = Ecosystem_type, color = Ecosystem_type)) +
+  ylab("predicted ln(RR)") +
   scale_x_continuous(
     breaks = seq(0, max(metadat$Duration), 1),
     labels = seq(1, max(metadat$Duration) + 1, 1),
-    name = "Study Duration (years)"
+    name = "Study Duration (yrs)"
   ) +
-  scale_color_viridis_d() +
-  scale_fill_viridis_d() +
-  guides(fill = EcoTitle, colour = EcoTitle) +
-  theme(legend.position = "none")
+  scale_color_viridis_d(name = "Ecosystem") +
+  scale_fill_viridis_d(name = "Ecosystem") +
+  theme(legend.position = "bottom")
 ```
 
 \
@@ -734,13 +749,13 @@ Drought_Intensity <- ggplot(
   aes(Percent_control, pred)
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = vi/1)) +
-  scale_color_viridis_d() +
+  scale_color_viridis_d(name = "Ecosystem") +
   geom_smooth(method = lm, formula = y ~ x) +
-  xlab("Percent of Control Precipitation") +
-  ylab("predicted ln(Response Ratio)") +
-  #ggtitle("\n Figure 6A. Decreased Precipitation") +
-  theme(legend.position = "none")
+  geom_jitter(aes(color = Ecosystem_type),
+              width = 0.15, size = 4) +
+  xlab("Percent of MAP") +
+  ylab("predicted ln(RR)") +
+  theme(legend.position = "bottom")
 
 DI_margH <- ggMarginal(Drought_Intensity,
                        type = "histogram",
@@ -751,17 +766,17 @@ DI_margH
 ## Increased Precipitation
 ```{r Intensity_effect_+P, fig.cap = " Linear regression of manipulation intensity and effect size for increased precipitaiton studies.", message = FALSE}
 Irrigation_Intensity <- ggplot(
-  data = metadat_ipreds2,
-  aes(Percent_control, pred)
+  data = metadat[metadat$Manipulation == "Irrigation",],
+  aes(Percent_control, yi)
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(na.rm = TRUE, aes(color = Ecosystem_type, size = vi/1)) +
-  scale_color_viridis_d() +
+  geom_jitter(na.rm = TRUE, aes(color = Ecosystem_type),
+             width = 0.5, size = 4) +
+  scale_color_viridis_d(name = "Ecosystem") +
   geom_smooth(method = lm, formula = y ~ x) +
-  ylab("predicted ln(Response Ratio)") +
-  # ggtitle("\n Figure 6B. Increased Precipitation") +
-  theme(legend.position = "none") +
-  xlab("Percent of Control Precipitation")
+  ylab("ln(RR)") +
+  xlab("Percent of MAP") +
+  theme(legend.position = "bottom")
 
 II_margH <- ggMarginal(Irrigation_Intensity,
                        type = "histogram",
@@ -840,26 +855,33 @@ ggplot(Ecosystem_effect, aes(average, Ecosystem_type, label = count)) +
 
 
 ```{r Soil_grid_ocs, fig.cap = " Soils with higher organic C content had weaker responses to changes in precipitation.", echo = FALSE, warning = FALSE, message = FALSE}
+ocs_preds <- metadat_dpreds %>%
+  select(-Percent_control, -sg_clay) %>%
+  mutate(Manipulation = "Drought") %>%
+  bind_rows(metadat_ipreds)
+
+ocs_preds[is.na(ocs_preds)] <- "Irrigation"
 
 ggplot(
-  data = metadat,
-  aes(sg_ocs / 10, yi) #convert from t/ha (as stored in soil grids) to kg/m^2
+  data = ocs_preds,
+  aes(sg_ocs / 10, pred) #convert from t/ha (as stored in soil grids) to kg/m^2
 ) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
-             size = 5, na.rm = TRUE
+             size = 4, na.rm = TRUE
   ) +
   geom_smooth(method = lm, formula = y ~ x) +
   facet_grid(Manipulation ~ ., labeller = as_labeller(Manip_labs)) +
-  #ggtitle("Figure 7.") +
-  ylab("ln(Response Ratio)") +
+  ylab("predicted ln(RR)") +
   xlab(expression(~"Organic Carbon Stock" ~ ("0-30 cm") ~ "kg m"^{
     "-2"
   })) +
-  scale_color_viridis_d() +
-  scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size = 10))) +
-  theme(legend.position = "bottom")
+  scale_color_viridis_d(name = "Ecosystem") +
+  scale_fill_viridis_d(name = "Ecosystem") +
+  guides(colour = guide_legend(override.aes = list(size = 4))) +
+  theme(legend.position = "bottom",
+        strip.text.y = element_text(size = 18, angle = 0))
+
 ```
 
 \
@@ -871,21 +893,31 @@ The organic C content of soil was highly significant for both manipulation types
 ```{r Soil_grid_clay, fig.cap = " Clay content was not a strong predictor of soil respiration resonse to precipitation change.", echo = FALSE, warning = FALSE, message = FALSE}
 
 ggplot(
-  data = metadat,
+  data = metadat_dpreds,
+  aes(sg_clay / 10, pred) #convert from g/kg (as stored in soil grids) to g/100 g
+) +
+  geom_hline(yintercept = 0) +
+  geom_point(aes(colour = Ecosystem_type),
+              width = .15, size = 4) +
+  geom_smooth(method = lm, formula = y ~ x) +
+  ylab("predicted ln(RR)") +
+  xlab("%Clay (15-30 cm)") +
+  scale_color_viridis_d(name = "Ecosystem") +
+  theme(legend.position = "bottom")
+```
+```{r Soil_grid_clay_supplement}
+
+ggplot(
+  data = metadat[metadat$Manipulation == "Irrigation",],
   aes(sg_clay / 10, yi) #convert from g/kg (as stored in soil grids) to g/100 g
 ) +
   geom_hline(yintercept = 0) +
-  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
-             size = 5, na.rm = TRUE
-  ) +
+  geom_jitter(aes(colour = Ecosystem_type),
+             width = .15, size = 4) +
   geom_smooth(method = lm, formula = y ~ x) +
-  facet_grid(Manipulation ~ ., labeller = as_labeller(Manip_labs)) +
-  #ggtitle("Figure 8.") +
-  ylab("ln(Response Ratio)") +
+  ylab("ln(RR)") +
   xlab("%Clay (15-30 cm)") +
-  scale_color_viridis_d() +
-  scale_fill_viridis_d() +
-  guides(colour = guide_legend(override.aes = list(size = 10))) +
+  scale_color_viridis_d(name = "Ecosystem") +
   theme(legend.position = "bottom")
 ```
 \
@@ -912,13 +944,13 @@ studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 # Note that a fourth (7593 Wang) has no DOI at all, according to Scopus 
 
 meta_df %>% 
-  group_by(Study_number) %>% 
+  group_by(Study_number, Ecosystem_type, Manipulation) %>% 
   summarise(Observations = n()) %>% 
   left_join(studies, by = "Study_number") %>% 
   mutate(Authors = gsub(",.*$", "", Authors),
          Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
   arrange(PubYear) %>% 
-  select(ID = Study_number, Authors, DOI, Observations) %>% 
+  select(ID = Study_number, Authors, DOI, Observations, Ecosystem_type, Manipulation) %>% 
   knitr::kable() %>% 
   kable_paper("striped")
 ```
