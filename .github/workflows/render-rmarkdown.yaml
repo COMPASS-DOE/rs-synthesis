@@ -22,7 +22,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install libcurl and udunits
-        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev libudunits2-0 libudunits2-dev
+        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev libudunits2-0 libudunits2-dev gdal-bin
       - name: Install rmarkdown and needed packages
         run: |
           install.packages(c("kableExtra", "bookdown", "broom", "ggmap", "maps", "raster"))
