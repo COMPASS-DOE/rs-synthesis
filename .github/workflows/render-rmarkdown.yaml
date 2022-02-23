@@ -21,8 +21,8 @@ jobs:
           fetch-depth: 2 # This is important to set for `git diff-tree` to work below
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
-      - name: Install libcurl
-        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
+      - name: Install libcurl and udunits
+        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev libudunits2-0 libudunits2-dev
       - name: Install rmarkdown and needed packages
         run: |
           install.packages(c("kableExtra", "bookdown", "broom", "ggmap", "maps", "raster"))
