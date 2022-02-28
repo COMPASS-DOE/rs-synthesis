@@ -35,6 +35,8 @@ library(forcats)
 library(DT)
 library(metafor)
 library(PerformanceAnalytics)
+packageurl <- "http://cran.r-project.org/src/contrib/Archive/MuMIn/MuMIn_1.43.15.tar.gz"
+install.packages(packageurl, repos=NULL, type="source")
 library(MuMIn)
 library(dmetar)
 library(broom)
@@ -233,15 +235,15 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 ggplot(data = world) +
      geom_sf(lwd = 0.1, fill = "white") +
   coord_sf(expand = FALSE) +
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, color = Ecosystem_type), size = 2) +
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, fill = Ecosystem_type), pch =  21, size = 2) +
   theme(panel.grid.major = element_blank(),
         panel.background = element_rect(fill = "lightskyblue2"),
         panel.grid.minor = element_blank(),
         legend.position = "bottom",
         axis.title.y = element_blank(),
         axis.title.x = element_blank()) +
-    labs(color = "Ecosystem Type") +
-  scale_color_viridis_d()
+    labs(fill = "Ecosystem") +
+  scale_fill_viridis_d()
 
 ```
 
@@ -549,6 +551,7 @@ metadat_imodel <- rma.mv(yi, vi,
                          data = metadat_i,
                          slab = Ecosystem_type,
 )
+
 summary(metadat_imodel)
 ip <- tidy(metadat_imodel)
 desert_p <- ip$p.value[ip$term == "Ecosystem_typeDesert"]
@@ -657,7 +660,8 @@ metadat_d %>%
 
 # Cook's Distance n/4 for drought studies
 length(metadat[metadat$Manipulation == "Drought", ]$Manipulation) / 4
-# One study has a strong influence, 4 years of data for grassland and desert
+#One study (13079) has a strong influence
+#4 years of data for grassland and desert
 
 Coef_drought <- coef(summary(metadat_dmodel))
 ```
