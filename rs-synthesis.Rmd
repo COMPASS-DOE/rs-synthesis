@@ -325,10 +325,10 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
   ocs <- raster(ocsfile)
   meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 } else {
-  # geoTIFF files are not present; issue a warning and use fake data
+  # geoTIFF files are not present; issue a warning and use fake (random) data
   warning("geoTIFF files are not present! Analysis will not be correct")
-  meta_df$sg_clay <- 1
-  meta_df$sg_ocs <- 1
+  meta_df$sg_clay <- runif(nrow(meta_df))
+  meta_df$sg_ocs <- runif(nrow(meta_df))
 }
 ```
 
