@@ -332,11 +332,10 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
   ocs <- raster(ocsfile)
   meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
 } else {
-  # geoTIFF files are not present
-  # issue a warning
+  # geoTIFF files are not present; issue a warning and use fake (random) data
   warning("geoTIFF files are not present! Analysis will not be correct")
-  meta_df$sg_clay <- 1
-  meta_df$sg_ocs <- 1
+  meta_df$sg_clay <- runif(nrow(meta_df))
+  meta_df$sg_ocs <- runif(nrow(meta_df))
 }
 ```
 
@@ -770,12 +769,14 @@ predRes <- list()
 for (pc in c(116, 132, 148)) {
   for (dur in 0:3){
     test_predict <- predict(metadat_imodel2,
-                            newmods=c(Ecosystem_typeForest = 1,
+                            newmods = c(Ecosystem_typeForest = 1,
                                       Ecosystem_typeSavanna = 0,
                                       Ecosystem_typeShrubland = 0,
                                       Ecosystem_typeGrassland = 0,
-                                      Ecosystem_typeDesert = 0, Duration = dur,
-                                      Percent_control = pc, sg_ocs = 45,
+                                      Ecosystem_typeDesert = 0, 
+                                      Duration = dur,
+                                      Percent_control = pc, 
+                                      sg_ocs = 45,
                                       `Ecosystem_typeGrassland:Duration` = 0,
                                       `Ecosystem_typeForest:Duration` = dur))
     result <- as_tibble(test_predict)
@@ -786,12 +787,12 @@ for (pc in c(116, 132, 148)) {
 }
 
 temp_est2 <- bind_rows(predRes)
-temp_est2$Flood_number <- (temp_est2$Percent_control - 100)/16
+temp_est2$Flood_number <- (temp_est2$Percent_control - 100) / 16
 
 
 ggplot(
   data = temp_est2,
-  aes(Duration+1, 100*(10^pred -1),
+  aes(Duration+1, 100 * (10 ^ pred -1),
       group = as.factor(Flood_number))) +
   geom_hline(yintercept = 0) +
   geom_point(aes(fill = as.factor(Flood_number),
