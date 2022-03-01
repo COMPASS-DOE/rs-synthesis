@@ -266,12 +266,17 @@ studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 
 meta_df %>% 
   group_by(Study_number, Ecosystem_type, Manipulation) %>% 
-  summarise(Observations = n()) %>% 
+  summarise(Observations = n(), .groups = "drop") %>% 
   left_join(studies, by = "Study_number") %>% 
   mutate(Authors = gsub(",.*$", "", Authors),
          Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
   arrange(PubYear) %>% 
   select(ID = Study_number, Authors, DOI, Observations, Ecosystem_type, Manipulation) %>% 
+  pivot_wider(names_from = "Manipulation", values_from = "Observations", values_fill = 0) %>% 
+  group_by(ID, Authors, DOI) %>% 
+  summarise(Ecosystem_type = paste(unique(Ecosystem_type), collapse = ", "),
+            Drought = sum(Drought), Irrigation = sum(Irrigation),
+            .groups = "drop") %>%  
   knitr::kable(caption = "  Table 1. Studies included in this dataset.") %>% 
   kable_paper("striped")
 ```
