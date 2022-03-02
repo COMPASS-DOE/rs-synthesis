@@ -35,9 +35,10 @@ library(forcats)
 library(DT)
 library(metafor)
 library(PerformanceAnalytics)
-packageurl <- "http://cran.r-project.org/src/contrib/Archive/MuMIn/MuMIn_1.43.15.tar.gz"
-install.packages(packageurl, repos=NULL, type="source")
 library(MuMIn)
+if(packageVersion("MuMIn") > "1.43.15") {
+ stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+}
 library(dmetar)
 library(broom)
 library(bookdown)
@@ -216,37 +217,6 @@ max_duration <- meta_df %>%
 
 ```
 
-# Results
-## Data Summaries  
-\
-Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. By coincidence both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented in `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2. Manipulated precipitation ranged from `r min(meta_df$Percent_control)`% to `r signif(max(meta_df$Percent_control), 3)`% of MAP, with a mean of `r signif(mean(meta_df[meta_df$Manipulation == "Irrigation",]$Percent_control), 3)`% of MAP for increased precipitation studies, and `r signif(mean(meta_df[meta_df$Manipulation == "Drought",]$Percent_control), 2)`% of MAP for decreased precipitation studies.  
-Study sites were distributed across the terrestrial biosphere...description to accompany Steph's figure (Placeholder).  
-\
-
-```{r study-map, echo = FALSE}
-# Extract coordinates and useful columns, remove any duplicate coordinates
-meta_df %>% 
-  ungroup() %>% 
-  select(Study_number, Latitude, Longitude, Ecosystem_type) %>% 
-  distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
-
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-ggplot(data = world) +
-     geom_sf(lwd = 0.1, fill = "white") +
-  coord_sf(expand = FALSE) +
-  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, fill = Ecosystem_type), pch =  21, size = 2) +
-  theme(panel.grid.major = element_blank(),
-        panel.background = element_rect(fill = "lightskyblue2"),
-        panel.grid.minor = element_blank(),
-        legend.position = "bottom",
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank()) +
-    labs(fill = "Ecosystem") +
-  scale_fill_viridis_d()
-
-```
-
 # Study table
 
 Summary of the studies included in this meta-analysis:
@@ -286,6 +256,36 @@ meta_df %>%
   knitr::kable(caption = "  Table 1. Studies included in this dataset.") %>% 
   kable_paper("striped")
 ```
+## Data Summaries  
+\
+Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
+\
+\
+
+```{r study-map, echo = FALSE}
+# Extract coordinates and useful columns, remove any duplicate coordinates
+meta_df %>% 
+  ungroup() %>% 
+  select(Study_number, Latitude, Longitude, Ecosystem_type) %>% 
+  distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+ggplot(data = world) +
+     geom_sf(lwd = 0.1, fill = "white") +
+  coord_sf(expand = FALSE) +
+  geom_point(data = meta_coords, aes(x = Longitude, y = Latitude, fill = Ecosystem_type), pch =  21, size = 2) +
+  theme(panel.grid.major = element_blank(),
+        panel.background = element_rect(fill = "lightskyblue2"),
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+    labs(fill = "Ecosystem") +
+  scale_fill_viridis_d()
+
+```
+
 
 ```{r Studies_EffectSizes, echo = FALSE}
 #By Ecosystem and Manipulation
@@ -394,7 +394,7 @@ ggplot(metadat, aes(yi, color = Manipulation)) +
 
 ```
 
-```{r dependentVars, echo = FALSE}
+```{r dependentVars, echo = FALSE, include = FALSE}
 #irrigation studies
 metadat_imodel_var <- rma.mv(yi, vi,
                              random = ~ 1 | Study_number,
@@ -406,6 +406,20 @@ metadat_imodel_var <- rma.mv(yi, vi,
 summary(metadat_imodel_var)
 Coef_ivar <- coef(summary(metadat_imodel_var))
 
+#drought studies
+metadat_dmodel_var <- rma.mv(yi, vi,
+                         random = ~ 1 | Study_number,
+                         mods = ~ Variable - 1,
+                         method = "REML",
+                         data = metadat[metadat$Manipulation == "Drought",],
+                         slab = Variable,
+)
+summary(metadat_dmodel_var)
+Coef_dvar <- coef(summary(metadat_dmodel_var))
+
+```
+
+```{r dependentVars_graphs, echo = FALSE}
 #plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Variable)
 Vari_ss <- c("6", "77", "61")
 Forestivar <- forest(Coef_ivar$estimate,
@@ -428,17 +442,6 @@ op <- par(cex=1, font=2)
 text(-.089, 4.2, "Dependent Variable")
 text(.05, 4.2, "Sample Size")
 text(.42, 4.2, "ln(RR) [95% CI]")
-
-#drought studies
-metadat_dmodel_var <- rma.mv(yi, vi,
-                         random = ~ 1 | Study_number,
-                         mods = ~ Variable - 1,
-                         method = "REML",
-                         data = metadat[metadat$Manipulation == "Drought",],
-                         slab = Variable,
-)
-summary(metadat_dmodel_var)
-Coef_dvar <- coef(summary(metadat_dmodel_var))
 
 #plyr::count(metadat[metadat$Manipulation == "Drought",]$Variable)
 Vard_ss <- c("11", "82", "37")
@@ -492,27 +495,9 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   theme(legend.position = "bottom")
 ```
 
-```{r alt_dist_manip}
-#alt plot
-ggplot(metadat, aes(Percent_control)) +
-  xlab("Percent of MAP") +
-  geom_histogram(
-    na.rm = TRUE,
-    position = "stack",
-    col = "black", size = 0.5,
-    bins = 10
-  ) +
-  facet_grid(. ~ Manipulation,
-             scales = "free",
-             labeller = as_labeller(Manip_labs)) +
-  ylab("Count")  
-```
 \
 \
-The majority of studies lasted only one year (`r ss` of `r all`) and only `r as.numeric(pn(ls/all, 2))*100`% (`r ls` of `r all`) were longer than two years (Figure \autoref(fig:diagnostic-plots)).  
-\
-\
-Manipulation intensity (how much a study increased or decreased precipitation) was not evenly distributed among ecosystems (Figure \autoref(fig:dist_manip)).  
+Study sites were distributed across the terrestrial biosphere, but coverage was better in the global north. Distribution of effect sizes in both models indicated little influence of publication bias. The majority of studies lasted only one year (`r ss` of `r all`) and only `r as.numeric(pn(ls/all, 2))*100`% (`r ls` of `r all`) were longer than two years (Figure \autoref(fig:diagnostic-plots)). Manipulation intensity (how much a study increased or decreased precipitation) was not evenly distributed among ecosystems (Figure \autoref(fig:dist_manip)). Manipulated precipitation ranged from `r min(meta_df$Percent_control)`% to `r signif(max(meta_df$Percent_control), 3)`% of MAP, with a mean of `r signif(mean(meta_df[meta_df$Manipulation == "Irrigation",]$Percent_control), 3)`% of MAP for increased precipitation studies, and `r signif(mean(meta_df[meta_df$Manipulation == "Drought",]$Percent_control), 2)`% of MAP for decreased precipitation studies.  
 \
 \
 ```{r Autocorrelation_check, include = FALSE}
@@ -542,7 +527,11 @@ mmi_irrigation <- multimodel.inference(
 print(mmi_irrigation$predictor.importance.plot)
 # soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
 ```
-
+\
+\
+For +P studies, the primary effect of SOC, ecosystem type, study duration, and the interaction between ecosystem type and duration were the four highest ranked preictors. In contrast, the -P model ranked ecosystem type, SOC, clay, and duration as the top four predictors.
+\
+\
 ```{r irrigation, include = FALSE}
 #create of subset of metadat which only includes our model inputs
 metadat %>%
@@ -744,8 +733,9 @@ ggplot(
 
 ```
 
+
+```{r TEMPEST, fig.cap = "Prediction of TEMPEST treatment effects on soil respiration", include = FALSE}
 ### Tempest
-```{r TEMPEST, fig.cap = "Prediction of TEMPEST treatment effects on soil respiration"}
 metadat %>%
   filter(Manipulation == "Irrigation") %>%
   select("Study_number", "Ecosystem_type",
@@ -825,8 +815,10 @@ ggplot(
 
 
 ```
+
 ## Decreased Precipitation
-```{r Supplement_-P_duration_plot, fig.cap = " Supplmental Figure", message = FALSE}
+
+```{r Supplement_-P_duration_plot, fig.cap = " Supplmental Figure", message = FALSE, warning = FALSE}
 #supplemental figure, the -P version of the +P vs Duration Plot
 #run a secondary rma.mv 
 metadat_dmodel2 <- rma.mv(yi, vi,
@@ -866,13 +858,13 @@ ggplot(
 
 \
 \
-The duration of manipulations strongly affected the direction and magnitude of response of soil respiration to precipitation change. If the interaction of ecosystem type and duration are included in the meta-analytically model for decreased precipitation studies, the interaction term is significant for all ecosystems with more than two years worth of data ((Figure \autoref(fig:Supplement_-P_duration_plot). The effect of duration diverges depending on the relative water-limitation of the ecosystem being impacted. In drought simulations, forests, grasslands, and shrublands show weakening of the manipulation effect over time, leading to reversals of the initial effect. In contrast desert ecosystems have increasingly strong responses to manipulations, whether the change be an increase or decrease in precipitation.  
+The duration of manipulations strongly affected the direction and magnitude of response of soil respiration to precipitation change. If the interaction of ecosystem type and duration are included in the meta-analytical model for decreased precipitation studies, the interaction term is significant for all ecosystems with more than two years worth of data ((Figure \autoref(fig:Supplement_-P_duration_plot). The effect of duration diverges depending on the relative water-limitation of the ecosystem being impacted. In drought simulations, forests, grasslands, and shrublands show weakening of the manipulation effect over time, leading to reversals of the initial effect. In contrast desert ecosystems have increasingly strong responses to manipulations, whether the change be an increase or decrease in precipitation.  
 \
 \
 
 # Effect of Manipulation Intensity
 ## Decreased Precipitation
-```{r Intensity_effect_-P, fig.cap = " Linear regression of manipulation intensity and effect size for decreased precipitaiton studies.", message = FALSE}
+```{r Intensity_effect_-P, fig.cap = " Linear regression of manipulation intensity and effect size for decreased precipitaiton studies.", message = FALSE, warning = FALSE}
 Drought_Intensity <- ggplot(
   data = metadat_dpreds,
   aes(Percent_control, pred)
@@ -892,8 +884,10 @@ DI_margH <- ggMarginal(Drought_Intensity,
 )
 DI_margH
 ```
+
 ## Increased Precipitation
-```{r Intensity_effect_+P, fig.cap = " Linear regression of manipulation intensity and effect size for increased precipitaiton studies.", message = FALSE}
+
+```{r Intensity_effect_+P, fig.cap = " Linear regression of manipulation intensity and effect size for increased precipitaiton studies.", message = FALSE, warning = FALSE}
 Irrigation_Intensity <- ggplot(
   data = metadat[metadat$Manipulation == "Irrigation",],
   aes(Percent_control, yi)
@@ -913,14 +907,10 @@ II_margH <- ggMarginal(Irrigation_Intensity,
 )
 II_margH
 ```
+   
 \
 \
-The intensity of the manipulation was ranked with higher importance for decreased precipitation studies (Figure \autoref(fig:Intensity_effect_-P) than those were precipitation increased (Figure \autoref(fig:Intensity_effect_+P).  
-\
-\
-\
-\
-The relationship is intuitive, the stronger the decrease in precipitation, the stronger the decrease in soil respiration (Figure \autoref(fig:Intensity_effect_-P)). No such relationship was found in increased precipitation studies (Figure \autoref(fig:Intensity_effect_+P)).  
+The intensity of the manipulation ranked with higher importance for -P studies (Figure \autoref(fig:Intensity_effect_-P) than +P (Figure \autoref(fig:Intensity_effect_+P). The relationship is intuitive: the stronger the decrease in precipitation, the stronger the decrease in soil respiration (Figure \autoref(fig:Intensity_effect_-P) . While manipulation intensity was not included in the primary model for +P (due to being below the top 4 ranking threshold), If the effect of intensity was included in the +P model, a positive relationship exists (Figure \autoref(fig:Intensity_effect_+P), predominantly driven by one very high treatment in a savanna. The slope of this regression line was however still lower than that found in -P.  
 \
 \
 
@@ -1015,11 +1005,11 @@ ggplot(
 
 \
 \
-The organic C content of soil was highly significant for both manipulation types (`r pclean(ocs_dp, 3)` for -P, `r pclean(ocs_ip, 3)` for +P). The overall effect of soil organic C was positive, meaning that soils with more C had higher respiration rates in response to treatments. However, when effect sizes are plotted against organic C stocks (Figure \autoref(fig:Soil_grid_ocs)), we found that soils with the highest organic content were the most resistant to changes in precipitation. 
+The organic C content of soil was highly significant for both manipulation types (`r pclean(ocs_dp, 3)` for -P, `r pclean(ocs_ip, 3)` for +P). The overall effect of soil organic C was positive, meaning that soils with more C had higher respiration rates in response to treatments. However, when effect sizes are plotted against organic C stocks (Figure \autoref(fig:Soil_grid_ocs)), we found high SOC was able to reverse the effect of -P treatments, with the predicted effect sizes showing increased rather than decreased respiration rates.
 \
 \
 
-```{r Soil_grid_clay, fig.cap = " Clay content was not a strong predictor of soil respiration resonse to precipitation change.", echo = FALSE}
+```{r Soil_grid_clay, fig.cap = " Clay content was not a strong predictor of soil respiration resonse to precipitation change.", echo = FALSE, warning = FALSE}
 
 ggplot(
   data = metadat_dpreds,
@@ -1034,7 +1024,8 @@ ggplot(
   scale_color_viridis_d(name = "Ecosystem") +
   theme(legend.position = "bottom")
 ```
-```{r Soil_grid_clay_supplement}
+
+```{r Soil_grid_clay_supplement, warning = FALSE}
 
 ggplot(
   data = metadat[metadat$Manipulation == "Irrigation",],
@@ -1052,6 +1043,8 @@ ggplot(
 \
 \
 Clay had low predictor importance for +P, high for -P. The linear regression between effect sizes and clay content supports this result (Figure \autoref(fig:Soil_grid_clay)). However, the effect was not significant in the deceased precipitation model, and clay content was not of sufficient importance to include in the increased precipitation model.
+
+Clay had low predictor importance for +P and was not included in the primary +P model, but was included as a top four predictor in -P. The linear regression between model-predicted effect sizes and clay content supported this divergence (Figure \autoref(fig:Soil_grid_clay))., with a positive effect of clay content on effect size, resulting in a similar reversal of treatment effect as seen in the SOC result. Despite this, the primary effect of clay was not significant in the -P model and we observed no trend between these variables for +P (Figure \autoref(Soil_grid_clay_supplement)).
 \
 \
 # The End
