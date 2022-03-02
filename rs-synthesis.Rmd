@@ -254,7 +254,7 @@ Summary of the studies included in this meta-analysis:
 ```{r studies-table}
 read_csv("rs/srdb-studies.csv", 
          col_types = "iccccccciccccccicccccciic") %>% 
-  select(Study_number, Authors, Title, Source, PubYear, DOI) ->
+  select(Study_number, Authors, Title, Source) ->
   studies
 
 # Three studies are missing DOIs in the SRDB data
@@ -264,16 +264,22 @@ studies[studies$Study_number == 1421, "DOI"] <- "10.2136/sssaj1999.6361848x"
 studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 # Note that a fourth (7593 Wang) has no DOI at all, according to Scopus 
 
+#Possible frame shift in SRDB study numbers
+#Opened an issue to correct: https://github.com/bpbond/srdb/issues/135
+#DOI's confirmed for 82 studies included
+read_csv("rs/DOIcheck.csv",
+         col_types = "iici") -> ConfirmedDOI
+
 meta_df %>% 
-  group_by(Study_number, Ecosystem_type, Manipulation) %>% 
+  group_by(Study_number, Ecosystem_type, Manipulation, Author) %>% 
   summarise(Observations = n(), .groups = "drop") %>% 
-  left_join(studies, by = "Study_number") %>% 
-  mutate(Authors = gsub(",.*$", "", Authors),
-         Authors = paste0(Authors, " et al. (", PubYear, ")")) %>% 
+  left_join(ConfirmedDOI, by = "Study_number") %>% 
+  mutate(Author = gsub(",.*$", "", Author),
+         Author = paste0(Author, " et al. (", PubYear, ")")) %>% 
   arrange(PubYear) %>% 
-  select(ID = Study_number, Authors, DOI, Observations, Ecosystem_type, Manipulation) %>% 
+  select(ID = Study_number, Author, DOI, Observations, Ecosystem_type, Manipulation) %>% 
   pivot_wider(names_from = "Manipulation", values_from = "Observations", values_fill = 0) %>% 
-  group_by(ID, Authors, DOI) %>% 
+  group_by(ID, Author, DOI) %>% 
   summarise(Ecosystem_type = paste(unique(Ecosystem_type), collapse = ", "),
             Drought = sum(Drought), Irrigation = sum(Irrigation),
             .groups = "drop") %>%  
