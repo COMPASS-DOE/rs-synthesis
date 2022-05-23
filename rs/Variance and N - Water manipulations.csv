@@ -47,16 +47,16 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 1268,1469,Billings,1997,Forest,Drought,NA,,,,,,20,,,64.72,-148.29,Gas chromatography,Silt loam (Typic Cryofluvent),Wet,139,NA,NA,2.2,3,,,0.24,0,0.35,,s.d. est from fig 6; SM est from fig 1
 4530,1500,Sainju,2005,Agriculture,None,NA,,,,,,,,,48.17,-103.15,IRGA,"Sandy loam (sandy, mixed, frigid, Entic Haplustolls)",Dry,178,NA,NA,18.71,4,,,,100,,,No s.d.
 4530,1501,Sainju,2005,Agriculture,Irrigated,NA,,,,,,,,,48.17,-103.15,IRGA,"Sandy loam (sandy, mixed, frigid, Entic Haplustolls)",Dry,178,NA,NA,16.3,4,,,,,,,No s.d. or percent control
-4549,1524,Selmants,2000.5,Forest,None,NA,,,,,,,,Unrestored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,900,NA,NA,10,20,,,100,0.13,0.001,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
-4549,1525,Selmants,2000.5,Forest,Irrigated,NA,,,,,,,,Unrestored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,989,NA,NA,10,15,,,200,0.17,0.01,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
-4549,1526,Selmants,2000.5,Forest,None,NA,,,,,,,,Restored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,1090,NA,NA,10,25,,,100,0.21,0.007,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
-4549,1528,Selmants,2000.5,Forest,Irrigated,NA,,,,,,,,Restored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,1175,NA,NA,10,28,,,200,0.26,0.005,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
-4564,1541,Sowerby,2001,Shrubland,None,NA,,,,,,,,,53.05,3.47,IRGA,Humoferric podzol,Wet,NA,NA,NA,NA,3,,,,100,0.41,,The values from the paper seem really sketchy; let's omit
-4564,1542,Sowerby,2001,Shrubland,None,NA,,,,,,,,,52.4,5.92,Gas chromatography,Sandy podzol,Dry,NA,263,NA,NA,3,,,,100,0.23,,The values from the paper seem really sketchy; let's omit
-4564,1543,Sowerby,2001,Shrubland,None,NA,,,,,,,,,56.38,-10.95,IRGA,Sandy podzol,Dry,NA,597,NA,NA,3,,,,100,0.3,,The values from the paper seem really sketchy; let's omit
-4564,1544,Sowerby,2001,Shrubland,Drought,NA,,,,,,,,,53.05,3.47,IRGA,Humoferric podzol,Wet,NA,NA,NA,NA,3,,,,77,0.27,,The values from the paper seem really sketchy; let's omit
-4564,1545,Sowerby,2001,Shrubland,Drought,NA,,,,,,,,,52.4,5.92,Gas chromatography,Sandy podzol,Dry,NA,213,NA,NA,3,,,,77,0.19,,The values from the paper seem really sketchy; let's omit
-4564,1546,Sowerby,2001,Shrubland,Drought,NA,,,,,,,,,56.38,-10.95,IRGA,Sandy podzol,Dry,NA,237,NA,NA,3,,,,77,0.2,,The values from the paper seem really sketchy; let's omit
+4549,1524,Selmants,2000.5,Forest,None,NA,,,,,,15,,Unrestored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,900,NA,NA,10,20,,,100,0.13,0.001,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
+4549,1525,Selmants,2000.5,Forest,Irrigated,NA,,,,,,15,,Unrestored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,989,NA,NA,10,15,,,200,0.17,0.01,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
+4549,1526,Selmants,2000.5,Forest,None,NA,,,,,,15,,Restored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,1090,NA,NA,10,25,,,100,0.21,0.007,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
+4549,1528,Selmants,2000.5,Forest,Irrigated,NA,,,,,,15,,Restored,35.27,-111.73,Alkali absorption,Typic Argiborolls; Mollic Eutroboralfs,Dry,2250,1175,NA,NA,10,28,,,200,0.26,0.005,s.d. estimated from figure 2; sm_mean and sm_sd est from fig 1b
+4564,1541,Sowerby,2001,Shrubland,None,NA,,,,,50,10,,,53.05,3.47,IRGA,Humoferric podzol,Wet,NA,NA,NA,NA,3,,,,100,0.41,,The values from the paper seem really sketchy; let's omit
+4564,1542,Sowerby,2001,Shrubland,None,NA,,,,,21,10,,,52.4,5.92,Gas chromatography,Sandy podzol,Dry,NA,263,NA,NA,3,,,,100,0.23,,The values from the paper seem really sketchy; let's omit
+4564,1543,Sowerby,2001,Shrubland,None,NA,,,,,23,10,,,56.38,-10.95,IRGA,Sandy podzol,Dry,NA,597,NA,NA,3,,,,100,0.3,,The values from the paper seem really sketchy; let's omit
+4564,1544,Sowerby,2001,Shrubland,Drought,NA,,,,,30,10,,,53.05,3.47,IRGA,Humoferric podzol,Wet,NA,NA,NA,NA,3,,,,77,0.27,,The values from the paper seem really sketchy; let's omit
+4564,1545,Sowerby,2001,Shrubland,Drought,NA,,,,,13,10,,,52.4,5.92,Gas chromatography,Sandy podzol,Dry,NA,213,NA,NA,3,,,,77,0.19,,The values from the paper seem really sketchy; let's omit
+4564,1546,Sowerby,2001,Shrubland,Drought,NA,,,,,18,10,,,56.38,-10.95,IRGA,Sandy podzol,Dry,NA,237,NA,NA,3,,,,77,0.2,,The values from the paper seem really sketchy; let's omit
 1593,1600,Fay,1998,Grassland,None,NA,,,,,,,,,39.08,-96.58,IRGA,NA,Dry,NA,NA,NA,10.5,3,,,0.8660254038,100,0.27,0.01,s.d. est from fig 4
 1593,1601,Fay,1998,Grassland,Drought,Increased interval,,,,,,,,,39.08,-96.58,IRGA,NA,Dry,NA,NA,NA,8.75,3,,,0.4330127019,100,0.27,0.01,s.d. est from fig 4
 1593,1602,Fay,1998,Grassland,Drought,70% rainfall,,,,,,,,,39.08,-96.58,IRGA,NA,Dry,NA,NA,NA,10.25,3,,,0.4330127019,70,0.27,0.01,s.d. est from fig 4
@@ -102,14 +102,14 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 3665,2897,Werner,NA,Forest,None,NA,,,,,,,,,21.92,101.27,IRGA,Clay loam (Yellow lateritic),Dry,550,NA,NA,NA,,,,,,,,
 3665,2899,Werner,NA,Forest,Irrigated,NA,,,,,,,,,21.96,101.2,IRGA,Sandy loam (Yellow lateritic),Dry,770,NA,NA,NA,,,,,,,,
 3665,2900,Werner,NA,Forest,Irrigated,NA,,,,,,,,,21.92,101.27,IRGA,Clay loam (Yellow lateritic),Dry,550,NA,NA,NA,,,,,,,,
-4412,2915,Lellei-Kovács,2003,Grassland,None,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.38,3,,,,100,,,No s.d.
-4412,2917,Lellei-Kovács,2003,Grassland,Drought,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.36,3,,,,95,,,No s.d.
-4412,2918,Lellei-Kovács,2004,Grassland,None,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.51,3,,,,100,,,No s.d.
-4412,2920,Lellei-Kovács,2004,Grassland,Drought,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.47,3,,,,85,,,No s.d.
-4412,2921,Lellei-Kovács,2005,Grassland,None,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.45,3,,,,100,,,No s.d.
-4412,2923,Lellei-Kovács,2005,Grassland,Drought,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.32,3,,,,80,,,No s.d.
-4412,2924,Lellei-Kovács,2006,Grassland,None,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.73,3,,,,100,,,No s.d.
-4412,2926,Lellei-Kovács,2006,Grassland,Drought,NA,,,,,,,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.57,3,,,,72,,,No s.d.
+4412,2915,Lellei-Kovács,2003,Grassland,None,NA,,,0.3,10,2.5,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.38,3,,,,100,,,No s.d.
+4412,2917,Lellei-Kovács,2003,Grassland,Drought,NA,,,0.3,10,1.7,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.36,3,,,,95,,,No s.d.
+4412,2918,Lellei-Kovács,2004,Grassland,None,NA,,,0.3,10,5.3,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.51,3,,,,100,,,No s.d.
+4412,2920,Lellei-Kovács,2004,Grassland,Drought,NA,,,0.3,10,4.5,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.47,3,,,,85,,,No s.d.
+4412,2921,Lellei-Kovács,2005,Grassland,None,NA,,,0.3,10,2.7,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.45,3,,,,100,,,No s.d.
+4412,2923,Lellei-Kovács,2005,Grassland,Drought,NA,,,0.3,10,1.9,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.32,3,,,,80,,,No s.d.
+4412,2924,Lellei-Kovács,2006,Grassland,None,NA,,,0.3,10,5.4,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.73,3,,,,100,,,No s.d.
+4412,2926,Lellei-Kovács,2006,Grassland,Drought,NA,,,0.3,10,4.6,11,,,46.87,19.42,IRGA,Sandy (Calcaric arenosol),Dry,NA,NA,NA,0.57,3,,,,72,,,No s.d.
 880,2987,Nakayama,1991,Agriculture,None,NA,,,,,,,,,33.05,-112.05,IRGA,Clay loam (Typic Torrifluvents),Dry,NA,NA,NA,4.02,4,,,,100,,,No percent control or s.d.
 880,2989,Nakayama,1991,Agriculture,Irrigated,790 mm,,,,,,,,,33.05,-112.05,IRGA,Clay loam (Typic Torrifluvents),Dry,NA,NA,NA,3.92,4,,,,,,,No percent control or s.d.
 880,2990,Nakayama,1991,Agriculture,Irrigated,1050 mm,,,,,,,,,33.05,-112.05,IRGA,Clay loam (Typic Torrifluvents),Dry,NA,NA,NA,3.37,4,,,,,,,No percent control or s.d.
@@ -118,50 +118,50 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 4352,3053,Jabro,2005,Agriculture,None,NA,,,,,,,,,48.16,-103.1,IRGA,Sandy loam (Entic Haplustoll),Dry,NA,NA,NA,4.25,3,,,,100,0.14,,No percent control or s.d.
 1013,3113,Vose,1993,Forest,Irrigated,NA,,,,,,,,,39,-121,IRGA,Clay loam (Xeric Haplohumult),Dry,NA,NA,NA,1.01,,,,,,,,No control
 1013,3116,Vose,1993,Forest,Irrigated,NA,,,,,,,,,39,-121,IRGA,Clay loam (Xeric Haplohumult),Dry,NA,NA,NA,0.92,,,,,,,,No control
-4895,3512,Inglima,2004.5,Forest,None,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,3.7,3,,,0.92,100,,,
-4895,3513,Inglima,2004.5,Shrubland,None,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,2.13,3,,,0.55,100,,,
-4895,3514,Inglima,2004.5,Grassland,None,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,1.95,3,,,0.36,100,,,
-4895,3515,Inglima,2004.5,Forest,Irrigated,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,4.7,3,,,1.21,116,,,
-4895,3516,Inglima,2004.5,Shrubland,Irrigated,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,3.71,3,,,1.66,103,,,
-4895,3517,Inglima,2004.5,Grassland,Irrigated,NA,,,,,,,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,4.05,3,,,1.86,103,,,
-4849,3737,Garten,2005,Grassland,Drought,NA,,,,,,,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,2.8,12,,,1.558845727,8,0.2,,s.d. est from fig 2
-4849,3738,Garten,2005,Grassland,None,NA,,,,,,,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3.4,12,,,1.385640646,100,0.25,,s.d. est from fig 2
-4849,3745,Garten,2006,Grassland,Drought,NA,,,,,,,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3,12,,,1.732050808,8,0.2,,s.d. est from fig 2
-4849,3746,Garten,2006,Grassland,None,NA,,,,,,,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3.5,12,,,0.8660254038,100,0.25,,s.d. est from fig 2
+4895,3512,Inglima,2004.5,Forest,None,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,3.7,3,,,0.92,100,,,
+4895,3513,Inglima,2004.5,Shrubland,None,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,2.13,3,,,0.55,100,,,
+4895,3514,Inglima,2004.5,Grassland,None,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,1.95,3,,,0.36,100,,,
+4895,3515,Inglima,2004.5,Forest,Irrigated,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,4.7,3,,,1.21,116,,,
+4895,3516,Inglima,2004.5,Shrubland,Irrigated,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,3.71,3,,,1.66,103,,,
+4895,3517,Inglima,2004.5,Grassland,Irrigated,NA,,,,,,10,,,42.58527778,10.07,IRGA,NA,Dry,NA,NA,NA,4.05,3,,,1.86,103,,,
+4849,3737,Garten,2005,Grassland,Drought,NA,,,,,,15,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,2.8,12,,,1.558845727,8,0.2,,s.d. est from fig 2
+4849,3738,Garten,2005,Grassland,None,NA,,,,,,15,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3.4,12,,,1.385640646,100,0.25,,s.d. est from fig 2
+4849,3745,Garten,2006,Grassland,Drought,NA,,,,,,15,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3,12,,,1.732050808,8,0.2,,s.d. est from fig 2
+4849,3746,Garten,2006,Grassland,None,NA,,,,,,15,,,35.57,-84.39,IRGA,Fragiudult (silt loam),Dry,NA,NA,NA,3.5,12,,,0.8660254038,100,0.25,,s.d. est from fig 2
 4151,3814,Xiao,2004,Grassland,None,NA,,,,,,,,,42.03333333,116.266667,IRGA,Chestnut soil,Dry,1350,NA,NA,NA,,,,,,,,
 4151,3818,Xiao,2004,Grassland,Irrigated,NA,,,,,,,,,42.03333333,116.266667,NA,Chestnut soil,Dry,1350,NA,NA,NA,,,,,,,,
 4151,3819,Xiao,2004,Grassland,Irrigated,#ERROR!,,,,,,,,,42.03333333,116.266667,NA,Chestnut soil,Dry,1350,NA,NA,NA,,,,,,,,
 4151,3820,Xiao,2004,Grassland,Irrigated,#ERROR!,,,,,,,,,42.03333333,116.266667,NA,Chestnut soil,Dry,1350,NA,NA,NA,,,,,,,,
 4151,3821,Xiao,2004,Grassland,Irrigated,#ERROR!,,,,,,,,,42.03333333,116.266667,NA,Chestnut soil,Dry,1350,NA,NA,NA,,,,,,,,
-5587,3843,Misson,2004,Forest,None,NA,,,,,,,,,43.74138889,3.71,IRGA,Clay,Dry,270,758,NA,NA,3,30.32,,,100,,,No s.d. given; using average CV of other fluxes
-5587,3844,Misson,2004,Forest,Drought,NA,,,,,,,,,43.74138889,3.71,IRGA,Clay,Dry,270,677,NA,NA,3,203.1,,,73,,,No s.d. given; using average CV of other fluxes
-5587,3845,Misson,2005,Forest,None,NA,,,,,,,,,43.74138889,3.71,IRGA,Clay,Dry,270,800,NA,NA,3,44,,,100,,,No s.d. given; using average CV of other fluxes
-5587,3846,Misson,2005,Forest,Drought,NA,,,,,,,,,43.74138889,3.71,IRGA,Clay,Dry,270,710,NA,NA,3,454.4,,,73,,,No s.d. given; using average CV of other fluxes
+5587,3843,Misson,2004,Forest,None,NA,,,,,18,15,SM estimated from Figure 1 and text,,43.74138889,3.71,IRGA,Clay,Dry,270,758,NA,NA,3,30.32,,,100,,,No s.d. given; using average CV of other fluxes
+5587,3844,Misson,2004,Forest,Drought,NA,,,,,16,15,SM estimated from Figure 1 and text,,43.74138889,3.71,IRGA,Clay,Dry,270,677,NA,NA,3,203.1,,,73,,,No s.d. given; using average CV of other fluxes
+5587,3845,Misson,2005,Forest,None,NA,,,,,14,15,SM estimated from Figure 1 and text,,43.74138889,3.71,IRGA,Clay,Dry,270,800,NA,NA,3,44,,,100,,,No s.d. given; using average CV of other fluxes
+5587,3846,Misson,2005,Forest,Drought,NA,,,,,12.5,15,SM estimated from Figure 1 and text,,43.74138889,3.71,IRGA,Clay,Dry,270,710,NA,NA,3,454.4,,,73,,,No s.d. given; using average CV of other fluxes
 5403,3896,Joos,2007,Grassland,None,NA,,,,,,,,,47.2,8.4,IRGA,Cambisols,Dry,400,1610,NA,NA,3,,,,100,,,No s.d 
 5403,3897,Joos,2007,Grassland,Drought,-400 mm,,,,,,,,,47.2,8.4,IRGA,Cambisols,Dry,400,1280,NA,NA,3,,,,68,,,No s.d 
-5448,3965,van Straaten,2007.5,Forest,None,NA,,,,,,,,,-1.552,120.02,IRGA,Cambisol (sandy loam),Dry,560,1110,NA,NA,3,500,,,100,,,
-5448,3966,van Straaten,2007.5,Forest,Drought,NA,,,,,,,,,-1.552,120.02,IRGA,Cambisol (sandy loam),Dry,560,1050,NA,NA,3,500,,,30,,,"March 2007, 60% closed, increased to 80% January 2008"
+5448,3965,van Straaten,2007.5,Forest,None,NA,13.6,5,1.66,5,40,12,SM estimated from Figure 1c,,-1.552,120.02,IRGA,Cambisol (sandy loam),Dry,560,1110,NA,NA,3,500,,,100,,,
+5448,3966,van Straaten,2007.5,Forest,Drought,NA,12.1,5,1.63,5,30,12,SM estimated from Figure 1c,,-1.552,120.02,IRGA,Cambisol (sandy loam),Dry,560,1050,NA,NA,3,500,,,30,,,"March 2007, 60% closed, increased to 80% January 2008"
 5573,4003,Cleveland,2008,Forest,None,NA,,,,,,,,,8.716666667,-83.616667,IRGA,Ultisol,Dry,NA,1142,NA,NA,,,,,,,,
 5573,4004,Cleveland,2008,Forest,Drought,-25%,,,,,,,,,8.716666667,-83.616667,IRGA,Ultisol,Dry,NA,1293,NA,NA,,,,,,,,
 5573,4005,Cleveland,2008,Forest,Drought,-50%,,,,,,,,,8.716666667,-83.616667,IRGA,Ultisol,Dry,NA,1421,NA,NA,,,,,,,,
-5536,4006,Yan,2006,Grassland,None,NA,,,,,,,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,2.91,5,,,0.4248529157,100,0.11,0.002236067977,
-5536,4008,Yan,2006,Grassland,Irrigated,15 mm H2O/week,,,,,,,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,3.47,5,,,0.4472135955,130,0.13,0.004472135955,
-5536,4010,Yan,2007,Grassland,None,NA,,,,,,,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,1.61,5,,,0.1118033989,100,0.08,0.002236067977,
-5536,4012,Yan,2007,Grassland,Irrigated,15 mm H2O/week,,,,,,,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,2.59,5,,,0.0894427191,130,0.11,0.002236067977,
-5308,4150,De Dato,2002,Shrubland,None,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1305.6,NA,NA,3,151.4,,,100,,,
-5308,4152,De Dato,2002,Shrubland,Drought,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1248.8,NA,NA,3,75.7,,,84,,,
-5308,4153,De Dato,2003,Shrubland,None,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,832.5,NA,NA,3,75.7,,,100,,,
-5308,4155,De Dato,2003,Shrubland,Drought,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,794.7,NA,NA,3,56.8,,,64,,,
-5308,4156,De Dato,2004,Shrubland,None,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1002.8,NA,NA,3,151.4,,,100,0.4,,SM_mean est from fig 2
-5308,4158,De Dato,2004,Shrubland,Drought,NA,,,,,,,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,983.9,NA,NA,3,37.8,,,64,0.39,,SM_mean est from fig 2
+5536,4006,Yan,2006,Grassland,None,NA,,,,,10,10,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,2.91,5,,,0.4248529157,100,0.11,0.002236067977,
+5536,4008,Yan,2006,Grassland,Irrigated,15 mm H2O/week,,,,,13,10,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,3.47,5,,,0.4472135955,130,0.13,0.004472135955,
+5536,4010,Yan,2007,Grassland,None,NA,,,,,8,10,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,1.61,5,,,0.1118033989,100,0.08,0.002236067977,
+5536,4012,Yan,2007,Grassland,Irrigated,15 mm H2O/week,,,,,11,10,,,42.45,116.68,IRGA,Aridisols,Dry,NA,NA,NA,2.59,5,,,0.0894427191,130,0.11,0.002236067977,
+5308,4150,De Dato,2002,Shrubland,None,NA,,,3.9,10,9.6,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1305.6,NA,NA,3,151.4,,,100,,,
+5308,4152,De Dato,2002,Shrubland,Drought,NA,,,3.9,10,7.4,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1248.8,NA,NA,3,75.7,,,84,,,
+5308,4153,De Dato,2003,Shrubland,None,NA,,,3.9,10,11.9,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,832.5,NA,NA,3,75.7,,,100,,,
+5308,4155,De Dato,2003,Shrubland,Drought,NA,,,3.9,10,11.0,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,794.7,NA,NA,3,56.8,,,64,,,
+5308,4156,De Dato,2004,Shrubland,None,NA,,,3.9,10,12,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,1002.8,NA,NA,3,151.4,,,100,0.4,,SM_mean est from fig 2
+5308,4158,De Dato,2004,Shrubland,Drought,NA,,,3.9,10,7.6,10,,,40.61666667,8.17,IRGA,Lithic Xerorthent and Typic Rhodoxeralfs (Sandy loam),Dry,40,983.9,NA,NA,3,37.8,,,64,0.39,,SM_mean est from fig 2
 5368,4379,Liu,NA,Agriculture,Irrigated,NA,,,,,,,,,35.2,107.8,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,NA,3.157,3,,,,,0.18,,No s.d. or percent control
 5368,4380,Liu,NA,Agriculture,None,NA,,,,,,,,,35.2,107.8,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,NA,2.371,3,,,,100,0.2,,No s.d.
 5368,4381,Liu,NA,Agriculture,None,NA,,,,,,,,,35.2,107.8,IRGA,Cumuli-Ustic Isohumisols,Dry,1207,NA,NA,1.934,3,,,,100,0.2,,No s.d.
-6185,4393,Wu,2004,Forest,None,NA,,,,,,,,,42.88333333,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,4.52,3,,,1.12,100,,,s.d. est from fig 8
-6185,4394,Wu,2004,Forest,Irrigated,NA,,,,,,,,,42.88333333,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,4.45,3,,,0.92,120,,,s.d. est from fig 8
-6185,4395,Wu,2005,Forest,None,NA,,,,,,,,,42.88333333,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,5.93,3,,,1.35,100,,,s.d. est from fig 8
-6185,4396,Wu,2005,Forest,Irrigated,NA,,,,,,,,,42.88333333,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,5.13,3,,,1.31,120,,,s.d. est from fig 8
-6185,4397,Wu,2002,Forest,None,NA,,,,,,,,,41.96666667,-73.23,IRGA,Inceptisol,Dry,NA,NA,NA,4.34,,,,,,,,No manipulation
+6185,4393,Wu,2004,Forest,None,NA,,,,,30.1,5,,,42.88,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,4.52,3,,,1.12,100,,,s.d. est from fig 8
+6185,4394,Wu,2004,Forest,Irrigated,NA,,,,,32.5,5,,,42.88,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,4.45,3,,,0.92,120,,,s.d. est from fig 8
+6185,4395,Wu,2005,Forest,None,NA,,,,,33.7,5,,,42.88,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,5.93,3,,,1.35,100,,,s.d. est from fig 8
+6185,4396,Wu,2005,Forest,Irrigated,NA,,,,,36.4,5,,,42.88,-73.23,IRGA,Sandy loam,Dry,NA,NA,NA,5.13,3,,,1.31,120,,,s.d. est from fig 8
+6185,4397,Wu,2002,Forest,None,NA,,,,,10.6,5,,,41.97,-73.23,IRGA,Inceptisol,Dry,NA,NA,NA,4.34,,,,,,,,No manipulation
 6172,4398,Yan,2007.5,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,660,NA,NA,5.74,,,,,,,,No control
 6172,4399,Yan,2007.5,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,660,NA,NA,5.1,,,,,,,,No control
 6172,4400,Yan,2007.5,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,660,NA,NA,4.71,,,,,,,,No control
@@ -171,83 +171,83 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6166,4404.1,Cotrufo,2009.5,Forest,None,NA,,,,,,,,,42.18333333,11.93,IRGA,Andisol,,,1200,NA,NA,3,50,,,100,,,ADD NEW ROW NUMBER; est. from Fig 5
 6166,4404.2,Cotrufo,2009.5,Forest,Drought,-20% precip,,,,,,,,,42.18333333,11.93,IRGA,Andisol,,,1400,NA,NA,3,75,,,90,,,ADD NEW ROW NUMBER; est. from Fig 5
 6166,4404.3,Cotrufo,2009.5,Forest,Irrigated,755 mm/yr,,,,,,,,,42.18333333,11.93,IRGA,Andisol,,,1775,NA,NA,3,110,,,204,,,ADD NEW ROW NUMBER; est. from Fig 5
-6048,4491,Yan,2009,Grassland,None,NA,,,,,,,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,2.74,5,,,0.0894427191,100,0.14,0.01118033989,
-6048,4494,Yan,2009,Grassland,Irrigated,120 mm,,,,,,,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,3.16,5,,,0.2683281573,130,0.16,0.006708203932,
-6048,4497,Yan,2010,Grassland,None,NA,,,,,,,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,1.36,5,,,0.06708203932,100,0.11,0.002236067977,
-6048,4500,Yan,2010,Grassland,Irrigated,120 mm,,,,,,,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,1.93,5,,,0.1118033989,130,0.13,0.004472135955,
+6048,4491,Yan,2009,Grassland,None,NA,,,,,13.7,10,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,2.74,5,,,0.0894427191,100,0.14,0.01118033989,
+6048,4494,Yan,2009,Grassland,Irrigated,120 mm,,,,,16.0,10,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,3.16,5,,,0.2683281573,130,0.16,0.006708203932,
+6048,4497,Yan,2010,Grassland,None,NA,,,,,10.7,10,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,1.36,5,,,0.06708203932,100,0.11,0.002236067977,
+6048,4500,Yan,2010,Grassland,Irrigated,120 mm,,,,,12.5,10,,,42.03333333,116.27,IRGA,Chestnut soil,Dry,1324,NA,NA,1.93,5,,,0.1118033989,130,0.13,0.004472135955,
 6066,4510,Thomey,2007,Desert,None,NA,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,0.73,3,,,0.02236067977,100,,,s.d. est from fig 2
 6066,4511,Thomey,2007,Desert,Irrigated,2 mm rainfall/month,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,0.99,5,,,0.02236067977,133,,,s.d. est from fig 2
 6066,4512,Thomey,2007,Desert,Irrigated,20 mm rainfall/month,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,0.84,5,,,0.02236067977,165,,,s.d. est from fig 2
 6066,4513,Thomey,2008,Desert,None,NA,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,0.72,3,,,0.02236067977,100,,,s.d. est from fig 2
 6066,4514,Thomey,2008,Desert,Irrigated,2 mm rainfall/month,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,1.15,5,,,0.02236067977,133,,,s.d. est from fig 2
 6066,4515,Thomey,2008,Desert,Irrigated,20 mm rainfall/month,,,,,,,,,34.33888889,-106.8,Gradient,Typic Haplargids,Dry,NA,NA,NA,0.88,5,,,0.02236067977,165,,,s.d. est from fig 2
-6112,4554,Talmon,2006.5,Shrubland,None,NA,,,,,,,,,33,,IRGA,Clay (Terra rossa),Dry,500,758,NA,NA,,,,,,,,
-6112,4555,Talmon,2006.5,Shrubland,None,NA,,,,,,,,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,634,NA,NA,5,,,,100,,,
-6112,4556,Talmon,2006.5,Shrubland,Irrigated,NA,,,,,,,,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,715,NA,NA,5,,,,130,,,
-6112,4557,Talmon,2006.5,Shrubland,Drought,NA,,,,,,,,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,600,NA,NA,5,,,,70,,,
-6112,4558,Talmon,2006.5,Shrubland,None,NA,,,,,,,,,31.38333333,34.9,IRGA,Loam (Brown Rendiza),Dry,500,429,NA,NA,5,,,,100,,,
-6112,4559,Talmon,2006.5,Shrubland,Irrigated,NA,,,,,,,,,31.38333333,34.9,IRGA,Loam (Brown Rendiza),Dry,500,564,NA,NA,5,,,,130,,,
-6112,4560,Talmon,2006.5,Shrubland,Drought,NA,,,,,,,,,31.38333333,34.9,IRGA,Loam (Brown Rendiza),Dry,500,472,NA,NA,5,,,,70,,,
-6112,4561,Talmon,2006.5,Shrubland,None,NA,,,,,,,,,30.86666667,,IRGA,Sandy clay loam (Desert lithosol),Dry,500,177,NA,NA,,,,,,,,
-6168,4585,Fay,1998,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.7,6,,,1.224744871,100,,,s.d. est from fig 7
-6168,4586,Fay,1999,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.5,6,,,0.2449489743,100,,,s.d. est from fig 7
-6168,4587,Fay,2000,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9,6,,,1.469693846,100,,,s.d. est from fig 7
-6168,4588,Fay,2001,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.9,6,,,0.6123724357,100,,,s.d. est from fig 7
-6168,4589,Fay,2002,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.1,6,,,0.7348469228,100,,,s.d. est from fig 7
-6168,4590,Fay,2003,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.7,6,,,0.1224744871,100,,,s.d. est from fig 7
-6168,4591,Fay,2004,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,10,6,,,0.3674234614,100,,,s.d. est from fig 7
-6168,4592,Fay,2005,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.5,6,,,0.6123724357,100,,,s.d. est from fig 7
-6168,4593,Fay,2006,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.4,6,,,0.6123724357,100,,,s.d. est from fig 7
-6168,4594,Fay,2006.5,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,NA,6,,,,100,,,
-6168,4595,Fay,2007,Grassland,None,NA,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9,6,,,0.3674234614,100,,,s.d. est from fig 7
-6168,4596,Fay,1998,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.7,6,,,1.224744871,70,,,s.d. est from fig 7
-6168,4597,Fay,1999,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.07348469228,70,,,s.d. est from fig 7
-6168,4598,Fay,2000,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.7,6,,,0.4898979486,70,,,s.d. est from fig 7
-6168,4599,Fay,2001,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.3,6,,,0.3674234614,70,,,s.d. est from fig 7
-6168,4600,Fay,2003,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.1224744871,70,,,s.d. est from fig 7
-6168,4601,Fay,2004,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.6,6,,,0.1224744871,70,,,s.d. est from fig 7
-6168,4602,Fay,2005,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.2,6,,,0.1224744871,70,,,s.d. est from fig 7
-6168,4603,Fay,2006,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.6,6,,,0.2449489743,70,,,s.d. est from fig 7
-6168,4604,Fay,2007,Grassland,Drought,70% precip,,,,,,,,,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.1,6,,,0.1224744871,70,,,s.d. est from fig 7
-6168,4605,Fay,1998,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.4,6,,,0.4898979486,100,,,s.d. est from fig 7
-6168,4606,Fay,1999,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.3,6,,,0.2449489743,100,,,s.d. est from fig 7
-6168,4607,Fay,2000,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.2,6,,,0.4898979486,100,,,s.d. est from fig 7
-6168,4608,Fay,2001,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.3,6,,,0.3674234614,100,,,s.d. est from fig 7
-6168,4609,Fay,2002,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.8,6,,,0.7348469228,100,,,s.d. est from fig 7
-6168,4610,Fay,2003,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.2,6,,,0.07348469228,100,,,s.d. est from fig 7
-6168,4611,Fay,2004,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.1,6,,,0.07348469228,100,,,s.d. est from fig 7
-6168,4612,Fay,2005,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8,6,,,0.07348469228,100,,,s.d. est from fig 7
-6168,4613,Fay,2006,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.4,6,,,0.07348469228,100,,,s.d. est from fig 7
-6168,4614,Fay,2006.5,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,NA,6,,,,100,,,
-6168,4615,Fay,2007,Grassland,Drought,Altered timing,,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.7,6,,,0.2449489743,100,,,s.d. est from fig 7
-6168,4616,Fay,1998,Grassland,Drought,"Altered timing, 70% precip",,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.3,6,,,0.3674234614,70,,,s.d. est from fig 7
-6168,4617,Fay,1999,Grassland,Drought,"Altered timing, 70% precip",,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.2,6,,,0.1224744871,70,,,s.d. est from fig 7
-6168,4618,Fay,2000,Grassland,Drought,"Altered timing, 70% precip",,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.4898979486,70,,,s.d. est from fig 7
-6168,4619,Fay,2001,Grassland,Drought,"Altered timing, 70% precip",,,,,,,,Altered timing,39.08333333,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.9,6,,,0.9797958971,70,,,s.d. est from fig 7
+6112,4554,Talmon,2006.5,Shrubland,None,NA,,,,,,5,,,33,,IRGA,Clay (Terra rossa),Dry,500,758,NA,NA,,,,,,,,
+6112,4555,Talmon,2006.5,Shrubland,None,NA,,,,,22,5,SM estimated from Figure 1,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,634,NA,NA,5,,,,100,,,
+6112,4556,Talmon,2006.5,Shrubland,Irrigated,NA,,,,,31,5,SM estimated from Figure 1,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,715,NA,NA,5,,,,130,,,
+6112,4557,Talmon,2006.5,Shrubland,Drought,NA,,,,,22,5,SM estimated from Figure 1,,31.7,35.05,IRGA,Clay (Terra rossa),Dry,500,600,NA,NA,5,,,,70,,,
+6112,4558,Talmon,2006.5,Shrubland,None,NA,,,,,20,5,SM estimated from Figure 1,,31.38,34.9,IRGA,Loam (Brown Rendiza),Dry,500,429,NA,NA,5,,,,100,,,
+6112,4559,Talmon,2006.5,Shrubland,Irrigated,NA,,,,,21,5,SM estimated from Figure 1,,31.38,34.9,IRGA,Loam (Brown Rendiza),Dry,500,564,NA,NA,5,,,,130,,,
+6112,4560,Talmon,2006.5,Shrubland,Drought,NA,,,,,17,5,SM estimated from Figure 1,,31.38,34.9,IRGA,Loam (Brown Rendiza),Dry,500,472,NA,NA,5,,,,70,,,
+6112,4561,Talmon,2006.5,Shrubland,None,NA,,,,,,5,,,30.87,,IRGA,Sandy clay loam (Desert lithosol),Dry,500,177,NA,NA,,,,,,,,
+6168,4585,Fay,1998,Grassland,None,NA,,,,,37,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.7,6,,,1.224744871,100,,,s.d. est from fig 7
+6168,4586,Fay,1999,Grassland,None,NA,,,,,38,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.5,6,,,0.2449489743,100,,,s.d. est from fig 7
+6168,4587,Fay,2000,Grassland,None,NA,,,,,24,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9,6,,,1.469693846,100,,,s.d. est from fig 7
+6168,4588,Fay,2001,Grassland,None,NA,,,,,28,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.9,6,,,0.6123724357,100,,,s.d. est from fig 7
+6168,4589,Fay,2002,Grassland,None,NA,,,,,27,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.1,6,,,0.7348469228,100,,,s.d. est from fig 7
+6168,4590,Fay,2003,Grassland,None,NA,,,,,22,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.7,6,,,0.1224744871,100,,,s.d. est from fig 7
+6168,4591,Fay,2004,Grassland,None,NA,,,,,29,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,10,6,,,0.3674234614,100,,,s.d. est from fig 7
+6168,4592,Fay,2005,Grassland,None,NA,,,,,30,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.5,6,,,0.6123724357,100,,,s.d. est from fig 7
+6168,4593,Fay,2006,Grassland,None,NA,,,,,25,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.4,6,,,0.6123724357,100,,,s.d. est from fig 7
+6168,4594,Fay,2006.5,Grassland,None,NA,,,,,24,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,NA,6,,,,100,,,
+6168,4595,Fay,2007,Grassland,None,NA,,,,,26,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9,6,,,0.3674234614,100,,,s.d. est from fig 7
+6168,4596,Fay,1998,Grassland,Drought,70% precip,,,,,33.3,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.7,6,,,1.224744871,70,,,s.d. est from fig 7
+6168,4597,Fay,1999,Grassland,Drought,70% precip,,,,,34.2,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.07348469228,70,,,s.d. est from fig 7
+6168,4598,Fay,2000,Grassland,Drought,70% precip,,,,,21.6,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.7,6,,,0.4898979486,70,,,s.d. est from fig 7
+6168,4599,Fay,2001,Grassland,Drought,70% precip,,,,,25.2,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.3,6,,,0.3674234614,70,,,s.d. est from fig 7
+6168,4600,Fay,2003,Grassland,Drought,70% precip,,,,,19.8,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.1224744871,70,,,s.d. est from fig 7
+6168,4601,Fay,2004,Grassland,Drought,70% precip,,,,,26.1,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.6,6,,,0.1224744871,70,,,s.d. est from fig 7
+6168,4602,Fay,2005,Grassland,Drought,70% precip,,,,,27,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.2,6,,,0.1224744871,70,,,s.d. est from fig 7
+6168,4603,Fay,2006,Grassland,Drought,70% precip,,,,,22.5,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.6,6,,,0.2449489743,70,,,s.d. est from fig 7
+6168,4604,Fay,2007,Grassland,Drought,70% precip,,,,,23.4,15,,,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.1,6,,,0.1224744871,70,,,s.d. est from fig 7
+6168,4605,Fay,1998,Grassland,Drought,Altered timing,,,,,31.82,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.4,6,,,0.4898979486,100,,,s.d. est from fig 7
+6168,4606,Fay,1999,Grassland,Drought,Altered timing,,,,,32.68,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.3,6,,,0.2449489743,100,,,s.d. est from fig 7
+6168,4607,Fay,2000,Grassland,Drought,Altered timing,,,,,20.64,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.2,6,,,0.4898979486,100,,,s.d. est from fig 7
+6168,4608,Fay,2001,Grassland,Drought,Altered timing,,,,,24.08,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.3,6,,,0.3674234614,100,,,s.d. est from fig 7
+6168,4609,Fay,2002,Grassland,Drought,Altered timing,,,,,23.22,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.8,6,,,0.7348469228,100,,,s.d. est from fig 7
+6168,4610,Fay,2003,Grassland,Drought,Altered timing,,,,,18.92,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.2,6,,,0.07348469228,100,,,s.d. est from fig 7
+6168,4611,Fay,2004,Grassland,Drought,Altered timing,,,,,24.94,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,9.1,6,,,0.07348469228,100,,,s.d. est from fig 7
+6168,4612,Fay,2005,Grassland,Drought,Altered timing,,,,,25.8,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8,6,,,0.07348469228,100,,,s.d. est from fig 7
+6168,4613,Fay,2006,Grassland,Drought,Altered timing,,,,,21.5,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.4,6,,,0.07348469228,100,,,s.d. est from fig 7
+6168,4614,Fay,2006.5,Grassland,Drought,Altered timing,,,,,20.64,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,NA,6,,,,100,,,
+6168,4615,Fay,2007,Grassland,Drought,Altered timing,,,,,22.36,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.7,6,,,0.2449489743,100,,,s.d. est from fig 7
+6168,4616,Fay,1998,Grassland,Drought,"Altered timing, 70% precip",,,,,22,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,8.3,6,,,0.3674234614,70,,,s.d. est from fig 7
+6168,4617,Fay,1999,Grassland,Drought,"Altered timing, 70% precip",,,,,27,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,6.2,6,,,0.1224744871,70,,,s.d. est from fig 7
+6168,4618,Fay,2000,Grassland,Drought,"Altered timing, 70% precip",,,,,20,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7,6,,,0.4898979486,70,,,s.d. est from fig 7
+6168,4619,Fay,2001,Grassland,Drought,"Altered timing, 70% precip",,,,,18,15,,Altered timing,39.08,-96.58,IRGA,Silty clay loam,Dry,NA,NA,NA,7.9,6,,,0.9797958971,70,,,s.d. est from fig 7
 6248,4757,Carter,2008.5,Wetland,None,NA,,,,,,,,,58.86666667,26.23,IRGA,Histosol,Wet,80,528,NA,NA,,,,,,,,No manipulation
 6248,4759,Carter,2007,Wetland,None,NA,,,,,,,,,68.333,18.97,IRGA,Histosol,Wet,380,231,NA,NA,,,,,,,,No manipulation
 6248,4761,Carter,2007,Wetland,None,NA,,,,,,,,,56.25,13.55,IRGA,Histosol,Wet,140,522,NA,NA,,,,,,,,No manipulation
 6248,4763,Carter,2006.5,Wetland,None,NA,,,,,,,,,55.75,3.27,IRGA,Histosol,Wet,280,572,NA,NA,,,,,,,,No manipulation
-6248,4766,Carter,2006.5,Shrubland,None,NA,,,,,,,,,53.05,-3.47,IRGA,Peaty podzol,Wet,490,518,NA,NA,3,55.42562584,,,100,0.46,,
-6248,4767,Carter,2006.5,Shrubland,Drought,NA,,,,,,,,,53.05,-3.47,IRGA,Peaty podzol,Wet,490,633,NA,NA,3,20.78460969,,,83.64174685,0.36,,
-6248,4769,Carter,2003.5,Shrubland,None,NA,,,,,,,,,56.38333333,10.48,IRGA,Sandy podzol,Dry,57,732,NA,NA,3,62.35382907,,,100,0.18,,
-6248,4770,Carter,2003.5,Shrubland,Drought,NA,,,,,,,,,56.38333333,10.48,IRGA,Sandy podzol,Dry,57,513,NA,NA,3,31.17691454,,,84.28143713,0.15,,
-6248,4772,Carter,2006.5,Shrubland,None,NA,,,,,,,,,55.88333333,11.97,IRGA,Sandy podzol,Dry,9,651,NA,NA,6,144.5198948,,,100,0.17,,
-6248,4773,Carter,2006.5,Shrubland,Drought,NA,,,,,,,,,55.88333333,11.97,IRGA,Sandy podzol,Dry,9,600,NA,NA,6,83.28265125,,,,0.15,,No percent control
-6248,4775,Carter,1999,Shrubland,None,NA,,,,,,,,,52.4,5.9,IRGA,Sandy podzol,Dry,25,310,NA,NA,3,83.13843876,,,100,0.22,,
-6248,4776,Carter,1999,Shrubland,Drought,NA,,,,,,,,,52.4,5.9,IRGA,Sandy podzol,Dry,25,285,NA,NA,3,124.7076581,,,80.32454361,0.17,,
-6248,4778,Carter,2007.5,Shrubland,None,NA,,,,,,,,,41.31666667,1.82,IRGA,Petrocalcic calcisol,Dry,210,390,NA,NA,3,51.96152423,,,100,0.2,,
-6248,4779,Carter,2007.5,Shrubland,Drought,NA,,,,,,,,,41.31666667,1.82,IRGA,Petrocalcic calcisol,Dry,210,298,NA,NA,3,32.90896534,,,72.18181818,0.17,,
-6272,4794,Deng,2007,Forest,Irrigated,2x precip,,,,,,,,,23.17,112.49,IRGA,NA,Dry,250,961,NA,NA,3,41.61811024,,,200,0.21,0.01,
-6272,4795,Deng,2008,Forest,Irrigated,2x precip,,,,,,,,,23.17,112.49,IRGA,NA,Dry,260,1230,NA,NA,3,45.41538462,,,200,0.31,0.01,
-6272,4796,Deng,2009,Forest,Irrigated,2x precip,,,,,,,,,23.17,112.49,IRGA,NA,Dry,260,1166,NA,NA,3,41.64285714,,,200,0.3,0.01,
-6272,4797,Deng,2007,Forest,None,NA,,,,,,,,,23.17,112.49,IRGA,NA,Dry,250,833,NA,NA,3,41.65,,,100,0.18,0.009,
-6272,4798,Deng,2008,Forest,None,NA,,,,,,,,,23.17,112.49,IRGA,NA,Dry,260,1150,NA,NA,3,49.17763158,,,100,0.28,0.01,
-6272,4799,Deng,2009,Forest,None,NA,,,,,,,,,23.17,112.49,IRGA,NA,Dry,260,1158,NA,NA,3,49.19607843,,,100,0.27,0.01,
-6299,4852,Ford,2009,Savanna,None,NA,,,,,,,,,31.27,-84.48,IRGA,Typic Quartzipsamments,Dry,158,675,NA,NA,4,13.6,,,100,0.078,,SD estimated from Fig 7
-6299,4853,Ford,2009,Savanna,Irrigated,50%,,,,,,,,,31.27,-84.48,IRGA,Typic Quartzipsamments,Dry,158,760,NA,NA,4,68.2,,,150,0.118,,SD estimated from Fig 7
-6299,4854,Ford,2009,Savanna,None,NA,,,,,,,,,31.27,-84.48,Gradient,Typic Quartzipsamments,Dry,158,460,NA,NA,4,109.1,,,100,0.078,,SD estimated from Fig 7
-6299,4855,Ford,2009,Savanna,Irrigated,50%,,,,,,,,,31.27,-84.48,Gradient,Typic Quartzipsamments,Dry,158,845,NA,NA,4,81.8,,,150,0.118,,SD estimated from Fig 7
+6248,4766,Carter,2006.5,Shrubland,None,NA,,,,,45.9,10,,,53.05,-3.47,IRGA,Peaty podzol,Wet,490,518,NA,NA,3,55.42562584,,,100,0.46,,
+6248,4767,Carter,2006.5,Shrubland,Drought,NA,,,,,35.7,10,,,53.05,-3.47,IRGA,Peaty podzol,Wet,490,633,NA,NA,3,20.78460969,,,83.64174685,0.36,,
+6248,4769,Carter,2003.5,Shrubland,None,NA,,,,,17.6,6,,,56.38333333,10.48,IRGA,Sandy podzol,Dry,57,732,NA,NA,3,62.35382907,,,100,0.18,,
+6248,4770,Carter,2003.5,Shrubland,Drought,NA,,,,,15.1,6,,,56.38333333,10.48,IRGA,Sandy podzol,Dry,57,513,NA,NA,3,31.17691454,,,84.28143713,0.15,,
+6248,4772,Carter,2006.5,Shrubland,None,NA,,,,,16.5,20,,,55.88333333,11.97,IRGA,Sandy podzol,Dry,9,651,NA,NA,6,144.5198948,,,100,0.17,,
+6248,4773,Carter,2006.5,Shrubland,Drought,NA,,,,,15.0,20,,,55.88333333,11.97,IRGA,Sandy podzol,Dry,9,600,NA,NA,6,83.28265125,,,,0.15,,No percent control
+6248,4775,Carter,1999,Shrubland,None,NA,,,,,21.8,10,,,52.4,5.9,IRGA,Sandy podzol,Dry,25,310,NA,NA,3,83.13843876,,,100,0.22,,
+6248,4776,Carter,1999,Shrubland,Drought,NA,,,,,17.1,10,,,52.4,5.9,IRGA,Sandy podzol,Dry,25,285,NA,NA,3,124.7076581,,,80.32454361,0.17,,
+6248,4778,Carter,2007.5,Shrubland,None,NA,,,,,19.8,15,,,41.31666667,1.82,IRGA,Petrocalcic calcisol,Dry,210,390,NA,NA,3,51.96152423,,,100,0.2,,
+6248,4779,Carter,2007.5,Shrubland,Drought,NA,,,,,17.0,15,,,41.31666667,1.82,IRGA,Petrocalcic calcisol,Dry,210,298,NA,NA,3,32.90896534,,,72.18181818,0.17,,
+6272,4794,Deng,2007,Forest,Irrigated,2x precip,,,,,21,5,,,23.17,112.49,IRGA,NA,Dry,250,961,NA,NA,3,41.61811024,,,200,0.21,0.01,
+6272,4795,Deng,2008,Forest,Irrigated,2x precip,,,,,31,5,,,23.17,112.49,IRGA,NA,Dry,260,1230,NA,NA,3,45.41538462,,,200,0.31,0.01,
+6272,4796,Deng,2009,Forest,Irrigated,2x precip,,,,,30,5,,,23.17,112.49,IRGA,NA,Dry,260,1166,NA,NA,3,41.64285714,,,200,0.3,0.01,
+6272,4797,Deng,2007,Forest,None,NA,,,,,18,5,,,23.17,112.49,IRGA,NA,Dry,250,833,NA,NA,3,41.65,,,100,0.18,0.009,
+6272,4798,Deng,2008,Forest,None,NA,,,,,28,5,,,23.17,112.49,IRGA,NA,Dry,260,1150,NA,NA,3,49.17763158,,,100,0.28,0.01,
+6272,4799,Deng,2009,Forest,None,NA,,,,,27,5,,,23.17,112.49,IRGA,NA,Dry,260,1158,NA,NA,3,49.19607843,,,100,0.27,0.01,
+6299,4852,Ford,2009,Savanna,None,NA,,,,,7.8,30,,,31.27,-84.48,IRGA,Typic Quartzipsamments,Dry,158,675,NA,NA,4,13.6,,,100,0.078,,SD estimated from Fig 7
+6299,4853,Ford,2009,Savanna,Irrigated,50%,,,,,11.8,30,,,31.27,-84.48,IRGA,Typic Quartzipsamments,Dry,158,760,NA,NA,4,68.2,,,150,0.118,,SD estimated from Fig 7
+6299,4854,Ford,2009,Savanna,None,NA,,,,,7.8,30,,,31.27,-84.48,Gradient,Typic Quartzipsamments,Dry,158,460,NA,NA,4,109.1,,,100,0.078,,SD estimated from Fig 7
+6299,4855,Ford,2009,Savanna,Irrigated,50%,,,,,11.8,30,,,31.27,-84.48,Gradient,Typic Quartzipsamments,Dry,158,845,NA,NA,4,81.8,,,150,0.118,,SD estimated from Fig 7
 6341,4878,Huang,2010,Agriculture,Irrigated,NA,,,,,,,,,40.333,115.78,IRGA,Sandy,Dry,NA,NA,NA,4.21,,,,,,,,No control
 6341,4879,Huang,2011,Agriculture,Irrigated,NA,,,,,,,,,40.177,115.78,IRGA,Silt clay loam,Dry,NA,NA,NA,3.92,,,,,,,,No control
 6374,4903,Lai,2010,Shrubland,Irrigated,NA,,,,,,,,,44.3,87.85,IRGA,NA,Dry,NA,NA,NA,2.11,,,,,,,,No control
@@ -263,8 +263,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6410,4931,Matias,2007,Bare,Drought,NA,,,,,,,,,37.08333333,-3.47,IRGA,NA,Dry,1650,NA,NA,2.79,6,,,0.06123724357,65,,,s.d. est from fig 3
 6410,4932,Matias,2007,Bare,None,NA,,,,,,,,,37.08333333,-3.47,IRGA,NA,Dry,1650,NA,NA,3.71,6,,,0.06123724357,100,,,s.d. est from fig 3
 6410,4933,Matias,2007,Bare,Irrigated,NA,,,,,,,,,37.08333333,-3.47,IRGA,NA,Dry,1650,NA,NA,4.14,6,,,0.1224744871,149,,,s.d. est from fig 3
-6489,5020,Ruehr,2010,Forest,None,NA,,,,,,,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,1.64,3,,,0.1929411765,100,,,
-6489,5021,Ruehr,2010,Forest,Irrigated,NA,,,,,,,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,2.46,3,,,0.2170588235,150,,,
+6489,5020,Ruehr,2010,Forest,None,NA,,,,,15.6,10,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,1.64,3,,,0.1929411765,100,,,
+6489,5021,Ruehr,2010,Forest,Irrigated,NA,,,,,20,10,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,2.46,3,,,0.2170588235,150,,,
 6505,5057,Selsted,2006,Shrubland,None,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,672,NA,NA,6,28,,,100,,,
 6505,5059,Selsted,2006,Shrubland,Drought,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,609,NA,NA,6,28,,,92,,,
 6505,5065,Selsted,2007,Shrubland,None,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,719,NA,NA,6,30,,,100,,,
