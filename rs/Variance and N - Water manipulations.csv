@@ -265,42 +265,42 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 6410,4933,Matias,2007,Bare,Irrigated,NA,,,,,,,,,37.08333333,-3.47,IRGA,NA,Dry,1650,NA,NA,4.14,6,,,0.1224744871,149,,,s.d. est from fig 3
 6489,5020,Ruehr,2010,Forest,None,NA,,,,,15.6,10,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,1.64,3,,,0.1929411765,100,,,
 6489,5021,Ruehr,2010,Forest,Irrigated,NA,,,,,20,10,,,44.32375,121.65,IRGA,NA,Dry,977,NA,NA,2.46,3,,,0.2170588235,150,,,
-6505,5057,Selsted,2006,Shrubland,None,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,672,NA,NA,6,28,,,100,,,
-6505,5059,Selsted,2006,Shrubland,Drought,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,609,NA,NA,6,28,,,92,,,
-6505,5065,Selsted,2007,Shrubland,None,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,719,NA,NA,6,30,,,100,,,
-6505,5066,Selsted,2007,Shrubland,Drought,NA,,,,,,,,,55.88333333,11.97,IRGA,Sand,Dry,NA,661,NA,NA,6,30,,,92,,,
-6502,5084,Schindlbacher,2008,Forest,None,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,3.311,3,,,0.7871321876,100,0.5,,SM est from fig 2
-6502,5085,Schindlbacher,2009,Forest,None,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,3.495,3,,,0.6681937925,100,0.45,,SM est from fig 2
-6502,5086,Schindlbacher,2010,Forest,None,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.924,3,,,0.8911172835,100,0.45,,SM est from fig 2
-6502,5090,Schindlbacher,2008,Forest,Drought,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.731,3,,,0.3292690339,0,0.45,,SM est from fig 2
-6502,5091,Schindlbacher,2009,Forest,Drought,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.802,3,,,0.2545944321,0,0.4,,SM est from fig 2
-6502,5092,Schindlbacher,2010,Forest,Drought,NA,,,,,,,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.688,3,,,0.415824791,0,0.4,,SM est from fig 2
-6540,5096,Suseela,2009,Grassland,None,NA,,,,,,,,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,575,NA,3,,25,,100,,,
-6540,5097,Suseela,2009,Grassland,Irrigated,NA,,,,,,,,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,535,NA,3,,13,,150,,,
-6540,5098,Suseela,2009,Grassland,Drought,NA,,,,,,,,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,452,NA,3,,15,,50,,,
+6505,5057,Selsted,2006,Shrubland,None,NA,2,15,,,16.3,20,,,55.88333333,11.97,IRGA,Sand,Dry,NA,672,NA,NA,6,28,,,100,,,
+6505,5059,Selsted,2006,Shrubland,Drought,NA,2,15,,,14.8,20,,,55.88333333,11.97,IRGA,Sand,Dry,NA,609,NA,NA,6,28,,,92,,,
+6505,5065,Selsted,2007,Shrubland,None,NA,2,15,,,16.3,20,,,55.88333333,11.97,IRGA,Sand,Dry,NA,719,NA,NA,6,30,,,100,,,
+6505,5066,Selsted,2007,Shrubland,Drought,NA,2,15,,,14.8,20,,,55.88333333,11.97,IRGA,Sand,Dry,NA,661,NA,NA,6,30,,,92,,,
+6502,5084,Schindlbacher,2008,Forest,None,NA,,,,,50,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,3.311,3,,,0.7871321876,100,0.5,,SM est from fig 2
+6502,5085,Schindlbacher,2009,Forest,None,NA,,,,,45,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,3.495,3,,,0.6681937925,100,0.45,,SM est from fig 2
+6502,5086,Schindlbacher,2010,Forest,None,NA,,,,,45,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.924,3,,,0.8911172835,100,0.45,,SM est from fig 2
+6502,5090,Schindlbacher,2008,Forest,Drought,NA,,,,,45,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.731,3,,,0.3292690339,0,0.45,,SM est from fig 2
+6502,5091,Schindlbacher,2009,Forest,Drought,NA,,,,,40,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.802,3,,,0.2545944321,0,0.4,,SM est from fig 2
+6502,5092,Schindlbacher,2010,Forest,Drought,NA,,,,,40,5,,,47.70555556,11.69,IRGA,Chromic Cambisols and Rendzic Leptosols,Dry,910,NA,NA,2.688,3,,,0.415824791,0,0.4,,SM est from fig 2
+6540,5096,Suseela,2009,Grassland,None,NA,9,,,,25,10,SM estimated from Figure 1 but relative diff matches results text,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,575,NA,3,,25,,100,,,
+6540,5097,Suseela,2009,Grassland,Irrigated,NA,9,,,,30,10,SM estimated from Figure 1 but relative diff matches results text,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,535,NA,3,,13,,150,,,
+6540,5098,Suseela,2009,Grassland,Drought,NA,9,,,,18,10,SM estimated from Figure 1 but relative diff matches results text,,43.385,-71.22,IRGA,Mesic Typic Dystrudept,Dry,NA,NA,452,NA,3,,15,,50,,,
 6575,5113,Wunderlich,2009,Wetland,None,NA,,,,,,,,,50.13166667,12.01,IRGA,Organic,Wet,700,365,NA,NA,3,52,,,100,,,
 6575,5114,Wunderlich,2010,Wetland,None,NA,,,,,,,,,50.13166667,12.01,IRGA,Organic,Wet,700,307,NA,NA,3,35,,,100,,,
 6575,5115,Wunderlich,2009,Wetland,Irrigated,NA,,,,,,,,,50.13166667,12.01,IRGA,Organic,Wet,700,212,NA,NA,3,9,,,,,,
 6575,5116,Wunderlich,2010,Wetland,Irrigated,NA,,,,,,,,,50.13166667,12.01,IRGA,Organic,Wet,700,216,NA,NA,3,62,,,,,,
 6793,5241,Coucheney,2009,Forest,Irrigated,NA,,,,,,,,,64.11666667,,IRGA,Haplic podzol (sandy loam),Dry,310,NA,NA,NA,,,,,,,,
-7048,5424,Jiang,2007.5,Forest,None,pf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,848,NA,NA,3,49.21428571,,,100,0.16,0.01,
-7048,5425,Jiang,2007.5,Forest,None,mf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,1082,NA,NA,3,75.66433566,,,100,0.27,0.02,
-7048,5426,Jiang,2007.5,Forest,None,bf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,1094,NA,NA,3,75.70934256,,,100,0.27,0.02,
-7048,5427,Jiang,2007.5,Forest,Drought,pf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,416,NA,NA,3,18.90909091,,,0,0.08,0.003,
-7048,5428,Jiang,2007.5,Forest,Drought,mf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,787,NA,NA,3,45.40384615,,,0,0.17,0.007,
-7048,5429,Jiang,2007.5,Forest,Drought,bf,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,810,NA,NA,3,45.42056075,,,0,0.17,0.007,
-7048,5430,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,999,NA,NA,3,60.54545455,,,200,0.19,0.01,
-7048,5431,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,1124,NA,NA,3,64.33670034,,,200,0.3,0.02,
-7048,5432,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,,,,,23.17,112.49,IRGA,Oxisols,Dry,225,1116,NA,NA,3,64.31186441,,,200,0.29,0.02,
+7048,5424,Jiang,2007.5,Forest,None,pf,,,,,27.05,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,848,NA,NA,3,49.21428571,,,100,0.16,0.01,
+7048,5425,Jiang,2007.5,Forest,None,mf,,,,,27.45,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,1082,NA,NA,3,75.66433566,,,100,0.27,0.02,
+7048,5426,Jiang,2007.5,Forest,None,bf,,,,,16.02,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,1094,NA,NA,3,75.70934256,,,100,0.27,0.02,
+7048,5427,Jiang,2007.5,Forest,Drought,pf,,,,,16.91,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,416,NA,NA,3,18.90909091,,,0,0.08,0.003,
+7048,5428,Jiang,2007.5,Forest,Drought,mf,,,,,17.21,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,787,NA,NA,3,45.40384615,,,0,0.17,0.007,
+7048,5429,Jiang,2007.5,Forest,Drought,bf,,,,,7.75,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,810,NA,NA,3,45.42056075,,,0,0.17,0.007,
+7048,5430,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,29.36,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,999,NA,NA,3,60.54545455,,,200,0.19,0.01,
+7048,5431,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,30.24,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,1124,NA,NA,3,64.33670034,,,200,0.3,0.02,
+7048,5432,Jiang,2007.5,Forest,Precipitation amount change,Double precipitation,,,,,18.82,5,,,23.17,112.49,IRGA,Oxisols,Dry,225,1116,NA,NA,3,64.31186441,,,200,0.29,0.02,
 7113,5444,Lagomarsino,2003.5,Forest,Irrigated,NA,,,,,,,,,42.37,11.8,IRGA,Pachic Xerumbreapts,Dry,150,719,NA,2.9,,,,,,,,"Skipping, no control"
 7113,5445,Lagomarsino,2004.5,Forest,Irrigated,NA,,,,,,,,,42.37,11.8,IRGA,Pachic Xerumbreapts,Dry,150,605,NA,2,,,,,,,,"Skipping, no control"
-7046,5645,Jia,2011,Grassland,None,NA,,,,,,,,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.25,6,,,0.1,100,0.1,0.005,s.d. est from fig 6; SM est from fig 4
-7046,5646,Jia,2011,Grassland,None,NA,,,,,,,,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.4,6,,,0.01,100,0.09,0.005,s.d. est from fig 6; SM est from fig 4
-7046,5647,Jia,2011,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.5,6,,,0.1,112.5,0.11,0.005,s.d. est from fig 6; SM est from fig 4
-7046,5648,Jia,2011,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.9,6,,,0.05,112.5,0.1,0.005,s.d. est from fig 6; SM est from fig 4
-7115,5683,Lai,2010.5,Shrubland,None,NA,,,,,,,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.47,3,,,0.01732050808,100,0.22,,s.d. est from fig 6; SM est from fig 4
-7115,5686,Lai,2010.5,Shrubland,Irrigated,50%,,,,,,,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.5,3,,,0.08660254038,150,0.27,,s.d. est from fig 6; SM est from fig 4
-7115,5689,Lai,2010.5,Shrubland,Irrigated,100%,,,,,,,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.66,3,,,0.1732050808,200,0.31,,s.d. est from fig 6; SM est from fig 4
+7046,5645,Jia,2011,Grassland,None,NA,,,,,10,6,SM estimated from Figure 4,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.25,6,,,0.1,100,0.1,0.005,s.d. est from fig 6; SM est from fig 4
+7046,5646,Jia,2011,Grassland,None,NA,,,,,9,6,SM estimated from Figure 4,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.4,6,,,0.01,100,0.09,0.005,s.d. est from fig 6; SM est from fig 4
+7046,5647,Jia,2011,Grassland,Irrigated,50 mm/yr,,,,,11,6,SM estimated from Figure 4,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.5,6,,,0.1,112.5,0.11,0.005,s.d. est from fig 6; SM est from fig 4
+7046,5648,Jia,2011,Grassland,Irrigated,50 mm/yr,,,,,10,6,SM estimated from Figure 4,,38.82,110.38,IRGA,Loessial (Regosols),Dry,1178,NA,NA,1.9,6,,,0.05,112.5,0.1,0.005,s.d. est from fig 6; SM est from fig 4
+7115,5683,Lai,2010.5,Shrubland,None,NA,,,,,22,30,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.47,3,,,0.01732050808,100,0.22,,s.d. est from fig 6; SM est from fig 4
+7115,5686,Lai,2010.5,Shrubland,Irrigated,50%,,,,,27,30,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.5,3,,,0.08660254038,150,0.27,,s.d. est from fig 6; SM est from fig 4
+7115,5689,Lai,2010.5,Shrubland,Irrigated,100%,,,,,31,30,,,40.3,87.93,IRGA,Clay loam,Dry,NA,NA,NA,0.66,3,,,0.1732050808,200,0.31,,s.d. est from fig 6; SM est from fig 4
 7153,5709,Liang,2010.75,Forest,Irrigated,pH 4.5,,,,,,,,,23.167,112.53,IRGA,Loam (Oxisol),Dry,NA,1225,NA,NA,,,,,,,,Manipulating acidity; no control
 7153,5710,Liang,2011.75,Forest,Irrigated,pH 4.5,,,,,,,,,23.167,112.53,IRGA,Loam (Oxisol),Dry,NA,1121,NA,NA,,,,,,,,Manipulating acidity; no control
 7153,5711,Liang,2010.75,Forest,Irrigated,pH 4.5,,,,,,,,,23.167,112.53,IRGA,Loam (Oxisol),Dry,NA,1203,NA,NA,,,,,,,,Manipulating acidity; no control
@@ -309,158 +309,158 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 7153,5714,Liang,2011.75,Forest,Irrigated,pH 4.5,,,,,,,,,23.167,112.53,IRGA,Loam (Oxisol),Dry,NA,1135,NA,NA,,,,,,,,Manipulating acidity; no control
 8694,5895,da Costa,2010.5,Forest,None,NA,,,,,,,,,-1.72,-51.45,IRGA,Vetic Acrisols,Dry,NA,1599,606,NA,1,169,47,,100,,,
 8694,5896,da Costa,2010.5,Forest,Drought,NA,,,,,,,,,-1.72,-51.45,IRGA,Vetic Acrisols,Dry,NA,1534,773,NA,1,159,60,,50,,,
-9324,5940,Zhang,2012.5,Forest,None,NA,,,,,,,,,21.92,101.27,IRGA,Oxisol,Dry,568,693,NA,NA,5,299.578125,,,100,0.2918,0.0899,Data from SI
-9324,5941,Zhang,2012.5,Forest,Drought,NA,,,,,,,,,21.92,101.27,IRGA,Oxisol,Dry,568,855,NA,NA,5,348.9013453,,,50,0.2435,0.073,Data from SI
-10104,6046,Hinko-Najera,2011.5,Forest,None,NA,,,,,,,,,-37.42236111,144.08,IRGA,"Acidic-mottled, Dystrophic, Yellow Dermosol",Dry,706,1771,827,NA,3,30.2744,37.59090909,,100,,,
-10104,6047,Hinko-Najera,2011.5,Forest,Drought,-40%,,,,,,,,,-37.42236111,144.08,IRGA,"Acidic-mottled, Dystrophic, Yellow Dermosol",Dry,706,1434,872,NA,3,22.7058,37.91304348,,60,,,
-10404,6094,Reynolds,2011,Grassland,None,NA,,,,,,,,,42.27805556,-123.63,IRGA,Loam (Ultic Haploxerolls),Dry,394,979,NA,NA,20,70.488,,,100,,,
-10404,6095,Reynolds,2011,Grassland,None,NA,,,,,,,,,44.02611111,-124.1,IRGA,Clay loam (Vertic Haploxerolls),Dry,165,1039,NA,NA,20,149.616,,,100,,,
-10404,6096,Reynolds,2011,Grassland,None,NA,,,,,,,,,46.89638889,-122.75,IRGA,Sandy loam (Typic Melanoxerands),Dry,134,802,NA,NA,20,32.882,,,100,,,
-10404,6103,Reynolds,2011,Grassland,Irrigated,NA,,,,,,,,,42.27805556,-123.63,IRGA,Loam (Ultic Haploxerolls),Dry,394,967,NA,NA,20,47.383,,,120,,,
-10404,6104,Reynolds,2011,Grassland,Irrigated,NA,,,,,,,,,44.02611111,-124.1,IRGA,Clay loam (Vertic Haploxerolls),Dry,165,1097,NA,NA,20,126.155,,,120,,,
-10404,6105,Reynolds,2011,Grassland,Irrigated,NA,,,,,,,,,46.89638889,-122.75,IRGA,Sandy loam (Typic Melanoxerands),Dry,134,858,NA,NA,20,73.788,,,120,,,
-10066,6191,Domínguez,1999.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,887.2,NA,NA,,,,,,,,No data
-10066,6192,Domínguez,1999.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,807.8,NA,NA,,,,,,,,No data
-10066,6194,Domínguez,2000.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,904.4,NA,NA,3,17.32050808,,,100,,,s.d. estimated from figure 2a
-10066,6195,Domínguez,2000.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,772.9,NA,NA,3,95.26279442,,,79,,,s.d. estimated from figure 2a
-10066,6197,Domínguez,2001.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,680.6,NA,NA,3,12.12435565,,,100,,,s.d. estimated from figure 2a
-10066,6198,Domínguez,2001.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,839.9,NA,NA,3,20.78460969,,,79,,,s.d. estimated from figure 2a
-10066,6200,Domínguez,2002.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,539.6,NA,NA,3,15.58845727,,,100,,,s.d. estimated from figure 2a
-10066,6201,Domínguez,2002.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,617.9,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
-10066,6203,Domínguez,2003.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,566.8,NA,NA,3,34.64101615,,,100,,,s.d. estimated from figure 2a
-10066,6204,Domínguez,2003.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,663.1,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
-10066,6206,Domínguez,2004.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,416,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
-10066,6207,Domínguez,2004.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,597.8,NA,NA,3,15.58845727,,,79,,,s.d. estimated from figure 2a
-10066,6209,Domínguez,2005.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,459,NA,NA,3,6.92820323,,,100,,,s.d. estimated from figure 2a
-10066,6210,Domínguez,2005.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,560.2,NA,NA,3,10.39230485,,,79,,,s.d. estimated from figure 2a
-10066,6212,Domínguez,2006.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,555.4,NA,NA,3,5.196152423,,,100,,,s.d. estimated from figure 2a
-10066,6213,Domínguez,2006.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,563.8,NA,NA,3,5.196152423,,,79,,,s.d. estimated from figure 2a
-10066,6215,Domínguez,2007.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,506.6,NA,NA,3,10.39230485,,,100,,,s.d. estimated from figure 2a
-10066,6216,Domínguez,2007.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,601.9,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
-10066,6218,Domínguez,2008.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,354.9,NA,NA,3,8.660254038,,,100,,,s.d. estimated from figure 2a
-10066,6219,Domínguez,2008.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,393.9,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
-10066,6221,Domínguez,2009.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,396.1,NA,NA,3,8.660254038,,,100,,,s.d. estimated from figure 2a
-10066,6222,Domínguez,2009.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,448.3,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
-10066,6224,Domínguez,2010.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,267.6,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
-10066,6225,Domínguez,2010.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,345.6,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
-10066,6227,Domínguez,2011.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,279.3,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
-10066,6228,Domínguez,2011.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,427.5,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
-10066,6230,Domínguez,2012.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,343.1,NA,NA,3,25.98076211,,,100,,,s.d. estimated from figure 2a
-10066,6231,Domínguez,2012.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,515.8,NA,NA,3,17.32050808,,,79,,,s.d. estimated from figure 2a
-10066,6233,Domínguez,2013.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,335.8,NA,NA,,,,,,,,No data
-10066,6234,Domínguez,2013.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,554.2,NA,NA,,,,,,,,No data
-10066,6236,Domínguez,2014.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,325.6,NA,NA,,,,,,,,No data
-10066,6237,Domínguez,2014.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,566.5,NA,NA,,,,,,,,No data
-10066,6239,Domínguez,2015.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,292.5,NA,NA,,,,,,,,No data
-10066,6240,Domínguez,2015.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,484.5,NA,NA,,,,,,,,No data
-10066,6242,Domínguez,2016.5,Shrubland,None,NA,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,306.4,NA,NA,,,,,,,,No data
-10066,6243,Domínguez,2016.5,Shrubland,Drought,-21% rain,,,,,,,,,53.05527778,-3.6,IRGA,Ferric stagnopodzols,Wet,490,354.8,NA,NA,,,,,,,,No data
+9324,5940,Zhang,2012.5,Forest,None,NA,,,,,29.18,,SM from Table S1,,21.92,101.27,IRGA,Oxisol,Dry,568,693,NA,NA,5,299.578125,,,100,0.2918,0.0899,Data from SI
+9324,5941,Zhang,2012.5,Forest,Drought,NA,,,,,24.35,,SM from Table S1,,21.92,101.27,IRGA,Oxisol,Dry,568,855,NA,NA,5,348.9013453,,,50,0.2435,0.073,Data from SI
+10104,6046,Hinko-Najera,2011.5,Forest,None,NA,26.7,,,,42,6,SM estimated based on results text and Figure 1,,-37.42236111,144.08,IRGA,"Acidic-mottled, Dystrophic, Yellow Dermosol",Dry,706,1771,827,NA,3,30.2744,37.59090909,,100,,,
+10104,6047,Hinko-Najera,2011.5,Forest,Drought,-40%,26.7,,,,40,6,SM estimated based on results text and Figure 1,,-37.42236111,144.08,IRGA,"Acidic-mottled, Dystrophic, Yellow Dermosol",Dry,706,1434,872,NA,3,22.7058,37.91304348,,60,,,
+10404,6094,Reynolds,2011,Grassland,None,NA,31.0,10,3.42,10,,30,,,42.27805556,-123.63,IRGA,Loam (Ultic Haploxerolls),Dry,394,979,NA,NA,20,70.488,,,100,,,
+10404,6095,Reynolds,2011,Grassland,None,NA,14.5,10,4.18,10,,30,,,44.02611111,-124.1,IRGA,Clay loam (Vertic Haploxerolls),Dry,165,1039,NA,NA,20,149.616,,,100,,,
+10404,6096,Reynolds,2011,Grassland,None,NA,3.5,10,3.78,10,,30,,,46.89638889,-122.75,IRGA,Sandy loam (Typic Melanoxerands),Dry,134,802,NA,NA,20,32.882,,,100,,,
+10404,6103,Reynolds,2011,Grassland,Irrigated,NA,31.0,10,3.42,10,,30,,,42.27805556,-123.63,IRGA,Loam (Ultic Haploxerolls),Dry,394,967,NA,NA,20,47.383,,,120,,,
+10404,6104,Reynolds,2011,Grassland,Irrigated,NA,14.5,10,4.18,10,,30,,,44.02611111,-124.1,IRGA,Clay loam (Vertic Haploxerolls),Dry,165,1097,NA,NA,20,126.155,,,120,,,
+10404,6105,Reynolds,2011,Grassland,Irrigated,NA,3.5,10,3.78,10,,30,,,46.89638889,-122.75,IRGA,Sandy loam (Typic Melanoxerands),Dry,134,858,NA,NA,20,73.788,,,120,,,
+10066,6191,Domínguez,1999.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,887.2,NA,NA,,,,,,,,No data
+10066,6192,Domínguez,1999.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,807.8,NA,NA,,,,,,,,No data
+10066,6194,Domínguez,2000.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,904.4,NA,NA,3,17.32050808,,,100,,,s.d. estimated from figure 2a
+10066,6195,Domínguez,2000.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,772.9,NA,NA,3,95.26279442,,,79,,,s.d. estimated from figure 2a
+10066,6197,Domínguez,2001.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,680.6,NA,NA,3,12.12435565,,,100,,,s.d. estimated from figure 2a
+10066,6198,Domínguez,2001.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,839.9,NA,NA,3,20.78460969,,,79,,,s.d. estimated from figure 2a
+10066,6200,Domínguez,2002.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,539.6,NA,NA,3,15.58845727,,,100,,,s.d. estimated from figure 2a
+10066,6201,Domínguez,2002.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,617.9,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
+10066,6203,Domínguez,2003.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,566.8,NA,NA,3,34.64101615,,,100,,,s.d. estimated from figure 2a
+10066,6204,Domínguez,2003.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,663.1,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
+10066,6206,Domínguez,2004.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,416,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
+10066,6207,Domínguez,2004.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,597.8,NA,NA,3,15.58845727,,,79,,,s.d. estimated from figure 2a
+10066,6209,Domínguez,2005.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,459,NA,NA,3,6.92820323,,,100,,,s.d. estimated from figure 2a
+10066,6210,Domínguez,2005.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,560.2,NA,NA,3,10.39230485,,,79,,,s.d. estimated from figure 2a
+10066,6212,Domínguez,2006.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,555.4,NA,NA,3,5.196152423,,,100,,,s.d. estimated from figure 2a
+10066,6213,Domínguez,2006.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,563.8,NA,NA,3,5.196152423,,,79,,,s.d. estimated from figure 2a
+10066,6215,Domínguez,2007.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,506.6,NA,NA,3,10.39230485,,,100,,,s.d. estimated from figure 2a
+10066,6216,Domínguez,2007.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,601.9,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
+10066,6218,Domínguez,2008.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,354.9,NA,NA,3,8.660254038,,,100,,,s.d. estimated from figure 2a
+10066,6219,Domínguez,2008.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,393.9,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
+10066,6221,Domínguez,2009.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,396.1,NA,NA,3,8.660254038,,,100,,,s.d. estimated from figure 2a
+10066,6222,Domínguez,2009.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,448.3,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
+10066,6224,Domínguez,2010.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,267.6,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
+10066,6225,Domínguez,2010.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,345.6,NA,NA,3,1.732050808,,,79,,,s.d. estimated from figure 2a
+10066,6227,Domínguez,2011.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,279.3,NA,NA,3,3.464101615,,,100,,,s.d. estimated from figure 2a
+10066,6228,Domínguez,2011.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,427.5,NA,NA,3,6.92820323,,,79,,,s.d. estimated from figure 2a
+10066,6230,Domínguez,2012.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,343.1,NA,NA,3,25.98076211,,,100,,,s.d. estimated from figure 2a
+10066,6231,Domínguez,2012.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,515.8,NA,NA,3,17.32050808,,,79,,,s.d. estimated from figure 2a
+10066,6233,Domínguez,2013.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,335.8,NA,NA,,,,,,,,No data
+10066,6234,Domínguez,2013.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,554.2,NA,NA,,,,,,,,No data
+10066,6236,Domínguez,2014.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,325.6,NA,NA,,,,,,,,No data
+10066,6237,Domínguez,2014.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,566.5,NA,NA,,,,,,,,No data
+10066,6239,Domínguez,2015.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,292.5,NA,NA,,,,,,,,No data
+10066,6240,Domínguez,2015.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,484.5,NA,NA,,,,,,,,No data
+10066,6242,Domínguez,2016.5,Shrubland,None,NA,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,306.4,NA,NA,,,,,,,,No data
+10066,6243,Domínguez,2016.5,Shrubland,Drought,-21% rain,,,,,,10,,,53.055,-3.6,IRGA,Ferric stagnopodzols,Wet,490,354.8,NA,NA,,,,,,,,No data
 10075,6259,Yan,2008,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,NA,1990,700,NA,,,,,,,,No control
 10075,6260,Yan,2008,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,NA,1771,776,NA,,,,,,,,No control
 10075,6261,Yan,2008,Forest,Irrigated,NA,,,,,,,,,43.75,81.15,IRGA,Sandy loam,Dry,NA,1695,980,NA,,,,,,,,No control
 7857,6406,Wei,2009,Grassland,Irrigated,2 mm m-2,,,,,,,,,30.76666667,90.98,Gas chromatography,Sandy silt soil in early stages of weathering,Dry,4730,NA,NA,0.9848,,,,,,,,No control
 7857,6408,Wei,2010,Grassland,Irrigated,2 mm m-2,,,,,,,,,30.76666667,90.98,Gas chromatography,Sandy silt soil in early stages of weathering,Dry,4730,NA,NA,0.5499,,,,,,,,No control
 7857,6410,Wei,2011,Grassland,Irrigated,2 mm m-2,,,,,,,,,30.76666667,90.98,Gas chromatography,Sandy silt soil in early stages of weathering,Dry,4730,NA,NA,0.9407,,,,,,,,No control
-7436,6451,Silva Júnior,2005.5,Forest,None,NA,,,,,,,,,-1.717638889,-51.55,IRGA,NA,Dry,NA,1309.37,NA,NA,1,166.5,,,100,0.16,0.09,
-7436,6452,Silva Júnior,2005.5,Forest,Drought,70% total rainfall drained from plot,,,,,,,,,-1.717638889,-51.55,IRGA,NA,Dry,NA,1214.77,NA,NA,1,317.9,,,30,0.1,0.03,
-7593,6466,Wang,2010.5,Grassland,None,NA,,,,,,,,other,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,3,24,,,0.4898979486,100,0.07,0.01469693846,s.d. est from fig 3
-7593,6470,Wang,2011.5,Grassland,None,NA,,,,,,,,other,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.55,24,,,0.4898979486,100,0.06,0.009797958971,s.d. est from fig 3
-7593,6474,Wang,2010.5,Grassland,None,NA,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.8,24,,,0.4898979486,100,0.06,0.01469693846,s.d. est from fig 3
-7593,6475,Wang,2010.5,Grassland,Irrigated,Winter,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.9,24,,,0.4898979486,110,0.06,0.01469693846,s.d. est from fig 3
-7593,6476,Wang,2010.5,Grassland,Irrigated,Summer,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,3.4,24,,,0.4898979486,110,0.08,0.01469693846,s.d. est from fig 3
-7593,6477,Wang,2011.5,Grassland,None,NA,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.2,24,,,0.4898979486,100,0.05,0.009797958971,s.d. est from fig 3
-7593,6478,Wang,2011.5,Grassland,Irrigated,Winter,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.5,24,,,0.4898979486,110,0.05,0.009797958971,s.d. est from fig 3
-7593,6479,Wang,2011.5,Grassland,Irrigated,Summer,,,,,,,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.8,24,,,0.4898979486,110,0.06,0.009797958971,s.d. est from fig 3
+7436,6451,Silva Júnior,2005.5,Forest,None,NA,,,,,15.6,30,,,-1.717638889,-51.55,IRGA,NA,Dry,NA,1309.37,NA,NA,1,166.5,,,100,0.16,0.09,
+7436,6452,Silva Júnior,2005.5,Forest,Drought,70% total rainfall drained from plot,,,,,9.5,30,,,-1.717638889,-51.55,IRGA,NA,Dry,NA,1214.77,NA,NA,1,317.9,,,30,0.1,0.03,
+7593,6466,Wang,2010.5,Grassland,None,NA,,,,,6.3,10,,other,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,3,24,,,0.4898979486,100,0.07,0.01469693846,s.d. est from fig 3
+7593,6470,Wang,2011.5,Grassland,None,NA,,,,,5.1,10,,other,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.55,24,,,0.4898979486,100,0.06,0.009797958971,s.d. est from fig 3
+7593,6474,Wang,2010.5,Grassland,None,NA,,,,,6.3,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.8,24,,,0.4898979486,100,0.06,0.01469693846,s.d. est from fig 3
+7593,6475,Wang,2010.5,Grassland,Irrigated,Winter,,,,,6.5,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.9,24,,,0.4898979486,110,0.06,0.01469693846,s.d. est from fig 3
+7593,6476,Wang,2010.5,Grassland,Irrigated,Summer,,,,,7.9,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,3.4,24,,,0.4898979486,110,0.08,0.01469693846,s.d. est from fig 3
+7593,6477,Wang,2011.5,Grassland,None,NA,,,,,5.1,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.2,24,,,0.4898979486,100,0.05,0.009797958971,s.d. est from fig 3
+7593,6478,Wang,2011.5,Grassland,Irrigated,Winter,,,,,5.5,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.5,24,,,0.4898979486,110,0.05,0.009797958971,s.d. est from fig 3
+7593,6479,Wang,2011.5,Grassland,Irrigated,Summer,,,,,6.4,10,,seasonal,42.91666667,120.7,IRGA,Sandy,Dry,360,NA,NA,2.8,24,,,0.4898979486,110,0.06,0.009797958971,s.d. est from fig 3
 7607,6480,Wood,2008.5,Forest,None,NA,,,,,,,,,18.3,-65.833333,IRGA,NA,Dry,300,NA,NA,NA,,,,,,,,
 7607,6481,Wood,2008.5,Forest,Drought,NA,,,,,,,,,18.3,-65.833333,IRGA,NA,Dry,300,NA,NA,NA,,,,,,,,
-10483,6829,Han,2005.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,833,NA,NA,4,30.29,,,100,0.09,,s.d. estimated from figure 2
-10483,6830,Han,2005.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,851,NA,NA,4,26.5,,,130,0.12,,s.d. estimated from figure 2
-10483,6833,Han,2006.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,908,NA,NA,4,41.64,,,100,0.13,,s.d. estimated from figure 2
-10483,6834,Han,2006.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1041,NA,NA,4,34.07,,,130,0.14,,s.d. estimated from figure 2
-10483,6837,Han,2007.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,587,NA,NA,4,37.85,,,100,0.1,,s.d. estimated from figure 2
-10483,6838,Han,2007.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,814,NA,NA,4,28.39,,,130,0.11,,s.d. estimated from figure 2
-10483,6841,Han,2008.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,870,NA,NA,4,37.47,,,100,0.1,,s.d. estimated from figure 2
-10483,6842,Han,2008.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1060,NA,NA,4,56.78,,,130,0.14,,s.d. estimated from figure 2
-10483,6845,Han,2009.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,596,NA,NA,4,15.14,,,100,0.07,,s.d. estimated from figure 2
-10483,6846,Han,2009.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,833,NA,NA,4,47.32,,,130,0.09,,s.d. estimated from figure 2
-10483,6849,Han,2010.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,605,NA,NA,4,3.79,,,100,0.07,,s.d. estimated from figure 2
-10483,6850,Han,2010.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,984,NA,NA,4,33.69,,,130,0.07,,s.d. estimated from figure 2
-10483,6853,Han,2011.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,719,NA,NA,4,32.18,,,100,0.11,,s.d. estimated from figure 2
-10483,6854,Han,2011.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1022,NA,NA,4,35.96,,,130,0.13,,s.d. estimated from figure 2
-10483,6857,Han,2012.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,473,NA,NA,4,9.46,,,100,0.08,,s.d. estimated from figure 2
-10483,6858,Han,2012.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,530,NA,NA,4,31.42,,,130,0.08,,s.d. estimated from figure 2
-10483,6861,Han,2013.5,Grassland,None,NA,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,889,NA,NA,4,32.55,,,100,0.12,,s.d. estimated from figure 2
-10483,6862,Han,2013.5,Grassland,Precipitation amount change,0.3,,,,,,,,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1135,NA,NA,4,60.57,,,130,0.14,,s.d. estimated from figure 2
+10483,6829,Han,2005.5,Grassland,None,NA,16.95,,,,9.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,833,NA,NA,4,30.29,,,100,0.09,,s.d. estimated from figure 2
+10483,6830,Han,2005.5,Grassland,Precipitation amount change,0.3,16.95,,,,11.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,851,NA,NA,4,26.5,,,130,0.12,,s.d. estimated from figure 2
+10483,6833,Han,2006.5,Grassland,None,NA,16.95,,,,12.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,908,NA,NA,4,41.64,,,100,0.13,,s.d. estimated from figure 2
+10483,6834,Han,2006.5,Grassland,Precipitation amount change,0.3,16.95,,,,14.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1041,NA,NA,4,34.07,,,130,0.14,,s.d. estimated from figure 2
+10483,6837,Han,2007.5,Grassland,None,NA,16.95,,,,11.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,587,NA,NA,4,37.85,,,100,0.1,,s.d. estimated from figure 2
+10483,6838,Han,2007.5,Grassland,Precipitation amount change,0.3,16.95,,,,11.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,814,NA,NA,4,28.39,,,130,0.11,,s.d. estimated from figure 2
+10483,6841,Han,2008.5,Grassland,None,NA,16.95,,,,11.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,870,NA,NA,4,37.47,,,100,0.1,,s.d. estimated from figure 2
+10483,6842,Han,2008.5,Grassland,Precipitation amount change,0.3,16.95,,,,13.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1060,NA,NA,4,56.78,,,130,0.14,,s.d. estimated from figure 2
+10483,6845,Han,2009.5,Grassland,None,NA,16.95,,,,7.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,596,NA,NA,4,15.14,,,100,0.07,,s.d. estimated from figure 2
+10483,6846,Han,2009.5,Grassland,Precipitation amount change,0.3,16.95,,,,9.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,833,NA,NA,4,47.32,,,130,0.09,,s.d. estimated from figure 2
+10483,6849,Han,2010.5,Grassland,None,NA,16.95,,,,8.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,605,NA,NA,4,3.79,,,100,0.07,,s.d. estimated from figure 2
+10483,6850,Han,2010.5,Grassland,Precipitation amount change,0.3,16.95,,,,8.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,984,NA,NA,4,33.69,,,130,0.07,,s.d. estimated from figure 2
+10483,6853,Han,2011.5,Grassland,None,NA,16.95,,,,11.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,719,NA,NA,4,32.18,,,100,0.11,,s.d. estimated from figure 2
+10483,6854,Han,2011.5,Grassland,Precipitation amount change,0.3,16.95,,,,12.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1022,NA,NA,4,35.96,,,130,0.13,,s.d. estimated from figure 2
+10483,6857,Han,2012.5,Grassland,None,NA,16.95,,,,12.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,473,NA,NA,4,9.46,,,100,0.08,,s.d. estimated from figure 2
+10483,6858,Han,2012.5,Grassland,Precipitation amount change,0.3,16.95,,,,13.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,530,NA,NA,4,31.42,,,130,0.08,,s.d. estimated from figure 2
+10483,6861,Han,2013.5,Grassland,None,NA,16.95,,,,12.5,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,889,NA,NA,4,32.55,,,100,0.12,,s.d. estimated from figure 2
+10483,6862,Han,2013.5,Grassland,Precipitation amount change,0.3,16.95,,,,14.0,10,SM estimated from Figure 2,,42.18,116.8,IRGA,Haplic calcisols,Dry,1324,1135,NA,NA,4,60.57,,,130,0.14,,s.d. estimated from figure 2
 11855,7122,Ganjurjav,2009,Grassland,None,NA,,,,,,,,,32.11,91.41,Gas chromatography,Alpine meadow soil,Dry,4600,NA,NA,NA,,,,,,,,
 11855,7123,Ganjurjav,2009,Grassland,Irrigated,NA,,,,,,,,,32.11,91.41,Gas chromatography,Alpine meadow soil,Dry,4600,NA,NA,NA,,,,,,,,
 11855,7124,Ganjurjav,2010,Grassland,None,NA,,,,,,,,,32.11,91.41,Gas chromatography,Alpine meadow soil,Dry,4600,NA,NA,NA,,,,,,,,
 11855,7125,Ganjurjav,2010,Grassland,Irrigated,NA,,,,,,,,,32.11,91.41,Gas chromatography,Alpine meadow soil,Dry,4600,NA,NA,NA,,,,,,,,
-11859,7126,Escolar,2009.5,Grassland,None,NA,,,,,,,,Low Biocrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,250,NA,NA,10,37.5,,,100,0.14,,Estimating SM_mean from SI; estimating SD from Figure 1
-11859,7128,Escolar,2009.5,Grassland,Precipitation amount change,33%,,,,,,,,Low Biocrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,336,NA,NA,10,50.4,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
-11859,7130,Escolar,2010.5,Grassland,None,NA,,,,,,,,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,351,NA,NA,10,52.65,,,100,0.14,,Estimating SM_mean from SI; estimating SD from Figure 1
-11859,7132,Escolar,2010.5,Grassland,Precipitation amount change,33%,,,,,,,,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,404,NA,NA,10,60.6,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
-8163,7342,Jia,2010.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7343,Jia,2010.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7344,Jia,2010.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7345,Jia,2010.5,Grassland,None,NA,,,,,,,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7346,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7347,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7348,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7349,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,,,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
-8163,7350,Jia,2011.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.45,6,,,0.05,100,,,s.d. est from fig 5
-8163,7351,Jia,2011.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.3,6,,,0.1,100,,,s.d. est from fig 5
-8163,7352,Jia,2011.5,Grassland,None,NA,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.63,6,,,0.1,100,,,s.d. est from fig 5
-8163,7353,Jia,2011.5,Grassland,None,NA,,,,,,,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,0.98,6,,,0.05,100,,,s.d. est from fig 5
-8163,7354,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.85,6,,,0.1,113,,,s.d. est from fig 5
-8163,7355,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.52,6,,,0.05,113,,,s.d. est from fig 5
-8163,7356,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,,,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.73,6,,,0.1,113,,,s.d. est from fig 5
-8163,7357,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,,,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.4,6,,,0.1,113,,,s.d. est from fig 5
+11859,7126,Escolar,2009.5,Grassland,None,NA,,,,,14,5,,Low Biocrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,250,NA,NA,10,37.5,,,100,0.14,,Estimating SM_mean from SI; estimating SD from Figure 1
+11859,7128,Escolar,2009.5,Grassland,Precipitation amount change,33%,,,,,7,5,,Low Biocrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,336,NA,NA,10,50.4,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
+11859,7130,Escolar,2010.5,Grassland,None,NA,,,,,14,5,,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,351,NA,NA,10,52.65,,,100,0.14,,Estimating SM_mean from SI; estimating SD from Figure 1
+11859,7132,Escolar,2010.5,Grassland,Precipitation amount change,33%,,,,,7,5,,High BioCrust,40,-3.53,IRGA,Gypsiric Leptosol,Dry,590,404,NA,NA,10,60.6,,,63,0.07,,Estimating SM_mean from SI; estimating SD from Figure 1
+8163,7342,Jia,2010.5,Grassland,None,NA,,,,,9.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7343,Jia,2010.5,Grassland,None,NA,,,,,10.53,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7344,Jia,2010.5,Grassland,None,NA,,,,,10.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7345,Jia,2010.5,Grassland,None,NA,,,,,9.79,6,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7346,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,10.51,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7347,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,11.07,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7348,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,11.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7349,Jia,2010.5,Grassland,Irrigated,50 mm/yr,,,,,10.68,6,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,NA,,,,,,,,
+8163,7350,Jia,2011.5,Grassland,None,NA,,,,,9.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.45,6,,,0.05,100,,,s.d. est from fig 5
+8163,7351,Jia,2011.5,Grassland,None,NA,,,,,10.53,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.3,6,,,0.1,100,,,s.d. est from fig 5
+8163,7352,Jia,2011.5,Grassland,None,NA,,,,,10.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.63,6,,,0.1,100,,,s.d. est from fig 5
+8163,7353,Jia,2011.5,Grassland,None,NA,,,,,9.79,6,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,0.98,6,,,0.05,100,,,s.d. est from fig 5
+8163,7354,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,10.51,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.85,6,,,0.1,113,,,s.d. est from fig 5
+8163,7355,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,11.07,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.52,6,,,0.05,113,,,s.d. est from fig 5
+8163,7356,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,11.32,6,,,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.73,6,,,0.1,113,,,s.d. est from fig 5
+8163,7357,Jia,2011.5,Grassland,Irrigated,50 mm/yr,,,,,10.68,6,,fallow,38.81,110.38,IRGA,Loessial,Dry,NA,NA,NA,1.4,6,,,0.1,113,,,s.d. est from fig 5
 9557,7413,Martins,2013.5,Forest,Irrigated,"grey water N 0.6 mg/L, total P 3.0 mg/L",,,,,,,,,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,205.84,NA,NA,4,12.865,,,153.984375,0.078,,SD estimated from Fig 1; MAP from Barton et al. ref
 9557,7416,Martins,2013.5,Forest,None,NA,,,,,,,,,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,160.74,NA,NA,4,10.716,,,100,0.022,,SD estimated from Fig 1
 9557,7417,Martins,2013.5,Grassland,None,NA,,,,,,,,,-33.611,150.81,Gas chromatography,Sandy loam,Dry,NA,332.02,NA,NA,4,22.13466667,,,100,0.042,,SD estimated from Fig 1
-9649,7476,Shen,2013.5,Grassland,None,Unwarmed plot + 0% precipitation level,,,,,,,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.47,3,,,0.01,100,0.14,,s.d. and SM est from fig 1
-9649,7478,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 6% precipitation level,,,,,,,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.5,3,,,0.01,106,0.15,,s.d. and SM est from fig 1
-9649,7480,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 25% precipitation level,,,,,,,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.63,3,,,0.01,125,0.18,,s.d. and SM est from fig 1
-11031,7700,Chang,2006,Forest,None,Standard rainfall,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,170.29,NA,NA,3,105.96,,,100,0.12,,
-11031,7701,Chang,2006,Forest,Precipitation amount change,-15%,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,143.8,NA,NA,3,105.96,,,85,0.1,,
+9649,7476,Shen,2013.5,Grassland,None,Unwarmed plot + 0% precipitation level,,,,,14,10,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.47,3,,,0.01,100,0.14,,s.d. and SM est from fig 1
+9649,7478,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 6% precipitation level,,,,,15,10,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.5,3,,,0.01,106,0.15,,s.d. and SM est from fig 1
+9649,7480,Shen,2013.5,Grassland,Precipitation amount change,Unwarmed plot + 25% precipitation level,,,,,18,10,,,30.5,91.07,IRGA,Sandy loam,Dry,NA,NA,NA,1.63,3,,,0.01,125,0.18,,s.d. and SM est from fig 1
+11031,7700,Chang,2006,Forest,None,Standard rainfall,,,,,12,20,,,41.73,1.65,IRGA,Calcareous,Dry,800,170.29,NA,NA,3,105.96,,,100,0.12,,
+11031,7701,Chang,2006,Forest,Precipitation amount change,-15%,,,,,10,20,,,41.73,1.65,IRGA,Calcareous,Dry,800,143.8,NA,NA,3,105.96,,,85,0.1,,
 11031,7702,Chang,2006,Forest,None,No thinning,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,177.86,NA,NA,,,,,,,,No manipulation
-11031,7704,Chang,2006,Forest,None,Standard rainfall,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,177.86,NA,NA,3,105.96,,,100,0.09,,
-11031,7705,Chang,2006,Forest,Precipitation amount change,-15%,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,113.53,NA,NA,3,105.96,,,85,0.07,,
+11031,7704,Chang,2006,Forest,None,Standard rainfall,,,,,9,20,,,41.73,1.65,IRGA,Calcareous,Dry,800,177.86,NA,NA,3,105.96,,,100,0.09,,
+11031,7705,Chang,2006,Forest,Precipitation amount change,-15%,,,,,7,20,,,41.73,1.65,IRGA,Calcareous,Dry,800,113.53,NA,NA,3,105.96,,,85,0.07,,
 11031,7706,Chang,2006,Forest,None,No thinning,,,,,,,,,41.73,1.65,IRGA,Calcareous,Dry,800,124.88,NA,NA,,,,,,,,No manipulation
 11022,7738,Blessing,2009.5,NA,None,NA,,,,,,,,,NA,,IRGA,NA,Dry,NA,NA,NA,4.16,,,,0.04,100,0.31,0.0028,
 11022,7739,Blessing,2009.5,NA,Drought,NA,,,,,,,,,NA,,IRGA,NA,Dry,NA,NA,NA,2.46,,,,0.04,,0.24,0.0014,
-11064,7866,Xu,2011.5,Grassland,None,NA,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.4,4,,,0.1,100,,,s.d. est from fig 4
-11064,7867,Xu,2011.5,Grassland,Irrigated,plus 15% precipitation,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.84,4,,,0.2,115,,,s.d. est from fig 4
-11064,7868,Xu,2011.5,Grassland,Irrigated,plus 30% precipitation,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,5.1,4,,,0.4,130,,,s.d. est from fig 4
-11064,7872,Xu,2011.5,Grassland,None,NA,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.38,4,,,0.04,100,,,s.d. est from fig 4
-11064,7873,Xu,2011.5,Grassland,Irrigated,plus 15% precipitation,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.4,4,,,0.06,115,,,s.d. est from fig 4
-11064,7874,Xu,2011.5,Grassland,Irrigated,plus 30% precipitation,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.46,4,,,0.01,130,,,s.d. est from fig 4
-11064,7878,Xu,2012.5,Grassland,None,NA,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,3.7,4,,,0.02,100,,,s.d. est from fig 4
-11064,7879,Xu,2012.5,Grassland,Irrigated,plus 15% precipitation,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.5,4,,,0.3,115,,,s.d. est from fig 4
-11064,7880,Xu,2012.5,Grassland,Irrigated,plus 30% precipitation,,,,,,,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.7,4,,,0.36,130,,,s.d. est from fig 4
-11064,7884,Xu,2012.5,Grassland,None,NA,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.23,4,,,0.04,100,,,s.d. est from fig 4
-11064,7885,Xu,2012.5,Grassland,Irrigated,plus 15% precipitation,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.48,4,,,0.04,115,,,s.d. est from fig 4
-11064,7886,Xu,2012.5,Grassland,Irrigated,plus 30% precipitation,,,,,,,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.49,4,,,0.002,130,,,s.d. est from fig 4
-11078,7891,Waring,2014.5,Forest,None,,,,,,,,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,4.33,4,,,0.2,100,,,s.d. est from fig 1b
-11078,7892,Waring,2014.5,Forest,Precipitation amount change,Single 50 mm simulated rain event,,,,,,,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,7,4,,,0.9,103,,,s.d. est from fig 1b
-11078,7893,Waring,2014.5,Forest,Precipitation amount change,two 50 mm simulated rain events,,,,,,,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,7.99,4,,,0.9,106,,,s.d. est from fig 1b
-8350,8028,McDaniel,2009.5,NA,None,NA,,,,,,,,,40.67,-77.9,IRGA,Fine-loamy soil,Dry,NA,379.7,NA,NA,4,15.188,,,100,,,s.d. estimated from figure 1
-8350,8030,McDaniel,2009.5,Grassland,Precipitation amount change,23% more Precipitation,,,,,,,,,40.67,-77.9,IRGA,Fine-loamy soil,Dry,NA,478.43,NA,NA,4,92.5993548,,,123,,,s.d. estimated from figure 1
-8401,8059,Hagedorn,2007.5,Grassland,None,NA,,,,,,,,,47.2102,8.51,Gas chromatography,Cambisola,Dry,393,NA,NA,5.47,3,,,0.692820323,100,0.32,,s.d. and SM est from fig 1
-8401,8060,Hagedorn,2007.5,Grassland,Drought,NA,,,,,,,,,47.2102,8.51,Gas chromatography,Cambisola,Dry,393,NA,NA,5.35,3,,,0.1212435565,67,0.22,,s.d. and SM est from fig 1
-8401,8061,Hagedorn,2007.5,Grassland,None,NA,,,,,,,,,47.115,8.08,Gas chromatography,Endogleyic Cambisola,Dry,982,NA,NA,8.37,3,,,0.9353074361,100,0.21,,s.d. and SM est from fig 1
-8401,8062,Hagedorn,2007.5,Grassland,Drought,NA,,,,,,,,,47.115,8.08,Gas chromatography,Endogleyic Cambisola,Dry,982,NA,NA,6.3,3,,,0.9353074361,67,0.2,,s.d. and SM est from fig 1
-8401,8063,Hagedorn,2007.5,Grassland,None,NA,,,,,,,,,46.58,9.43,Gas chromatography,Leptosol,Dry,1978,NA,NA,9.2,3,,,0.8660254038,100,0.14,,s.d. and SM est from fig 1
-8401,8064,Hagedorn,2007.5,Grassland,Drought,NA,,,,,,,,,46.58,9.43,Gas chromatography,Leptosol,Dry,1978,NA,NA,5.8,3,,,0.01732050808,74,0.1,,s.d. and SM est from fig 1
-8509,8151,Yan,2007,Forest,None,NA,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,2.69,3,,,0.3290896534,100,,,
-8509,8152,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,4.75,3,,,0.45033321,190,,,
-8509,8153,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.47,3,,,0.3810511777,214,,,
-8509,8154,Yan,2007,Forest,None,NA,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.17,3,,,0.3637306696,100,,,
-8509,8155,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,5.13,3,,,0.5369357503,190,,,
-8509,8156,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.68,3,,,0.3290896534,214,,,
-8509,8157,Yan,2007,Forest,None,NA,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,2.9,3,,,0.3983716857,100,,,
-8509,8158,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,4.35,3,,,0.467653718,190,,,
-8509,8159,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,,,,,,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.32,3,,,0.3117691454,214,,,
+11064,7866,Xu,2011.5,Grassland,None,NA,,,2.193,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.4,4,,,0.1,100,,,s.d. est from fig 4
+11064,7867,Xu,2011.5,Grassland,Irrigated,plus 15% precipitation,,,2.495,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.84,4,,,0.2,115,,,s.d. est from fig 4
+11064,7868,Xu,2011.5,Grassland,Irrigated,plus 30% precipitation,,,1.677,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,5.1,4,,,0.4,130,,,s.d. est from fig 4
+11064,7872,Xu,2011.5,Grassland,None,NA,,,0.884,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.38,4,,,0.04,100,,,s.d. est from fig 4
+11064,7873,Xu,2011.5,Grassland,Irrigated,plus 15% precipitation,,,0.967,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.4,4,,,0.06,115,,,s.d. est from fig 4
+11064,7874,Xu,2011.5,Grassland,Irrigated,plus 30% precipitation,,,1.093,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,0.46,4,,,0.01,130,,,s.d. est from fig 4
+11064,7878,Xu,2012.5,Grassland,None,NA,,,1.248,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,3.7,4,,,0.02,100,,,s.d. est from fig 4
+11064,7879,Xu,2012.5,Grassland,Irrigated,plus 15% precipitation,,,1.360,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.5,4,,,0.3,115,,,s.d. est from fig 4
+11064,7880,Xu,2012.5,Grassland,Irrigated,plus 30% precipitation,,,1.389,10,,20,,,42.033,116.28,IRGA,Calcis-orthic Aridisol,Dry,1324,NA,NA,4.7,4,,,0.36,130,,,s.d. est from fig 4
+11064,7884,Xu,2012.5,Grassland,None,NA,,,0.897,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.23,4,,,0.04,100,,,s.d. est from fig 4
+11064,7885,Xu,2012.5,Grassland,Irrigated,plus 15% precipitation,,,1.012,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.48,4,,,0.04,115,,,s.d. est from fig 4
+11064,7886,Xu,2012.5,Grassland,Irrigated,plus 30% precipitation,,,1.208,10,,20,,,42.033,116.28,IRGA,Chestnut soil,Dry,1324,NA,NA,1.49,4,,,0.002,130,,,s.d. est from fig 4
+11078,7891,Waring,2014.5,Forest,None,,,,,,,5,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,4.33,4,,,0.2,100,,,s.d. est from fig 1b
+11078,7892,Waring,2014.5,Forest,Precipitation amount change,Single 50 mm simulated rain event,,,,,,5,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,7,4,,,0.9,103,,,s.d. est from fig 1b
+11078,7893,Waring,2014.5,Forest,Precipitation amount change,two 50 mm simulated rain events,,,,,,5,,,10.712,-85.55,IRGA,Dry soils,Dry,NA,NA,NA,7.99,4,,,0.9,106,,,s.d. est from fig 1b
+8350,8028,McDaniel,2009.5,NA,None,NA,16,,,,,5,,,40.67,-77.9,IRGA,Fine-loamy soil,Dry,NA,379.7,NA,NA,4,15.188,,,100,,,s.d. estimated from figure 1
+8350,8030,McDaniel,2009.5,Grassland,Precipitation amount change,23% more Precipitation,16,,,,,5,,,40.67,-77.9,IRGA,Fine-loamy soil,Dry,NA,478.43,NA,NA,4,92.5993548,,,123,,,s.d. estimated from figure 1
+8401,8059,Hagedorn,2007.5,Grassland,None,NA,,,3.1,10,32,30,,,47.2102,8.51,Gas chromatography,Cambisola,Dry,393,NA,NA,5.47,3,,,0.692820323,100,0.32,,s.d. and SM est from fig 1
+8401,8060,Hagedorn,2007.5,Grassland,Drought,NA,,,3.1,10,22,30,,,47.2102,8.51,Gas chromatography,Cambisola,Dry,393,NA,NA,5.35,3,,,0.1212435565,67,0.22,,s.d. and SM est from fig 1
+8401,8061,Hagedorn,2007.5,Grassland,None,NA,,,5.1,10,21,30,,,47.115,8.08,Gas chromatography,Endogleyic Cambisola,Dry,982,NA,NA,8.37,3,,,0.9353074361,100,0.21,,s.d. and SM est from fig 1
+8401,8062,Hagedorn,2007.5,Grassland,Drought,NA,,,5.1,10,20,30,,,47.115,8.08,Gas chromatography,Endogleyic Cambisola,Dry,982,NA,NA,6.3,3,,,0.9353074361,67,0.2,,s.d. and SM est from fig 1
+8401,8063,Hagedorn,2007.5,Grassland,None,NA,,,8.6,10,14,30,,,46.58,9.43,Gas chromatography,Leptosol,Dry,1978,NA,NA,9.2,3,,,0.8660254038,100,0.14,,s.d. and SM est from fig 1
+8401,8064,Hagedorn,2007.5,Grassland,Drought,NA,,,8.6,10,10,30,,,46.58,9.43,Gas chromatography,Leptosol,Dry,1978,NA,NA,5.8,3,,,0.01732050808,74,0.1,,s.d. and SM est from fig 1
+8509,8151,Yan,2007,Forest,None,NA,,,1.30,,12,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,2.69,3,,,0.3290896534,100,,,
+8509,8152,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,1.30,,19,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,4.75,3,,,0.45033321,190,,,
+8509,8153,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,1.30,,27,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.47,3,,,0.3810511777,214,,,
+8509,8154,Yan,2007,Forest,None,NA,,,1.37,,12,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.17,3,,,0.3637306696,100,,,
+8509,8155,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,1.37,,19,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,5.13,3,,,0.5369357503,190,,,
+8509,8156,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,1.37,,27,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.68,3,,,0.3290896534,214,,,
+8509,8157,Yan,2007,Forest,None,NA,,,1.23,,12,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,2.9,3,,,0.3983716857,100,,,
+8509,8158,Yan,2007,Forest,Irrigated,350 m3 ha−1,,,1.23,,19,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,4.35,3,,,0.467653718,190,,,
+8509,8159,Yan,2007,Forest,Irrigated,700 m3 ha−1,,,1.23,,27,10,SM estimated from Figure 2b,,43.75,81.15,IRGA,Sierozem,Dry,660,NA,NA,3.32,3,,,0.3117691454,214,,,
 8551,8160,Bertolla,2006,Plantation,Irrigated,4 L h^-1,,,,,,,,,43.266,10.58,IRGA,Sandy-clay,Dry,NA,784,NA,NA,4,16,,,,,,
 8551,8161,Bertolla,2006,Plantation,None,NA,,,,,,,,,43.266,10.58,IRGA,Sandy-clay,Dry,NA,732,NA,NA,4,11,,,,,,
 8846,8301,Jia,2010.5,Grassland,None,NA,,,,,,,,,38.82,110.38,Gas chromatography,NA,Dry,NA,NA,NA,1.34,,,,,,,,
@@ -496,12 +496,12 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 11291,8472,Meier,2013.5,Forest,Precipitation amount change,NA,,,,,,,,,51.67,9.97,Gas chromatography,Cambisol-Phaeozem,Dry,300,NA,NA,NA,,,,,,,,
 11291,8473,Meier,2013.5,Forest,Precipitation amount change,NA,,,,,,,,,51.67,9.97,Gas chromatography,Cambisol-Phaeozem,Dry,300,NA,NA,NA,,,,,,,,
 11291,8474,Meier,2013.5,Forest,Precipitation amount change,NA,,,,,,,,,51.67,9.97,Gas chromatography,Cambisol-Phaeozem,Dry,300,NA,NA,NA,,,,,,,,
-11261,8486,Hoover,2010,Grassland,None,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,10.25,2,,,0.25,100,0.29,0.01,s.d. est from fig 3; SM est from fig 1
-11261,8487,Hoover,2010,Grassland,Drought,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.9,2,,,0.1,34,0.17,0.01,s.d. est from fig 3; SM est from fig 1
-11261,8488,Hoover,2011,Grassland,None,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,9.75,2,,,0.15,100,0.25,0.008,s.d. est from fig 3; SM est from fig 1
-11261,8489,Hoover,2011,Grassland,Drought,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.25,2,,,0.5,34,0.11,0.005,s.d. est from fig 3; SM est from fig 1
-11261,8490,Hoover,2012,Grassland,None,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.75,2,,,0.05,100,0.2,0.01,s.d. est from fig 3; SM est from fig 1
-11261,8491,Hoover,2012,Grassland,Drought,NA,,,,,,,,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,8.15,2,,,0.1,34,0.18,0.01,s.d. est from fig 3; SM est from fig 1
+11261,8486,Hoover,2010,Grassland,None,NA,32,,,,29,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,10.25,2,,,0.25,100,0.29,0.01,s.d. est from fig 3; SM est from fig 1
+11261,8487,Hoover,2010,Grassland,Drought,NA,32,,,,17,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.9,2,,,0.1,34,0.17,0.01,s.d. est from fig 3; SM est from fig 1
+11261,8488,Hoover,2011,Grassland,None,NA,32,,,,25,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,9.75,2,,,0.15,100,0.25,0.008,s.d. est from fig 3; SM est from fig 1
+11261,8489,Hoover,2011,Grassland,Drought,NA,32,,,,11,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.25,2,,,0.5,34,0.11,0.005,s.d. est from fig 3; SM est from fig 1
+11261,8490,Hoover,2012,Grassland,None,NA,32,,,,20,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,7.75,2,,,0.05,100,0.2,0.01,s.d. est from fig 3; SM est from fig 1
+11261,8491,Hoover,2012,Grassland,Drought,NA,32,,,,18,15,SM estimated from Figure 1a,,39.08,-96.58,IRGA,Typic Argiustoll,Dry,NA,NA,NA,8.15,2,,,0.1,34,0.18,0.01,s.d. est from fig 3; SM est from fig 1
 11541,8765,Hao,2013,Grassland,Precipitation amount change,NA,,,,,,,,,43.533,116.666,IRGA,Mollisol,Dry,1200,NA,NA,NA,,,,,,,,
 11541,8766,Hao,2013,Grassland,Precipitation amount change,NA,,,,,,,,,43.533,116.666,IRGA,Mollisol,Dry,1200,NA,NA,NA,,,,,,,,
 11541,8767,Hao,2013,Grassland,None,NA,,,,,,,,,43.533,116.666,IRGA,Mollisol,Dry,1200,NA,NA,NA,,,,,,,,
@@ -520,10 +520,10 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 9134,8921,Wang,2013,NA,Precipitation amount change,20 mm precipitation in 5 days,,,,,,,,,35.22,107.75,Gas chromatography,Ultisol,Dry,1220,NA,NA,NA,,,,,,,,
 9134,8922,Wang,2013,NA,Precipitation amount change,40 mm precipitation in 10 days,,,,,,,,,35.22,107.75,Gas chromatography,Ultisol,Dry,1220,NA,NA,NA,,,,,,,,
 9134,8923,Wang,2013,NA,Precipitation amount change,80 mm precipitation in 20 days,,,,,,,,,35.22,107.75,Gas chromatography,Ultisol,Dry,1220,NA,NA,NA,,,,,,,,
-10526,9106,Lu,2014.5,Forest,None,NA,,,,,,,,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,497,388,NA,3,22,16,,100,,,
-10526,9107,Lu,2014.5,Forest,Precipitation amount change,32% of annual Precipitation excluded,,,,,,,,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,567,417,NA,3,43,39,,68,,,
-10526,9108,Lu,2015.5,Forest,None,NA,,,,,,,,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,603,506,NA,3,21,29,,100,,,
-10526,9109,Lu,2015.5,Forest,Precipitation amount change,26% of annual Precipitation excluded,,,,,,,,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,576,489,NA,3,64,50,,74,,,
+10526,9106,Lu,2014.5,Forest,None,NA,28.5,50,,,25.0,5,Control SM estimated from Figure 2; trt-control difference from text,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,497,388,NA,3,22,16,,100,,,
+10526,9107,Lu,2014.5,Forest,Precipitation amount change,32% of annual Precipitation excluded,28.5,50,,,17.5,5,Control SM estimated from Figure 2; trt-control difference from text,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,567,417,NA,3,43,39,,68,,,
+10526,9108,Lu,2015.5,Forest,None,NA,28.5,50,,,25.0,5,Control SM estimated from Figure 2; trt-control difference from text,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,603,506,NA,3,21,29,,100,,,
+10526,9109,Lu,2015.5,Forest,Precipitation amount change,26% of annual Precipitation excluded,28.5,50,,,18.0,5,Control SM estimated from Figure 2; trt-control difference from text,,31.965,111.86,IRGA,Haplic luvisol,Dry,1400,576,489,NA,3,64,50,,74,,,
 10696,9602,Darenova,2012.5,Grassland,Drought,Rainfall remove,,,,,,,,,49.5,18.53,IRGA,Gleyic,Dry,855,NA,NA,NA,,,,,,,,
 10696,9603,Darenova,2012.5,Grassland,None,Ambient rainfall conditions,,,,,,,,,49.5,18.53,IRGA,Gleyic,Dry,855,NA,NA,NA,,,,,,,,
 10696,9604,Darenova,2012.5,Grassland,Drought,Rainfall remove,,,,,,,,,49.5,18.53,IRGA,Gleyic,Dry,855,NA,NA,NA,,,,,,,,
@@ -549,8 +549,8 @@ Study_number,Record_number,Author,Study_midyear,Ecosystem_type,Manipulation,Mani
 10797,9836,Miao,2010,Grassland,Precipitation amount change,20%+,,,,,,,,,42.03,116.3,IRGA,Haplic Calcisols,Dry,1324,NA,NA,NA,,,,,,,,
 10797,9837,Miao,2010,Grassland,Precipitation amount change,40%+,,,,,,,,,42.03,116.3,IRGA,Haplic Calcisols,Dry,1324,NA,NA,NA,,,,,,,,
 10797,9838,Miao,2010,Grassland,Precipitation amount change,60%+,,,,,,,,,42.03,116.3,IRGA,Haplic Calcisols,Dry,1324,NA,NA,NA,,,,,,,,
-10878,9925,Moinet,2014,Grassland,None,None,,,,,,,,,-43.4,172.33,IRGA,Silt loam,Dry,35,730,NA,NA,3,165,,,100,,,SD estimated from Figure 6
-10878,9926,Moinet,2014,Grassland,Irrigated,NA,,,,,,,,,-43.4,172.33,IRGA,Silt loam,Dry,35,948,NA,NA,3,175,,,150,,,SD estimated from Figure 6; percent_control est. from 1B
+10878,9925,Moinet,2014,Grassland,None,None,,,3.19,20,25,8,SM estimated from Figure 1,,-43.4,172.33,IRGA,Silt loam,Dry,35,730,NA,NA,3,165,,,100,,,SD estimated from Figure 6
+10878,9926,Moinet,2014,Grassland,Irrigated,NA,,,3.19,20,35,8,SM estimated from Figure 1,,-43.4,172.33,IRGA,Silt loam,Dry,35,948,NA,NA,3,175,,,150,,,SD estimated from Figure 6; percent_control est. from 1B
 10886,9937,Domínguez,2012,Shrubland,None,NA,,,,,,,,,53.05,-3.45,IRGA,Podzol,Dry,NA,NA,NA,NA,,,,,,,,
 10886,9938,Domínguez,2012,Shrubland,Drought,NA,,,,,,,,,53.05,-3.45,IRGA,Podzol,Dry,NA,NA,NA,NA,,,,,,,,
 13000,1,Wang,2014,Grassland,None,NA,,,,,,,,,44.22,116.43,IRGA,NA,Dry,NA,NA,NA,2.24,4,NA,NA,NA,100,NA,NA,Rs est from fig 2
