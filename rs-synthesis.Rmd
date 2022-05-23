@@ -94,9 +94,9 @@ srdb_raw %>%
   filter(!grepl("Q1[0-5]", Quality_flag)) %>%
   bind_rows(new_studies) -> srdb
 
+# Read in main meta-analysis data: Rs variance and N for water manipulations
 read_csv("rs/Variance and N - Water manipulations.csv",
-         skip = 2,
-         col_types = "ddcdccccddcccdddddddddddc"
+         col_types = "ddcdcccddddddccddcccdddddddddddc"
 ) %>%
   filter(Study_number != 6066) %>%
   select(
