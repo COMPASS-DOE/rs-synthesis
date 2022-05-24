@@ -443,6 +443,7 @@ op <- par(cex=1, font=2)
 text(-.089, 4.2, "Dependent Variable")
 text(.05, 4.2, "Sample Size")
 text(.42, 4.2, "ln(RR) [95% CI]")
+text(0.1, 5, "Dependent Variables for Irrigaiton Studies")
 
 #plyr::count(metadat[metadat$Manipulation == "Drought",]$Variable)
 Vard_ss <- c("11", "82", "37")
@@ -465,6 +466,7 @@ op <- par(cex=1, font=2)
 text(-.47, 4.2, "Dependent Variable")
 text(-.28, 4.2, "Sample Size")
 text(.2, 4.2, "ln(RR) [95% CI]")
+text(-0.1, 5, "Dependent Variables for Drought Studies")
 ```
 
 ```{r in_textVals, include = FALSE}
@@ -576,9 +578,9 @@ Coef_irrigation <- coef(summary(metadat_imodel))
 # plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
 Ecoi_ss <- c("36", "5", "7", "83", "13")
 
-Foresti <- forest(100 * (10^Coef_irrigation[1:5, ]$estimate - 1),
-                  ci.lb = 100 * (10^Coef_irrigation[1:5, ]$ci.lb - 1),
-                  ci.ub = 100 * (10^Coef_irrigation[1:5, ]$ci.ub - 1),
+Foresti <- forest(100 * (exp(Coef_irrigation[1:5, ]$estimate) - 1),
+                  ci.lb = 100 * (exp(Coef_irrigation[1:5, ]$ci.lb) - 1),
+                  ci.ub = 100 * (exp(Coef_irrigation[1:5, ]$ci.ub) - 1),
                   annotate = TRUE,
                   xlab = "Percent Change in Soil Respiration",
                   slab = c(
@@ -594,12 +596,12 @@ Foresti <- forest(100 * (10^Coef_irrigation[1:5, ]$estimate - 1),
 
 # Code to write sample size of sub-groups on graph
 # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
-text(-80, rev(seq(5:1)), Ecoi_ss)
+text(-20, rev(seq(5:1)), Ecoi_ss)
 # Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
 op <- par(cex = 1, font = 2)
-text(-220, 6.25, "Ecosystem")
-text(-80, 6.25, "Sample Size")
-text(350, 6.25, "Mean [95% CI]")
+text(-80, 6.25, "Ecosystem")
+text(-20, 6.25, "Sample Size")
+text(100, 6.25, "Mean [95% CI]")
 
 ```
 \
@@ -675,9 +677,9 @@ Coef_drought <- coef(summary(metadat_dmodel))
 # plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
 Ecod_ss <- c("2", "38", "27", "1", "55", "7")
 
-Forestd <- forest(100 * (10^Coef_drought[1:6, ]$estimate - 1),
-                  ci.lb = 100 * (10^Coef_drought[1:6, ]$ci.lb - 1),
-                  ci.ub = 100 * (10^Coef_drought[1:6, ]$ci.ub - 1),
+Forestd <- forest(100 * (exp(Coef_drought[1:6, ]$estimate) - 1),
+                  ci.lb = 100 * (exp(Coef_drought[1:6, ]$ci.lb) - 1),
+                  ci.ub = 100 * (exp(Coef_drought[1:6, ]$ci.ub) - 1),
                   annotate = TRUE,
                   xlab = "Percent Change in Soil Respiration",
                   slab = c(
@@ -691,11 +693,11 @@ Forestd <- forest(100 * (10^Coef_drought[1:6, ]$estimate - 1),
                   lwd = 2
 )
 
-text(-125, rev(seq(6:1)), Ecod_ss)
+text(-100, rev(seq(6:1)), Ecod_ss)
 op <- par(cex = 1, font = 2)
-text(-235, 7.3, "Ecosystem")
-text(-120, 7.3, "Sample Size")
-text(160, 7.3, "Mean [95% CI]")
+text(-180, 7.3, "Ecosystem")
+text(-100, 7.3, "Sample Size")
+text(100, 7.3, "Mean [95% CI]")
 
 ```
 
