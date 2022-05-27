@@ -36,9 +36,9 @@ library(DT)
 library(metafor)
 library(PerformanceAnalytics)
 library(MuMIn)
-# if(packageVersion("MuMIn") > "1.43.15") {
-#  stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
-# }
+if(packageVersion("MuMIn") > "1.43.15") {
+stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+}
 library(dmetar)
 library(broom)
 library(bookdown)
@@ -482,6 +482,8 @@ all <- length(unique(meta_df$Study_number))
 ```{r dist_manip, fig.cap = " Distribution of manipulations, dashed red line indicates break between -P and +P treatments", warning = FALSE, message = FALSE, echo = FALSE}
 
 # plot distribution of percent_control among different Variable types
+Eco_colors <- c("#01665e","#5ab4ac","#c7eae5","#f6e8c3","#d8b365","#8c510a")
+
 ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   xlab("Percent of MAP") +
   geom_histogram(
@@ -494,7 +496,7 @@ ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
              scales = "free",
              labeller = as_labeller(Manip_labs)) +
   ylab("Count") +  
-  scale_fill_viridis_d(name = "Ecosystem") +
+  scale_fill_manual(name = "Ecosystem", values = Eco_colors ) +
   theme(legend.position = "bottom")
 ```
 
@@ -729,8 +731,8 @@ ggplot(
     labels = seq(1, max(metadat$Duration) + 1, 1),
     name = "Study Duration (yrs)"
   ) +
-  scale_color_viridis_d(name = "Ecosystem") +
-  scale_fill_viridis_d(name = "Ecosystem") +
+  scale_color_manual(name = "Ecosystem", values = Eco_colors) +
+  scale_fill_manual(name = "Ecosystem", values = Eco_colors) +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(ncol = 3))
 
@@ -855,11 +857,41 @@ ggplot(
     labels = seq(1, max(metadat$Duration) + 1, 1),
     name = "Study Duration (yrs)"
   ) +
-  scale_color_viridis_d(name = "Ecosystem") +
-  scale_fill_viridis_d(name = "Ecosystem") +
+  scale_color_manual(name = "Ecosystem", values = Eco_colors) +
+  scale_fill_manual(name = "Ecosystem", values = Eco_colors) +
   theme(legend.position = "bottom")
 ```
+```{r Combined_duration_plot, message = FALSE, warning = FALSE}
 
+#combine predicted dataframes
+metadat_d2preds %>%
+  mutate(Manipulation = "-P") %>%
+    bind_rows(metadat_ipreds2) %>%
+  mutate(Manipulation = replace_na(Manipulation, "+P")) -> metadat_bothpreds
+
+
+ggplot(
+  data = metadat_bothpreds,
+  aes(Duration, pred)
+) +
+  geom_hline(yintercept = 0) +
+  geom_point(aes(fill = Ecosystem_type, colour = Ecosystem_type),
+             size = 3, na.rm = TRUE) +
+  geom_smooth(method = lm, formula = y ~ x,
+              aes(fill = Ecosystem_type, color = Ecosystem_type)) +
+  ylab("predicted ln(RR)") +
+  scale_x_continuous(
+    breaks = seq(0, max(metadat$Duration), 1),
+    labels = seq(1, max(metadat$Duration) + 1, 1),
+    name = "Study Duration (yrs)"
+  ) +
+  facet_wrap(.~Manipulation, ncol = 2) +
+  scale_color_manual(name = "Ecosystem", values = Eco_colors) +
+  scale_fill_manual(name = "Ecosystem", values = Eco_colors) +
+  theme(legend.position = "bottom")
+
+
+```
 \
 \
 The duration of manipulations strongly affected the direction and magnitude of response of soil respiration to precipitation change. If the interaction of ecosystem type and duration are included in the meta-analytical model for decreased precipitation studies, the interaction term is significant for all ecosystems with more than two years worth of data ((Figure \autoref(fig:Supplement_-P_duration_plot). The effect of duration diverges depending on the relative water-limitation of the ecosystem being impacted. In drought simulations, forests, grasslands, and shrublands show weakening of the manipulation effect over time, leading to reversals of the initial effect. In contrast desert ecosystems have increasingly strong responses to manipulations, whether the change be an increase or decrease in precipitation.  
@@ -867,58 +899,53 @@ The duration of manipulations strongly affected the direction and magnitude of r
 \
 
 # Effect of Manipulation Intensity
-## Decreased Precipitation
-```{r Intensity_effect_-P, fig.cap = " Linear regression of manipulation intensity and effect size for decreased precipitaiton studies.", message = FALSE, warning = FALSE}
-Drought_Intensity <- ggplot(
-  data = metadat_dpreds,
-  aes(Percent_control, pred)
-) +
-  geom_hline(yintercept = 0) +
-  scale_color_viridis_d(name = "Ecosystem") +
-  geom_smooth(method = lm, formula = y ~ x) +
-  geom_jitter(aes(color = Ecosystem_type),
-              width = 0.15, size = 4) +
-  stat_poly_eq(formula = y ~ x,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
-  xlab("Percent of MAP") +
-  ylab("predicted ln(RR)") +
-  theme(legend.position = "bottom")
+## Combined
+```{r Intensity_effect_both, fig.cap = " Linear regression of manipulation intensity and effect size.", message = FALSE, warning = FALSE}
 
-DI_margH <- ggMarginal(Drought_Intensity,
-                       type = "histogram",
-                       margins = "x", size = 4
-)
-DI_margH
-```
-
-## Increased Precipitation
-
-```{r Intensity_effect_+P, fig.cap = " Linear regression of manipulation intensity and effect size for increased precipitaiton studies.", message = FALSE, warning = FALSE}
-Irrigation_Intensity <- ggplot(
-  data = metadat[metadat$Manipulation == "Irrigation",],
+#exclude outlier manipulation in savanna
+ggplot(
+  data = metadat,
   aes(Percent_control, yi)
 ) +
   geom_hline(yintercept = 0) +
   geom_jitter(na.rm = TRUE, aes(color = Ecosystem_type),
              width = 0.5, size = 4) +
-  scale_color_viridis_d(name = "Ecosystem") +
-  geom_smooth(method = lm, formula = y ~ x) +
-  stat_poly_eq(formula = y ~ x,
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
+  facet_grid(.~Manipulation, scales = "free", labeller = as_labeller(Manip_labs)) +
+  geom_smooth(data = metadat[metadat$Percent_control < 390,],
+              method = lm, formula = y ~ x) +
+  stat_poly_eq(data = metadat[metadat$Percent_control < 390,],
+               formula = y ~ x,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
   ylab("ln(RR)") +
   xlab("Percent of MAP") +
   theme(legend.position = "bottom")
 
-II_margH <- ggMarginal(Irrigation_Intensity,
-                       type = "histogram",
-                       margins = "x", size = 4
-)
-II_margH
+```
+```{r Intensity_effect_-P, fig.cap = " Supplemental -P predicted effect.", message = FALSE, warning = FALSE}
+
+ggplot(
+  data = metadat_d2preds,
+  aes(Percent_control, pred)
+) +
+  geom_hline(yintercept = 0) +
+  geom_jitter(na.rm = TRUE, aes(color = Ecosystem_type),
+             width = 0.5, size = 4) +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
+  geom_smooth(method = lm, formula = y ~ x) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  ylab("predicted ln(RR)") +
+  xlab("Percent of MAP") +
+  theme(legend.position = "bottom")
+
 ```
    
 \
 \
-The intensity of the manipulation ranked with higher importance for -P studies (Figure \autoref(fig:Intensity_effect_-P) than +P (Figure \autoref(fig:Intensity_effect_+P). The relationship is intuitive: the stronger the decrease in precipitation, the stronger the decrease in soil respiration (Figure \autoref(fig:Intensity_effect_-P) . While manipulation intensity was not included in the primary model for +P (due to being below the top 4 ranking threshold), If the effect of intensity was included in the +P model, a positive relationship exists (Figure \autoref(fig:Intensity_effect_+P), predominantly driven by one very high treatment in a savanna. The slope of this regression line was however still lower than that found in -P.  
+The intensity of the manipulation ranked with higher importance for -P studies (Figure \autoref(fig:Intensity_effect_both) than +P. The relationship is intuitive: the stronger the decrease in precipitation, the stronger the decrease in soil respiration. While manipulation intensity was not included in the primary model for +P (due to being below the top 4 ranking threshold), If the effect of intensity was included in the +P model, a positive relationship exists, predominantly driven by one very high treatment in a savanna. The slope of this regression line was however still lower than that found in -P.  
 \
 \
 
@@ -998,16 +1025,18 @@ ggplot(
              size = 4, na.rm = TRUE
   ) +
   geom_smooth(method = lm, formula = y ~ x) +
-  facet_grid(Manipulation ~ ., labeller = as_labeller(Manip_labs)) +
+  facet_wrap(~Manipulation, ncol=2, labeller = as_labeller(Manip_labs)) +
   ylab("predicted ln(RR)") +
   xlab(expression(~"Organic Carbon Stock" ~ ("0-30 cm") ~ "kg m"^{
     "-2"
   })) +
-  scale_color_viridis_d(name = "Ecosystem") +
-  scale_fill_viridis_d(name = "Ecosystem") +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
+    geom_smooth(method = lm, formula = y ~ x) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
   guides(colour = guide_legend(override.aes = list(size = 4))) +
-  theme(legend.position = "bottom",
-        strip.text.y = element_text(size = 18, angle = 0))
+  theme(legend.position = "none")
 
 ```
 
@@ -1029,14 +1058,18 @@ ggplot(
   geom_smooth(method = lm, formula = y ~ x) +
   ylab("predicted ln(RR)") +
   xlab("%Clay (15-30 cm)") +
-  scale_color_viridis_d(name = "Ecosystem") +
+      geom_smooth(method = lm, formula = y ~ x) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
   theme(legend.position = "bottom")
 ```
 
 ```{r Soil_grid_clay_supplement, warning = FALSE}
 
 ggplot(
-  data = metadat[metadat$Manipulation == "Irrigation",],
+  data = metadat,
   aes(sg_clay / 10, yi) #convert from g/kg (as stored in soil grids) to g/100 g
 ) +
   geom_hline(yintercept = 0) +
@@ -1044,8 +1077,13 @@ ggplot(
              width = .15, size = 4) +
   geom_smooth(method = lm, formula = y ~ x) +
   ylab("ln(RR)") +
+  facet_wrap(~Manipulation, ncol=2, labeller = as_labeller(Manip_labs)) +
   xlab("%Clay (15-30 cm)") +
-  scale_color_viridis_d(name = "Ecosystem") +
+      geom_smooth(method = lm, formula = y ~ x) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
   theme(legend.position = "bottom")
 ```
 \
