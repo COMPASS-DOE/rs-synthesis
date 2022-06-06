@@ -271,6 +271,7 @@ meta_df %>%
   distinct(Study_number, Latitude, Longitude, .keep_all = TRUE) -> meta_coords
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
+Eco_colors <- c("#01665e","#5ab4ac","#c7eae5","#f6e8c3","#d8b365","#8c510a")
 
 ggplot(data = world) +
      geom_sf(lwd = 0.1, fill = "white") +
@@ -283,7 +284,7 @@ ggplot(data = world) +
         axis.title.y = element_blank(),
         axis.title.x = element_blank()) +
     labs(fill = "Ecosystem") +
-  scale_fill_viridis_d()
+  scale_fill_manual(values = Eco_colors)
 
 ```
 
@@ -482,7 +483,6 @@ all <- length(unique(meta_df$Study_number))
 ```{r dist_manip, fig.cap = " Distribution of manipulations, dashed red line indicates break between -P and +P treatments", warning = FALSE, message = FALSE, echo = FALSE}
 
 # plot distribution of percent_control among different Variable types
-Eco_colors <- c("#01665e","#5ab4ac","#c7eae5","#f6e8c3","#d8b365","#8c510a")
 
 ggplot(metadat, aes(Percent_control, fill = Ecosystem_type)) +
   xlab("Percent of MAP") +
