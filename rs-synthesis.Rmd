@@ -97,8 +97,8 @@ srdb_raw %>%
 read_csv("rs/Variance and N - Water manipulations.csv",
          skip = 2,
          col_types = "ddcdccccddcccdddddddddddc"
-) %>%
-  filter(Study_number != 6066) %>%
+) %>% #remove study manipulating timing of precipitaiton (6066)
+  filter(!Study_number %in% c(6066, 13000, 13112)) %>% # remove duplicates (13000 & 13112)
   select(
     Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual, SD_Rh_annual,
     SD_Rs_growingseason, Percent_control, SM_mean, SM_sd
