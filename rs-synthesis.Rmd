@@ -423,7 +423,7 @@ Coef_dvar <- coef(summary(metadat_dmodel_var))
 
 ```{r dependentVars_graphs, echo = FALSE}
 #plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Variable)
-Vari_ss <- c("6", "77", "61")
+Vari_ss <- c("6", "77", "58")
 Forestivar <- forest(Coef_ivar$estimate,
                   ci.lb = Coef_ivar$ci.lb,
                   ci.ub = Coef_ivar$ci.ub,
@@ -447,7 +447,7 @@ text(.42, 4.2, "ln(RR) [95% CI]")
 text(0.1, 5, "Dependent Variables for Irrigaiton Studies")
 
 #plyr::count(metadat[metadat$Manipulation == "Drought",]$Variable)
-Vard_ss <- c("11", "82", "37")
+Vard_ss <- c("11", "82", "35")
 Forestdvar <- forest(Coef_dvar$estimate,
                      ci.lb = Coef_dvar$ci.lb,
                      ci.ub = Coef_dvar$ci.ub,
@@ -576,9 +576,8 @@ Coef_irrigation <- coef(summary(metadat_imodel))
 ```{r +P_forest, fig.cap = " Ecosystem effect for increased precipitation manipulations."}  
 # Forest plot for Irrigation studies
 
-# would be better to bind all of this into one thing, not sure how
 # plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
-Ecoi_ss <- c("36", "5", "7", "83", "13")
+Ecoi_ss <- c("36", "5", "7", "80", "13")
 
 Foresti <- forest(100 * (exp(Coef_irrigation[1:5, ]$estimate) - 1),
                   ci.lb = 100 * (exp(Coef_irrigation[1:5, ]$ci.lb) - 1),
@@ -675,9 +674,8 @@ Coef_drought <- coef(summary(metadat_dmodel))
 
 # Forest plot for Drought studies
 
-# bind all of this into one thing
 # plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
-Ecod_ss <- c("2", "38", "27", "1", "55", "7")
+Ecod_ss <- c("2", "38", "27", "1", "53", "7")
 
 Forestd <- forest(100 * (exp(Coef_drought[1:6, ]$estimate) - 1),
                   ci.lb = 100 * (exp(Coef_drought[1:6, ]$ci.lb) - 1),
