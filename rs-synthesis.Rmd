@@ -94,9 +94,9 @@ srdb_raw %>%
   filter(!grepl("Q1[0-5]", Quality_flag)) %>%
   bind_rows(new_studies) -> srdb
 
+# Read in main meta-analysis data: Rs variance and N for water manipulations
 read_csv("rs/Variance and N - Water manipulations.csv",
-         skip = 2,
-         col_types = "ddcdccccddcccdddddddddddc"
+         col_types = "ddcdcccddddddccddcccdddddddddddc",
 ) %>% #remove study manipulating timing of precipitaiton (6066)
   filter(!Study_number %in% c(6066, 13000, 13112)) %>% # remove duplicates (13000 & 13112)
   select(
