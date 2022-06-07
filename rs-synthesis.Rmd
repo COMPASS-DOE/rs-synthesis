@@ -82,14 +82,14 @@ read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
     Manipulation, Manipulation_level, Meas_method, Soil_type,
-    Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Elevation
+    Rs_annual, Rh_annual, Rs_growingseason, Elevation
   ) -> new_studies
 
 srdb_raw %>%
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
     Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
-    Rs_annual, Rh_annual, Rs_growingseason, Soil_drainage, Soil_clay, Elevation, Quality_flag
+    Rs_annual, Rh_annual, Rs_growingseason, Elevation, Quality_flag
   ) %>%
   filter(!grepl("Q1[0-5]", Quality_flag)) %>%
   bind_rows(new_studies) -> srdb
@@ -97,11 +97,13 @@ srdb_raw %>%
 # Read in main meta-analysis data: Rs variance and N for water manipulations
 read_csv("rs/Variance and N - Water manipulations.csv",
          col_types = "ddcdcccddddddccddcccdddddddddddc",
-) %>% #remove study manipulating timing of precipitaiton (6066)
+) %>% #remove study manipulating timing of precipitation (6066)
   filter(!Study_number %in% c(6066, 13000, 13112)) %>% # remove duplicates (13000 & 13112)
   select(
-    Study_number, Record_number, N, OtherFactor, Longitude, SD_Rs_annual, SD_Rh_annual,
-    SD_Rs_growingseason, Percent_control, SM_mean, SM_sd
+    Study_number, Record_number, N, OtherFactor, Longitude, Clay_percent,
+    Clay_depth, SOC_percent, SOC_depth, SM_percent, SM_depth, BBL_notes,
+    SD_Rs_annual, SD_Rh_annual, SD_Rs_growingseason,
+    Percent_control, SM_mean, SM_sd
   ) %>%
   left_join(srdb, by = c("Study_number", "Record_number")) %>%
   mutate(
@@ -129,7 +131,9 @@ read_csv("rs/Variance and N - Water manipulations.csv",
 # Remove duplicate control record from a study (reference respiration from pre-treatment years)
 dat_rs %>%
   filter(Manipulation == "Control", Record_number != "2368") %>%
-  select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd) ->
+  select(-Record_number, -Author, -Manipulation, -Manipulation_level, -N, -SM_mean, -SM_sd) %>%
+  rename("contSM_per" = "SM_percent",
+         "contSM_depth" = "SM_depth") ->
   controls
 
 # Isolate the control mean and standard deviations; reshape; and join together
@@ -190,13 +194,16 @@ meta_manip %>%
   left_join(meta_control,
             by = c(
               "Study_number", "Study_midyear", "Ecosystem_type",
-              "Latitude", "Longitude", "OtherFactor", "Meas_method", "Species",
-              "Soil_type", "Soil_drainage", "Soil_clay", "Elevation", "depvar"
+              "Latitude", "Longitude", "OtherFactor", "Meas_method",
+              "Species", "Soil_type", "Clay_percent", "Clay_depth",
+              "SOC_percent", "SOC_depth",
+              "BBL_notes", "Elevation", "depvar"
             )
   ) %>%
   filter(!is.na(Manip_Resp)) %>%
-  rename("Variable" = "depvar") ->
-  meta_df
+  rename("Variable" = "depvar",
+         "manipSM_per" = "SM_percent",
+         "manipSM_depth" = "SM_depth") -> meta_df
 
 # calculate study duration
 meta_df %>%
@@ -237,7 +244,7 @@ studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 
 #Possible frame shift in SRDB study numbers
 #Opened an issue to correct: https://github.com/bpbond/srdb/issues/135
-#DOI's confirmed for 82 studies included
+#DOI's confirmed for 80 studies included
 read_csv("rs/DOIcheck.csv",
          col_types = "iici") -> ConfirmedDOI
 
@@ -347,6 +354,31 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
 }
 ```
 
+```{r Soil_content_supplement, message = FALSE, warning = FALSE, echo = FALSE}
+meta_df %>%
+  select("Study_number", "SOC_percent", "SOC_depth", "sg_ocs",
+         "BBL_notes", "Clay_percent", "Clay_depth", "sg_clay",
+         "Ecosystem_type") -> soil_content
+
+#Soil grids vs study reported soil organic carbon
+#assuming bulk density of 1.5 g/cm^3
+ggplot(data = soil_content) + 
+  geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100),
+             colour = Ecosystem_type) +
+  labs(x = "Study %SOC",
+       y = "SoilGrids %SOC") +
+  geom_abline(intercept = 0, slope = 1)
+
+#Soil grids (15 - 30 cm) vs study reported soil clay content
+#ignoring differences in soil depth (see Clay_depth for comparison of depths)
+ggplot(data = soil_content) + 
+  geom_point(aes(Clay_percent, sg_clay/10),
+             colour = Ecosystem_type) +
+  labs(x = "Study %Clay",
+       y = "SoilGrids %Clay") +
+  geom_abline(intercept = 0, slope = 1)
+
+```
 # Summary Plots
 
 ```{r diagnostic-plots, fig.cap = "Few studies lasting >1 year", warning = FALSE, message = FALSE, echo = FALSE}
@@ -462,12 +494,12 @@ Forestdvar <- forest(Coef_dvar$estimate,
                      digits = 2,
                      lwd = 2
 )
-text(-.28, rev(seq(3:1)), Vard_ss)
+text(-.3, rev(seq(3:1)), Vard_ss)
 op <- par(cex=1, font=2)
 text(-.47, 4.2, "Dependent Variable")
-text(-.28, 4.2, "Sample Size")
-text(.2, 4.2, "ln(RR) [95% CI]")
-text(-0.1, 5, "Dependent Variables for Drought Studies")
+text(-.3, 4.2, "Sample Size")
+text(.2, 4.4, "ln(RR) [95% CI]")
+text(-0.12, 5, "Dependent Variables for Drought Studies")
 ```
 
 ```{r in_textVals, include = FALSE}
