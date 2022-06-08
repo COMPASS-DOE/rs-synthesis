@@ -37,9 +37,9 @@ library(metafor)
 library(PerformanceAnalytics)
 library(MuMIn)
 if(packageVersion("MuMIn") > "1.43.15") {
-stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+  #stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
 }
-library(dmetar)
+library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar")
 library(broom)
 library(bookdown)
 library(ggmap)
@@ -355,33 +355,33 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
 ```
 
 ```{r Soil_content_supplement, message = FALSE, warning = FALSE, echo = FALSE}
-# meta_df %>%
-#   select(Study_number, Clay_percent, Clay_depth,
-#          SOC_percent, SOC_depth, BBL_notes,
-#          Ecosystem_type, sg_clay, sg_ocs
-#          ) -> soil_content
-# 
-# #Soil grids vs study reported soil organic carbon
-# #assuming bulk density of 1.5 g/cm^3
-# ggplot(data = soil_content) + 
-#   geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100,
-#              colour = Ecosystem_type),
-#              size = 3) +
-#   scale_color_manual(values = Eco_colors) +
-#   labs(x = "Study %SOC",
-#        y = "SoilGrids %SOC") +
-#   geom_abline(intercept = 0, slope = 1)
-# 
-# #Soil grids (15 - 30 cm) vs study reported soil clay content
-# #ignoring differences in soil depth (see Clay_depth for comparison of depths)
-# ggplot(data = soil_content) + 
-#   geom_point(aes(Clay_percent, sg_clay/10,
-#              colour = Ecosystem_type),
-#              size = 3) +
-#   scale_color_manual(values = Eco_colors) +
-#   labs(x = "Study %Clay",
-#        y = "SoilGrids %Clay") +
-#   geom_abline(intercept = 0, slope = 1)
+meta_df %>%
+  select(Study_number, Clay_percent, Clay_depth,
+         SOC_percent, SOC_depth, BBL_notes,
+         Ecosystem_type, sg_clay, sg_ocs
+         ) -> soil_content
+
+#Soil grids vs study reported soil organic carbon
+#assuming bulk density of 1.5 g/cm^3
+ggplot(data = soil_content) +
+  geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100,
+             colour = Ecosystem_type),
+             size = 3) +
+  scale_color_manual(values = Eco_colors) +
+  labs(x = "Study %SOC",
+       y = "SoilGrids %SOC") +
+  geom_abline(intercept = 0, slope = 1)
+
+#Soil grids (15 - 30 cm) vs study reported soil clay content
+#ignoring differences in soil depth (see Clay_depth for comparison of depths)
+ggplot(data = soil_content) +
+  geom_point(aes(Clay_percent, sg_clay/10,
+             colour = Ecosystem_type),
+             size = 3) +
+  scale_color_manual(values = Eco_colors) +
+  labs(x = "Study %Clay",
+       y = "SoilGrids %Clay") +
+  geom_abline(intercept = 0, slope = 1)
 
 ```
 # Summary Plots
