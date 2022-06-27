@@ -266,7 +266,7 @@ meta_df %>%
 ```
 ## Data Summaries  
 \
-Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
+Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` and length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number)) studies respectively. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
 \
 \
 
@@ -360,6 +360,7 @@ meta_df %>%
          SOC_percent, SOC_depth, BBL_notes,
          Ecosystem_type, sg_clay, sg_ocs
          ) -> soil_content
+
 
 #Soil grids vs study reported soil organic carbon
 #assuming bulk density of 1.5 g/cm^3
