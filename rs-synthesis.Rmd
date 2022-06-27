@@ -266,7 +266,7 @@ meta_df %>%
 ```
 ## Data Summaries  
 \
-Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Both forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` individual studies each. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
+Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` and length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number)) studies respectively. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
 \
 \
 
@@ -355,33 +355,35 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
 ```
 
 ```{r Soil_content_supplement, message = FALSE, warning = FALSE, echo = FALSE}
-# meta_df %>%
-#   select(Study_number, Clay_percent, Clay_depth,
-#          SOC_percent, SOC_depth, BBL_notes,
-#          Ecosystem_type, sg_clay, sg_ocs
-#          ) -> soil_content
-# 
-# #Soil grids vs study reported soil organic carbon
-# #assuming bulk density of 1.5 g/cm^3
-# ggplot(data = soil_content) + 
-#   geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100,
-#              colour = Ecosystem_type),
-#              size = 3) +
-#   scale_color_manual(values = Eco_colors) +
-#   labs(x = "Study %SOC",
-#        y = "SoilGrids %SOC") +
-#   geom_abline(intercept = 0, slope = 1)
-# 
-# #Soil grids (15 - 30 cm) vs study reported soil clay content
-# #ignoring differences in soil depth (see Clay_depth for comparison of depths)
-# ggplot(data = soil_content) + 
-#   geom_point(aes(Clay_percent, sg_clay/10,
-#              colour = Ecosystem_type),
-#              size = 3) +
-#   scale_color_manual(values = Eco_colors) +
-#   labs(x = "Study %Clay",
-#        y = "SoilGrids %Clay") +
-#   geom_abline(intercept = 0, slope = 1)
+meta_df %>%
+  select(Study_number, Clay_percent, Clay_depth,
+         SOC_percent, SOC_depth, BBL_notes,
+         Ecosystem_type, sg_clay, sg_ocs
+         ) -> soil_content
+
+#Soil grids vs study reported organic carbon stock
+#assuming bulk density of 1.5 g/cm^3
+ ggplot(data = soil_content) +
+  geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100,
+             colour = Ecosystem_type),
+             size = 3) +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
+  labs(x = "Study OCS",
+       y = "SoilGrids OCS") +
+  geom_abline(intercept = 0, slope = 1)
+
+#Soil grids (15 - 30 cm) vs study reported soil clay content
+#ignoring differences in soil depth (see Clay_depth for comparison of depths)
+ggplot(data = soil_content) +
+  geom_point(aes(Clay_percent, sg_clay/10,
+             colour = Ecosystem_type),
+             size = 3) +
+  scale_color_manual(name = "Ecosystem",
+                     values = Eco_colors) +
+  labs(x = "Study %Clay",
+       y = "SoilGrids %Clay") +
+  geom_abline(intercept = 0, slope = 1)
 
 ```
 # Summary Plots
