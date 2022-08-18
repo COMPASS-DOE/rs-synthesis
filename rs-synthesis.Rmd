@@ -36,9 +36,9 @@ library(DT)
 library(metafor)
 library(PerformanceAnalytics)
 library(MuMIn)
-if(packageVersion("MuMIn") > "1.43.15") {
-stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
-}
+#if(packageVersion("MuMIn") > "1.43.15") {
+#stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+#}
 library(dmetar)
 library(broom)
 library(bookdown)
@@ -89,7 +89,7 @@ srdb_raw %>%
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
     Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
-    Rs_annual, Rh_annual, Rs_growingseason, Elevation, Quality_flag
+    Rs_annual, Rh_annual, Rs_growingseason, Elevation, Meas_interval, Quality_flag
   ) %>%
   filter(!grepl("Q1[0-5]", Quality_flag)) %>%
   bind_rows(new_studies) -> srdb
@@ -196,7 +196,7 @@ meta_manip %>%
               "Study_number", "Study_midyear", "Ecosystem_type",
               "Latitude", "Longitude", "OtherFactor", "Meas_method",
               "Species", "Soil_type", "Clay_percent", "Clay_depth",
-              "SOC_percent", "SOC_depth",
+              "SOC_percent", "SOC_depth", "Meas_interval",
               "BBL_notes", "Elevation", "depvar"
             )
   ) %>%
@@ -244,7 +244,7 @@ studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 
 #Possible frame shift in SRDB study numbers
 #Opened an issue to correct: https://github.com/bpbond/srdb/issues/135
-#DOI's confirmed for 80 studies included
+#hDOI's confirmed for 80 studies included
 read_csv("rs/DOIcheck.csv",
          col_types = "iici") -> ConfirmedDOI
 
@@ -307,7 +307,7 @@ meta_df %>%
     names_from = Manipulation,
     values_from = n
   ) -> EffectSizePairs
-
+g
 meta_df %>%
   group_by(Manipulation, Ecosystem_type) %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
@@ -353,7 +353,7 @@ if (file.exists(clayfile) && file.exists(ocsfile)) {
   meta_df$sg_ocs <- runif(nrow(meta_df))
 }
 ```
-
+h
 ```{r Soil_content_supplement, message = FALSE, warning = FALSE, echo = FALSE}
 meta_df %>%
   select(Study_number, Clay_percent, Clay_depth,
@@ -547,7 +547,7 @@ Study sites were distributed across the terrestrial biosphere, but coverage was 
 ```{r Autocorrelation_check, include = FALSE}
 # if desired separately by the two manipulations
 # two steps using filter(Manipulation) and select(variables for correlation)
-metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs")] %>% chart.Correlation()
+metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs", "Meas_interval")] %>% chart.Correlation()
 ```
 
 # Ecosystem Effects    
@@ -581,15 +581,15 @@ For +P studies, the primary effect of SOC, ecosystem type, study duration, and t
 metadat %>%
   filter(Manipulation == "Irrigation") %>%
   select("Study_number", "Ecosystem_type",
-         "Duration", "sg_ocs", "yi",
-         "vi") %>%
-  na.omit() -> metadat_i
+         "Meas_interval", "Duration",
+         "sg_ocs", "yi", "vi") -> metadat_i#%>% commenting out this na.omit for now
+  #na.omit() -> metadat_i
 
 # rma.mv conducts a meta-analysis multivariate mixed effects model
 # the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 metadat_imodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
+                         mods = ~ Ecosystem_type * Duration + Meas_interval + sg_ocs - 1,
                          method = "REML",
                          data = metadat_i,
                          slab = Ecosystem_type,
@@ -674,13 +674,14 @@ metadat %>%
   filter(Manipulation == "Drought") %>%
   select("Study_number", "Ecosystem_type",
          "Duration", "Percent_control",
+         "Meas_interval",
          "sg_clay", "sg_ocs",
-         "yi", "vi") %>%
-  na.omit() -> metadat_d
+         "yi", "vi") -> metadat_d #%>% commenting out this na.omit for now
+  #na.omit() -> metadat_d
 
 metadat_dmodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
+                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control + Meas_interval - 1,
                          method = "REML",
                          data = metadat_d,
                          slab = Ecosystem_type,
