@@ -78,11 +78,11 @@ srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
 # Read in new studies 2018-2021 that SRDB doesn't have yet
 read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
-         col_types = "cdddcdcccdcccdddddddddddc"
+         col_types = "cdddcdcccdcdccdddddddddddc"
 ) %>%
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
-    Manipulation, Manipulation_level, Meas_method, Soil_type,
+    Manipulation, Manipulation_level, Meas_interval, Meas_method, Soil_type,
     Rs_annual, Rh_annual, Rs_growingseason, Elevation
   ) -> new_studies
 
@@ -308,7 +308,7 @@ meta_df %>%
     names_from = Manipulation,
     values_from = n
   ) -> EffectSizePairs
-g
+
 meta_df %>%
   group_by(Manipulation, Ecosystem_type) %>%
   summarise(n_studies = length(unique(Study_number)), .groups = "drop") %>%
@@ -365,7 +365,7 @@ if(file.exists(clay_ex_data) && file.exists(ocs_ex_data)) {
   }
 }
 ```
-h
+
 ```{r Soil_content_supplement, message = FALSE, warning = FALSE, echo = FALSE}
 meta_df %>%
   select(Study_number, Clay_percent, Clay_depth,
