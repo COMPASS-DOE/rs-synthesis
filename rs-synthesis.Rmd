@@ -37,7 +37,8 @@ library(metafor)
 library(PerformanceAnalytics)
 library(MuMIn)
 if(packageVersion("MuMIn") > "1.43.15") {
-stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15",
+     '\ndevtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
 }
 library(dmetar)
 library(broom)
@@ -328,29 +329,40 @@ EES_table %>%
 ```
 
 
-```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
+```{r soilgrids, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
-# We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
-clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
-ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
-if (file.exists(clayfile) && file.exists(ocsfile)) {
-  clay <- raster(clayfile)
-  meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")],
-                               proj4string = CRS("+proj=longlat +datum=WGS84")
-  )
-  # Reproject our long-lat points to the UTM used by the geoTIFF
-  meta_points <- spTransform(meta_points, projection(clay))
-  # ...and extract the values we want, averaging nearest 1000m
-  meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
-  
-  # Second file, same operation
-  ocs <- raster(ocsfile)
-  meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
+
+# If we have pre-saved extracted data, use that, because this is a very slow step
+clay_ex_data <- "soilgrids/clay_data.RDS"
+ocs_ex_data <- "soilgrids/ocs_data.RDS"
+if(file.exists(clay_ex_data) && file.exists(ocs_ex_data)) {
+  x_clay <- readRDS(clay_ex_data)
+  x_ocs <- readRDS(ocs_ex_data)
+  if(length(x_clay) != nrow(meta_df)) {
+    stop("Clay/OCS extracted data are out of date; please delete (in soilgrids folder) and re-run")
+  }
+ meta_df$sg_clay <- x_clay 
+  meta_df$sg_ocs <- x_ocs
 } else {
-  # geoTIFF files are not present; issue a warning and use fake (random) data
-  warning("geoTIFF files are not present! Analysis will not be correct")
-  meta_df$sg_clay <- runif(nrow(meta_df))
-  meta_df$sg_ocs <- runif(nrow(meta_df))
+  # No extracted data available; need to re-extract (a slow step)
+  clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
+  ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
+  if (file.exists(clayfile) && file.exists(ocsfile)) {
+    clay <- raster(clayfile)
+    meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")],
+                                 proj4string = CRS("+proj=longlat +datum=WGS84")
+    )
+    # Reproject our long-lat points to the UTM used by the geoTIFF
+    meta_points <- spTransform(meta_points, projection(clay))
+    # ...and extract the values we want, averaging nearest 1000m
+    meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
+    
+    # Second file, same operation
+    ocs <- raster(ocsfile)
+    meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
+  } else {
+    stop("Neither geoTIFF files nor pre-extracted soilgrids data are present!")
+  }
 }
 ```
 
