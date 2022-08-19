@@ -40,7 +40,7 @@ if(packageVersion("MuMIn") > "1.43.15") {
 stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15",
      '\ndevtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
 }
-library(dmetar)
+library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar")
 library(broom)
 library(bookdown)
 library(ggmap)
@@ -373,16 +373,16 @@ meta_df %>%
          Ecosystem_type, sg_clay, sg_ocs
          ) -> soil_content
 
-#Soil grids vs study reported organic carbon stock
+
+#Soil grids vs study reported soil organic carbon
 #assuming bulk density of 1.5 g/cm^3
- ggplot(data = soil_content) +
+ggplot(data = soil_content) +
   geom_point(aes(SOC_percent, sg_ocs/100*1/SOC_depth/1.5*100,
              colour = Ecosystem_type),
              size = 3) +
-  scale_color_manual(name = "Ecosystem",
-                     values = Eco_colors) +
-  labs(x = "Study OCS",
-       y = "SoilGrids OCS") +
+  scale_color_manual(values = Eco_colors) +
+  labs(x = "Study %SOC",
+       y = "SoilGrids %SOC") +
   geom_abline(intercept = 0, slope = 1)
 
 #Soil grids (15 - 30 cm) vs study reported soil clay content
@@ -391,8 +391,7 @@ ggplot(data = soil_content) +
   geom_point(aes(Clay_percent, sg_clay/10,
              colour = Ecosystem_type),
              size = 3) +
-  scale_color_manual(name = "Ecosystem",
-                     values = Eco_colors) +
+  scale_color_manual(values = Eco_colors) +
   labs(x = "Study %Clay",
        y = "SoilGrids %Clay") +
   geom_abline(intercept = 0, slope = 1)
