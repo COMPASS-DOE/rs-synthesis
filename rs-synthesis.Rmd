@@ -567,24 +567,32 @@ metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs", "Mea
 ```{r mmi_irrigation, include=FALSE, cache=TRUE}
 # rank importance of modifiers for each manipulation, irrigation first
 # Stick this in a separate chunk so no progress bar sullies our output
-mmi_irrigation <- multimodel.inference(
+mmi_irrigation1 <- multimodel.inference(
   TE = "yi", seTE = "vi",
   data = metadat[metadat$Manipulation == "Irrigation",],
-  predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
+  predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs", "sg_clay", "Meas_interval"),
   interaction = TRUE
 )
 
-# here sg_clay is excluded to allow for interactions after seeing that it had very low estimated importance in a none-interactive model
 ```
 
-```{r print mmi_irrigation, include = FALSE}
-# print(mmi_irrigation$top5.models)
-print(mmi_irrigation$predictor.importance.plot)
-# soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
+```{r print mmi_irrigation, include = FALSE, cache=TRUE}
+#print(mmi_irrigation$top5.models)
+print(mmi_irrigation1$predictor.importance.plot)
+# reduce to top four to allow interactions
+mmi_irrigation2 <- multimodel.inference(
+  TE = "yi", seTE = "vi",
+  data = metadat[metadat$Manipulation == "Irrigation",],
+  predictors = c("sg_ocs", "Meas_interval", "Ecosystem_type", "Duration"),
+  interaction = TRUE
+)
+print(mmi_irrigation2$predictor.importance.plot)
+# soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) and measurement interval are all highly important
+
 ```
 \
 \
-For +P studies, the primary effect of SOC, ecosystem type, study duration, and the interaction between ecosystem type and duration were the four highest ranked preictors. In contrast, the -P model ranked ecosystem type, SOC, clay, and duration as the top four predictors.
+For +P studies, the primary effect of SOC, ecosystem type, study duration, and the interaction between ecosystem type and duration were the four highest ranked predictors. In contrast, the -P model ranked ecosystem type, SOC, clay, and duration as the top four predictors.
 \
 \
 ```{r irrigation, include = FALSE}
@@ -600,8 +608,9 @@ metadat %>%
 # the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 metadat_imodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
+                         #mods = ~ Ecosystem_type - 1,
                          #mods = ~ Meas_interval,
-                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
+                         mods = ~ Ecosystem_type * Duration + Meas_interval + sg_ocs - 1,
                          method = "REML",
                          data = metadat_i,
                          slab = Ecosystem_type,
