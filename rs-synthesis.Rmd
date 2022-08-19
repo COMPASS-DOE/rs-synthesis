@@ -37,7 +37,8 @@ library(metafor)
 library(PerformanceAnalytics)
 library(MuMIn)
 if(packageVersion("MuMIn") > "1.43.15") {
-  #stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15")
+stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15",
+     '\ndevtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
 }
 library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar")
 library(broom)
@@ -77,11 +78,11 @@ srdb_raw <- read.csv("./rs/srdb-data.csv") %>% as_tibble()
 
 # Read in new studies 2018-2021 that SRDB doesn't have yet
 read_csv("./rs/Rs Studies 2018+ - Water Manipulation.csv",
-         col_types = "cdddcdcccdcccdddddddddddc"
+         col_types = "cdddcdcccdcdccdddddddddddc"
 ) %>%
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
-    Manipulation, Manipulation_level, Meas_method, Soil_type,
+    Manipulation, Manipulation_level, Meas_interval, Meas_method, Soil_type,
     Rs_annual, Rh_annual, Rs_growingseason, Elevation
   ) -> new_studies
 
@@ -89,7 +90,7 @@ srdb_raw %>%
   select(
     Study_number, Record_number, Author, Study_midyear, Latitude, Ecosystem_type,
     Manipulation, Manipulation_level, Meas_method, Species, Soil_type,
-    Rs_annual, Rh_annual, Rs_growingseason, Elevation, Quality_flag
+    Rs_annual, Rh_annual, Rs_growingseason, Elevation, Meas_interval, Quality_flag
   ) %>%
   filter(!grepl("Q1[0-5]", Quality_flag)) %>%
   bind_rows(new_studies) -> srdb
@@ -196,7 +197,7 @@ meta_manip %>%
               "Study_number", "Study_midyear", "Ecosystem_type",
               "Latitude", "Longitude", "OtherFactor", "Meas_method",
               "Species", "Soil_type", "Clay_percent", "Clay_depth",
-              "SOC_percent", "SOC_depth",
+              "SOC_percent", "SOC_depth", "Meas_interval",
               "BBL_notes", "Elevation", "depvar"
             )
   ) %>%
@@ -244,7 +245,7 @@ studies[studies$Study_number == 1639, "DOI"] <- "10.1139/x99-218"
 
 #Possible frame shift in SRDB study numbers
 #Opened an issue to correct: https://github.com/bpbond/srdb/issues/135
-#DOI's confirmed for 80 studies included
+#hDOI's confirmed for 80 studies included
 read_csv("rs/DOIcheck.csv",
          col_types = "iici") -> ConfirmedDOI
 
@@ -328,29 +329,40 @@ EES_table %>%
 ```
 
 
-```{r soilgrids, cache=TRUE, message = FALSE, warning = FALSE, echo = FALSE}
+```{r soilgrids, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
-# We use "cache=TRUE" above because this is a slow step, as the geoTIFFs are large
-clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
-ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
-if (file.exists(clayfile) && file.exists(ocsfile)) {
-  clay <- raster(clayfile)
-  meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")],
-                               proj4string = CRS("+proj=longlat +datum=WGS84")
-  )
-  # Reproject our long-lat points to the UTM used by the geoTIFF
-  meta_points <- spTransform(meta_points, projection(clay))
-  # ...and extract the values we want, averaging nearest 1000m
-  meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
-  
-  # Second file, same operation
-  ocs <- raster(ocsfile)
-  meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
+
+# If we have pre-saved extracted data, use that, because this is a very slow step
+clay_ex_data <- "soilgrids/clay_data.RDS"
+ocs_ex_data <- "soilgrids/ocs_data.RDS"
+if(file.exists(clay_ex_data) && file.exists(ocs_ex_data)) {
+  x_clay <- readRDS(clay_ex_data)
+  x_ocs <- readRDS(ocs_ex_data)
+  if(length(x_clay) != nrow(meta_df)) {
+    stop("Clay/OCS extracted data are out of date; please delete (in soilgrids folder) and re-run")
+  }
+ meta_df$sg_clay <- x_clay 
+  meta_df$sg_ocs <- x_ocs
 } else {
-  # geoTIFF files are not present; issue a warning and use fake (random) data
-  warning("geoTIFF files are not present! Analysis will not be correct")
-  meta_df$sg_clay <- runif(nrow(meta_df))
-  meta_df$sg_ocs <- runif(nrow(meta_df))
+  # No extracted data available; need to re-extract (a slow step)
+  clayfile <- "./soilgrids/clay_15-30cm_mean.tif"
+  ocsfile <- "./soilgrids/ocs_0-30cm_mean.tif"
+  if (file.exists(clayfile) && file.exists(ocsfile)) {
+    clay <- raster(clayfile)
+    meta_points <- SpatialPoints(meta_df[c("Longitude", "Latitude")],
+                                 proj4string = CRS("+proj=longlat +datum=WGS84")
+    )
+    # Reproject our long-lat points to the UTM used by the geoTIFF
+    meta_points <- spTransform(meta_points, projection(clay))
+    # ...and extract the values we want, averaging nearest 1000m
+    meta_df$sg_clay <- raster::extract(clay, meta_points, buffer = 1000, fun = mean)
+    
+    # Second file, same operation
+    ocs <- raster(ocsfile)
+    meta_df$sg_ocs <- raster::extract(ocs, meta_points, buffer = 1000, fun = mean)
+  } else {
+    stop("Neither geoTIFF files nor pre-extracted soilgrids data are present!")
+  }
 }
 ```
 
@@ -546,7 +558,7 @@ Study sites were distributed across the terrestrial biosphere, but coverage was 
 ```{r Autocorrelation_check, include = FALSE}
 # if desired separately by the two manipulations
 # two steps using filter(Manipulation) and select(variables for correlation)
-metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs")] %>% chart.Correlation()
+metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs", "Meas_interval")] %>% chart.Correlation()
 ```
 
 # Ecosystem Effects    
@@ -580,15 +592,15 @@ For +P studies, the primary effect of SOC, ecosystem type, study duration, and t
 metadat %>%
   filter(Manipulation == "Irrigation") %>%
   select("Study_number", "Ecosystem_type",
-         "Duration", "sg_ocs", "yi",
-         "vi") %>%
-  na.omit() -> metadat_i
+         "Meas_interval", "Duration",
+         "sg_ocs", "yi", "vi") -> metadat_i#%>% commenting out this na.omit for now
+  #na.omit() -> metadat_i
 
 # rma.mv conducts a meta-analysis multivariate mixed effects model
 # the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 metadat_imodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
+                         mods = ~ Ecosystem_type * Duration + Meas_interval + sg_ocs - 1,
                          method = "REML",
                          data = metadat_i,
                          slab = Ecosystem_type,
@@ -673,13 +685,14 @@ metadat %>%
   filter(Manipulation == "Drought") %>%
   select("Study_number", "Ecosystem_type",
          "Duration", "Percent_control",
+         "Meas_interval",
          "sg_clay", "sg_ocs",
-         "yi", "vi") %>%
-  na.omit() -> metadat_d
+         "yi", "vi") -> metadat_d #%>% commenting out this na.omit for now
+  #na.omit() -> metadat_d
 
 metadat_dmodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
+                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control + Meas_interval - 1,
                          method = "REML",
                          data = metadat_d,
                          slab = Ecosystem_type,
