@@ -1,6 +1,10 @@
 
+library(dplyr)
+library(metafor)
+library(ggplot2)
+
 #write.csv(x = metadat, "metadat.csv")
-metadat <- read.csv("metadat.csv")
+metadat <- read.csv("rs/metadat.csv")
 
 metadat$Ecosystem_type <- factor(metadat$Ecosystem_type,
                                  levels = c(
