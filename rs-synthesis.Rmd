@@ -38,9 +38,9 @@ library(PerformanceAnalytics)
 library(MuMIn)
 if(packageVersion("MuMIn") > "1.43.15") {
 stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15",
-     '\ndevtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
+     '\n require(devtools) \n devtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
 }
-library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar")
+library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar"), skip updates
 library(broom)
 library(bookdown)
 library(ggmap)
@@ -318,7 +318,7 @@ meta_df %>%
   ) -> Ecosystem_studies
 
 EffectSizePairs %>%
-  left_join(Ecosystem_studies, by = "Ecosystem_type") -> EES_table
+  full_join(Ecosystem_studies, by = "Ecosystem_type") -> EES_table
 
 EES_table %>%
   kable(
@@ -569,7 +569,7 @@ metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs", "Mea
 # Stick this in a separate chunk so no progress bar sullies our output
 mmi_irrigation <- multimodel.inference(
   TE = "yi", seTE = "vi",
-  data = metadat[metadat$Manipulation == "Irrigation", ],
+  data = metadat[metadat$Manipulation == "Irrigation",],
   predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
   interaction = TRUE
 )
@@ -600,7 +600,8 @@ metadat %>%
 # the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
 metadat_imodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type * Duration + Meas_interval + sg_ocs - 1,
+                         #mods = ~ Meas_interval,
+                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
                          method = "REML",
                          data = metadat_i,
                          slab = Ecosystem_type,
@@ -692,7 +693,8 @@ metadat %>%
 
 metadat_dmodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control + Meas_interval - 1,
+                         #mods = ~ Meas_interval,
+                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
                          method = "REML",
                          data = metadat_d,
                          slab = Ecosystem_type,
@@ -711,6 +713,8 @@ dpreds <- predict.rma(metadat_dmodel)
 
 #combine columns into one dataframe
 metadat_d %>%
+  select(! Meas_interval) %>%
+  na.omit(metadat_d) %>%
   bind_cols(as.data.frame(dpreds)) -> metadat_dpreds
 
 # Cook's Distance n/4 for drought studies
@@ -765,6 +769,8 @@ EcoTitle <- guide_legend("Ecosystem Type")
 
 #combine columns into one dataframe
 metadat_i %>%
+  select(! Meas_interval) %>%
+  na.omit(metadat_i) %>%
   bind_cols(as.data.frame(ipreds)) -> metadat_ipreds
 
 #plot using linear predictions from model
@@ -888,6 +894,8 @@ d2preds <- predict.rma(metadat_dmodel2)
 
 #combine columns into one dataframe
 metadat_d %>%
+  select(! Meas_interval) %>%
+  na.omit(metadat_d) %>%
   bind_cols(as.data.frame(d2preds)) -> metadat_d2preds
 
 
