@@ -1,8 +1,11 @@
 
+#Alternate Meta-Regressions
+#Kendalynn A. Morris
+#21.08.2022
 #this code is a companion to rs-synthesis.Rmd,
 #but can be run independently
 #it produces several different meta-regressions
-#use single modifiers and combinations
+#using no modifiers, singular modifiers, and combinations of mods
 #the aim is to demonstrate
 #that measurement interval (how often soil respiration is measured)
 #is confounded with study duration
@@ -59,6 +62,17 @@ metadat_d <- metadat %>%
          "mi_bins", "yi", "vi")
 ##
 #+P
+
+#no mods
+i_noMods <- rma.mv(yi, vi, random = ~ 1 | Study_number,
+               method = "REML",
+               data = metadat_i,
+               slab = Study_number)
+summary(i_noMods)
+#robust evidence that +P increase Rs
+#estimate      se    zval    pval   ci.lb   ci.ub 
+#0.1871  0.0240  7.8072  <.0001  0.1401  0.2341  *** 
+
 #single modifiers
 
 #ecosystem type
@@ -107,6 +121,19 @@ i_all <- rma.mv(yi, vi, random = ~ 1 | Study_number,
                slab = Study_number)
 summary(i_all)
 
+
+##
+#-P
+
+#no mods
+d_noMods <- rma.mv(yi, vi, random = ~ 1 | Study_number,
+                   method = "REML",
+                   data = metadat_d,
+                   slab = Study_number)
+summary(d_noMods)
+#strong evidence that -P decrease Rs
+#estimate      se     zval    pval    ci.lb    ci.ub
+#-0.1126  0.0377  -2.9844  0.0028  -0.1865  -0.0386  ** 
 
 #effect of measurement interval on -P studies
 d_mi <- rma.mv(yi, vi, random = ~ 1 | Study_number,
