@@ -173,7 +173,7 @@ ggplot(metadat[metadat$Manipulation == "Irrigation" &
 #forest plot of i_et
 Coef_i_et<- coef(summary(i_et))
 plyr::count(metadat[metadat$Manipulation == "Irrigation",]$Ecosystem_type)
-Eco_ss <- c("36", "5", "7", "80", "13")
+Ecoi_ss <- c("36", "5", "7", "80", "13")
 Forest_i_et <- forest(Coef_i_et$estimate,
                      ci.lb = Coef_i_et$ci.lb,
                      ci.ub = Coef_i_et$ci.ub,
@@ -189,9 +189,46 @@ Forest_i_et <- forest(Coef_i_et$estimate,
                      digits = 2,
                      lwd = 2
 )
-text(-0.25, rev(seq(5:1)), Eco_ss)
+text(-0.25, rev(seq(5:1)), Ecoi_ss)
 op <- par(cex=1, font=2)
 text(-0.62, 6.25, "Ecosystem")
 text(-0.25, 6.25, "Sample Size")
 text(1, 6.25, "ln(RR) [95% CI]")
-text(0.1, 7.25, "Solo Effect of Ecosystem \n +P Studies")
+text(0.1, 7.25, "Effect of Ecosystem as Singular Modifier \n +P Studies")
+
+
+#replicate this graph for drought (-P) studies
+d_et <- rma.mv(yi, vi, random = ~ 1 | Study_number,
+               mods = ~ Ecosystem_type - 1,
+               method = "REML",
+               data = metadat_d,
+               slab = Study_number)
+summary(d_et)
+#p value for grassland highly significant, wetland = 0.02,
+#all other ecosystems not significant as singular modifiers
+
+#forest plot of d_et
+Coef_d_et<- coef(summary(d_et))
+plyr::count(metadat[metadat$Manipulation == "Drought",]$Ecosystem_type)
+Ecod_ss <- c("2", "38", "27", "1", "53", "7")
+Forest_d_et <- forest(Coef_d_et$estimate,
+                      ci.lb = Coef_d_et$ci.lb,
+                      ci.ub = Coef_d_et$ci.ub,
+                      annotate = TRUE,
+                      slab = c( "Wetland",
+                                "Forest", "Shrubland",
+                                "Savanna", "Grassland",
+                                "Desert"
+                      ),
+                      cex = 1,
+                      cex.lab = 1,
+                      cex.main = 2,
+                      digits = 2,
+                      lwd = 2
+)
+text(-1.1, rev(seq(6:1)), Ecod_ss)
+op <- par(cex=1, font=2)
+text(-2.2, 7.25, "Ecosystem")
+text(-1.1, 7.25, "Sample Size")
+text(2, 7.25, "ln(RR) [95% CI]")
+text(0.1, 8, "Effect of Ecosystem as Singular Modifier \n -P Studies")
