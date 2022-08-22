@@ -187,11 +187,11 @@ ggplot(metadat[metadat$Manipulation == "Irrigation" &
                  metadat$Meas_interval < 84,],
        aes(Meas_interval, yi)) +
   geom_jitter(aes(color = mi_bins),
-              size = 3, na.rm = TRUE) +
+              size = 3.5, na.rm = TRUE) +
   geom_smooth(method = lm, formula = y ~ x,
               se = FALSE, na.rm = TRUE) +
   scale_color_viridis_d(name = "Measurement Interval",
-                        na.translate=FALSE) +
+                        na.translate=FALSE, drop = FALSE) +
   theme(legend.position = "bottom") +
   geom_hline(yintercept = 0) +  ylab("ln(RR)") +
   xlab("Measurement Interval (days)")
@@ -221,7 +221,7 @@ op <- par(cex=1, font=2)
 text(-0.62, 6.25, "Ecosystem")
 text(-0.25, 6.25, "Sample Size")
 text(1, 6.25, "ln(RR) [95% CI]")
-text(0.1, 7.25, "Effect of Ecosystem as Singular Modifier \n +P Studies")
+text(0.1, 7.2, "Effect of Ecosystem as Singular Modifier \n +P Studies")
 
 
 #replicate this graph for drought (-P) studies
@@ -258,4 +258,4 @@ op <- par(cex=1, font=2)
 text(-2.2, 7.25, "Ecosystem")
 text(-1.1, 7.25, "Sample Size")
 text(2, 7.25, "ln(RR) [95% CI]")
-text(0.1, 8, "Effect of Ecosystem as Singular Modifier \n -P Studies")
+text(0.1, 8.1, "Effect of Ecosystem as Singular Modifier \n -P Studies")
