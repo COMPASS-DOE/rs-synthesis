@@ -38,9 +38,9 @@ library(PerformanceAnalytics)
 library(MuMIn)
 if(packageVersion("MuMIn") > "1.43.15") {
 stop("This analysis won't work with newer versions of MuMIn; please install 1.43.15",
-     '\ndevtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
+     '\n require(devtools) \n devtools::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")')
 }
-library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar")
+library(dmetar)  # devtools::install_github("MathiasHarrer/dmetar"), skip updates
 library(broom)
 library(bookdown)
 library(ggmap)
@@ -265,12 +265,14 @@ meta_df %>%
   knitr::kable(caption = "  Table 1. Studies included in this dataset.") %>% 
   kable_paper("striped")
 ```
-## Data Summaries  
+# Data Summaries  
+\
 \
 Within SRDB there were `r length(unique(meta_df$Study_number))` studies that matched our search criteria. These included six distinct ecosystem types; wetland, forest, shrubland, savanna, grassland, and desert. Forest and grassland ecosystems, by far the most common ecosystem types in the dataset, were represented by `r length(unique(meta_df[meta_df$Ecosystem_type == "Forest",]$Study_number))` and length(unique(meta_df[meta_df$Ecosystem_type == "Grassland",]$Study_number)) studies respectively. `r length(unique(meta_df[meta_df$Ecosystem_type == "Shrubland",]$Study_number))` studies contributed data on shrublands, `r length(unique(meta_df[meta_df$Ecosystem_type == "Desert",]$Study_number))` on deserts, `r length(unique(meta_df[meta_df$Ecosystem_type == "Savanna",]$Study_number))` on savannas, and `r length(unique(meta_df[meta_df$Ecosystem_type == "Wetland",]$Study_number))` on wetlands. Many studies contained both increased and decreased precipitation manipulations and the number of studies and effect sizes per ecosystem and manipulation type are summarized in Table 2.  
 \
 \
 
+## Distribution of Study Sites
 ```{r study-map, echo = FALSE}
 # Extract coordinates and useful columns, remove any duplicate coordinates
 meta_df %>% 
@@ -296,7 +298,7 @@ ggplot(data = world) +
 
 ```
 
-
+## Effect Sizes within Ecosystems
 ```{r Studies_EffectSizes, echo = FALSE}
 #By Ecosystem and Manipulation
 #summarize the number of effect size pairs
@@ -318,7 +320,7 @@ meta_df %>%
   ) -> Ecosystem_studies
 
 EffectSizePairs %>%
-  left_join(Ecosystem_studies, by = "Ecosystem_type") -> EES_table
+  full_join(Ecosystem_studies, by = "Ecosystem_type") -> EES_table
 
 EES_table %>%
   kable(
@@ -328,7 +330,7 @@ EES_table %>%
   add_header_above(c("    " = 1, " Effect Sizes " = 2, " Studies " = 2))
 ```
 
-
+## Soil clay and SOC supplement
 ```{r soilgrids, message = FALSE, warning = FALSE, echo = FALSE}
 # Extract clay and organic carbon storage values from global Soilgrids datasets
 
@@ -397,7 +399,14 @@ ggplot(data = soil_content) +
   geom_abline(intercept = 0, slope = 1)
 
 ```
-# Summary Plots
+
+\
+\
+Comparison of SoilGrids predicted soil organic carbon and soil clay contents, relative to study-reported values.  
+\
+\
+
+## Summary Plots
 
 ```{r diagnostic-plots, fig.cap = "Few studies lasting >1 year", warning = FALSE, message = FALSE, echo = FALSE}
 
@@ -437,6 +446,7 @@ ggplot(max_duration) +
   ) +
   theme(legend.position = "bottom")
 ```
+
 ```{r var_dist, echo = FALSE}
 ggplot(metadat, aes(yi, color = Manipulation)) +
   xlab("ln(Response Ratio)") +
@@ -489,10 +499,10 @@ Forestivar <- forest(Coef_ivar$estimate,
                   digits = 2,
                   lwd = 2
 )
-text(0.05, rev(seq(3:1)), Vari_ss)
+text(0.07, rev(seq(3:1)), Vari_ss)
 op <- par(cex=1, font=2)
 text(-.089, 4.2, "Dependent Variable")
-text(.05, 4.2, "Sample Size")
+text(.07, 4.2, "Sample Size")
 text(.42, 4.2, "ln(RR) [95% CI]")
 text(0.1, 5, "Dependent Variables for Irrigaiton Studies")
 
@@ -512,11 +522,11 @@ Forestdvar <- forest(Coef_dvar$estimate,
                      digits = 2,
                      lwd = 2
 )
-text(-.28, rev(seq(3:1)), Vard_ss)
+text(-.29, rev(seq(3:1)), Vard_ss)
 op <- par(cex=1, font=2)
-text(-.47, 4.2, "Dependent Variable")
-text(-.28, 4.2, "Sample Size")
-text(.2, 4.4, "ln(RR) [95% CI]")
+text(-.515, 4.2, "Dependent Variable")
+text(-.29, 4.2, "Sample Size")
+text(.2, 4.2, "ln(RR) [95% CI]")
 text(-0.12, 5, "Dependent Variables for Drought Studies")
 ```
 
@@ -567,24 +577,35 @@ metadat[, c("Duration", "Percent_control", "Latitude", "sg_clay", "sg_ocs", "Mea
 ```{r mmi_irrigation, include=FALSE, cache=TRUE}
 # rank importance of modifiers for each manipulation, irrigation first
 # Stick this in a separate chunk so no progress bar sullies our output
-mmi_irrigation <- multimodel.inference(
+mmi_irrigation1 <- multimodel.inference(
   TE = "yi", seTE = "vi",
-  data = metadat[metadat$Manipulation == "Irrigation", ],
-  predictors = c("Ecosystem_type", "Duration", "Percent_control", "sg_ocs"),
+  data = metadat[metadat$Manipulation == "Irrigation",],
+  predictors = c("Ecosystem_type", "Duration", "Percent_control",
+                 "Meas_interval", "sg_ocs", "sg_clay"),
   interaction = TRUE
 )
-
-# here sg_clay is excluded to allow for interactions after seeing that it had very low estimated importance in a none-interactive model
 ```
 
-```{r print mmi_irrigation, include = FALSE}
-# print(mmi_irrigation$top5.models)
-print(mmi_irrigation$predictor.importance.plot)
-# soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) are all highly important
+```{r print mmi_irrigation, include = FALSE, cache=TRUE}
+#print(mmi_irrigation$top5.models)
+print(mmi_irrigation1$predictor.importance.plot)
+# reduce to top four to allow interactions
+mmi_irrigation2 <- multimodel.inference(
+  TE = "yi", seTE = "vi",
+  data = metadat[metadat$Manipulation == "Irrigation",],
+  predictors = c("sg_ocs", "Meas_interval", "Ecosystem_type", "Duration"),
+  interaction = TRUE
+)
+print(mmi_irrigation2$predictor.importance.plot)
+# soil organic carbon, ecosystem, and duration (as well as ecosystem x duration) and measurement interval are all highly important
+# due to high levels of confounding between measurement interval and both
+# ecosystem type and study duration (see alternateModels.R code),
+# it is dropped from the model below
+
 ```
 \
 \
-For +P studies, the primary effect of SOC, ecosystem type, study duration, and the interaction between ecosystem type and duration were the four highest ranked preictors. In contrast, the -P model ranked ecosystem type, SOC, clay, and duration as the top four predictors.
+For +P studies, the primary effect of SOC, ecosystem type, study duration, and the interaction between ecosystem type and duration were the four highest ranked predictors. In contrast, the -P model ranked ecosystem type, SOC, clay, and duration as the top four predictors.
 \
 \
 ```{r irrigation, include = FALSE}
@@ -592,15 +613,16 @@ For +P studies, the primary effect of SOC, ecosystem type, study duration, and t
 metadat %>%
   filter(Manipulation == "Irrigation") %>%
   select("Study_number", "Ecosystem_type",
-         "Meas_interval", "Duration",
-         "sg_ocs", "yi", "vi") -> metadat_i#%>% commenting out this na.omit for now
-  #na.omit() -> metadat_i
+         "Percent_control", "sg_clay",
+         "Duration", "sg_ocs", "yi", "vi") %>%
+  na.omit() -> metadat_i
 
 # rma.mv conducts a meta-analysis multivariate mixed effects model
-# the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
+# ie., meta-regression
+# the - 1 gives us individual estimates for ecosystem types (fixed effects)
 metadat_imodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type * Duration + Meas_interval + sg_ocs - 1,
+                         mods = ~ Ecosystem_type * Duration + sg_ocs - 1,
                          method = "REML",
                          data = metadat_i,
                          slab = Ecosystem_type,
@@ -647,12 +669,12 @@ Foresti <- forest(100 * (exp(Coef_irrigation[1:5, ]$estimate) - 1),
 
 # Code to write sample size of sub-groups on graph
 # For this code, enter x-position of text, then y-position. You may have to experiment a bit.
-text(-20, rev(seq(5:1)), Ecoi_ss)
+text(-30, rev(seq(5:1)), Ecoi_ss)
 # Set up font for rest of graph (just the headers of the graph remain), to make bold headings, set font=2
 op <- par(cex = 1, font = 2)
 text(-80, 6.25, "Ecosystem")
-text(-20, 6.25, "Sample Size")
-text(100, 6.25, "Mean [95% CI]")
+text(-30, 6.25, "Sample Size")
+text(120, 6.25, "Mean [95% CI]")
 
 ```
 \
@@ -668,31 +690,36 @@ While in general soil respiration rates were greater with increased precipitatio
 mmi_drought <- multimodel.inference(
   TE = "yi", seTE = "vi",
   data = metadat[metadat$Manipulation == "Drought", ],
-  predictors = c("Ecosystem_type", "sg_ocs", "sg_clay", "Percent_control", "Duration"),
+  predictors = c("Ecosystem_type", "sg_ocs", "sg_clay",
+                 "Meas_interval", "Percent_control", "Duration"),
   interaction = TRUE
 )
-# interactions cannot be calculated because we are using 5 factors
 ```
 
-```{r print mmi_drought, include=FALSE}
-# print(mmi_drought$top5.models)
+```{r print mmi_drought, include=FALSE, cache=TRUE}
 print(mmi_drought$predictor.importance.plot)
-# ecosystem, soil organic carbon, clay, and percent_control are all highly important
+# ecosystem, soil organic carbon, clay, and percent_control are the top four
+# even when allowing for interactions (see below)
+mmi_drought2 <- multimodel.inference(
+  TE = "yi", seTE = "vi",
+  data = metadat[metadat$Manipulation == "Drought", ],
+  predictors = c("Ecosystem_type", "sg_ocs", "sg_clay", "Percent_control"),
+  interaction = TRUE
+)
+print(mmi_drought2$predictor.importance.plot)
 ```
 
 ```{r drought_model, include=FALSE}
 metadat %>%
   filter(Manipulation == "Drought") %>%
   select("Study_number", "Ecosystem_type",
-         "Duration", "Percent_control",
-         "Meas_interval",
-         "sg_clay", "sg_ocs",
-         "yi", "vi") -> metadat_d #%>% commenting out this na.omit for now
-  #na.omit() -> metadat_d
+         "Percent_control", "sg_clay",
+         "Duration", "sg_ocs", "yi", "vi") %>%
+  na.omit() -> metadat_d
 
 metadat_dmodel <- rma.mv(yi, vi,
                          random = ~ 1 | Study_number,
-                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control + Meas_interval - 1,
+                         mods = ~ Ecosystem_type + sg_clay + sg_ocs + Percent_control - 1,
                          method = "REML",
                          data = metadat_d,
                          slab = Ecosystem_type,
@@ -744,10 +771,10 @@ Forestd <- forest(100 * (exp(Coef_drought[1:6, ]$estimate) - 1),
                   lwd = 2
 )
 
-text(-100, rev(seq(6:1)), Ecod_ss)
+text(-110, rev(seq(6:1)), Ecod_ss)
 op <- par(cex = 1, font = 2)
 text(-180, 7.3, "Ecosystem")
-text(-100, 7.3, "Sample Size")
+text(-110, 7.3, "Sample Size")
 text(100, 7.3, "Mean [95% CI]")
 
 ```
@@ -782,90 +809,6 @@ ggplot(
   ) +
   scale_color_manual(name = "Ecosystem", values = Eco_colors) +
   scale_fill_manual(name = "Ecosystem", values = Eco_colors) +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend(ncol = 3))
-
-
-```
-
-
-```{r TEMPEST, fig.cap = "Prediction of TEMPEST treatment effects on soil respiration", include = FALSE}
-### Tempest
-metadat %>%
-  filter(Manipulation == "Irrigation") %>%
-  select("Study_number", "Ecosystem_type",
-         "Duration", "Percent_control", "sg_ocs", "yi",
-         "vi") %>%
-  na.omit() -> metadat_i2
-
-# rma.mv conducts a meta-analysis multivariate mixed effects model
-# the - 1 for the fixed effect modifiers gives us estimates for individual ecosystem types
-metadat_imodel2 <- rma.mv(yi, vi,
-                          random = ~ 1 | Study_number,
-                          mods = ~ Ecosystem_type * Duration + Percent_control + sg_ocs - 1,
-                          method = "REML",
-                          data = metadat_i2,
-                          slab = Ecosystem_type,
-)
-summary(metadat_imodel2)
-ip2 <- tidy(metadat_imodel2)
-ipreds2 <- predict.rma(metadat_imodel2)
-
-#combine columns into one dataframe
-metadat_i2 %>%
-  bind_cols(as.data.frame(ipreds2)) -> metadat_ipreds2
-
-predRes <- list()
-
-for (pc in c(116, 132, 148)) {
-  for (dur in 0:3){
-    test_predict <- predict(metadat_imodel2,
-                            newmods = c(Ecosystem_typeForest = 1,
-                                      Ecosystem_typeSavanna = 0,
-                                      Ecosystem_typeShrubland = 0,
-                                      Ecosystem_typeGrassland = 0,
-                                      Ecosystem_typeDesert = 0, 
-                                      Duration = dur,
-                                      Percent_control = pc, 
-                                      sg_ocs = 45,
-                                      `Ecosystem_typeGrassland:Duration` = 0,
-                                      `Ecosystem_typeForest:Duration` = dur))
-    result <- as_tibble(test_predict)
-    result$Duration <- dur
-    result$Percent_control <- pc
-    predRes[[paste(dur, pc)]] <- result
-  }
-}
-
-temp_est2 <- bind_rows(predRes)
-temp_est2$Flood_number <- (temp_est2$Percent_control - 100) / 16
-
-
-ggplot(
-  data = temp_est2,
-  aes(Duration+1, 100 * (10 ^ pred -1),
-      group = as.factor(Flood_number))) +
-  geom_hline(yintercept = 0) +
-  geom_point(aes(fill = as.factor(Flood_number),
-                 colour = as.factor(Flood_number),
-                 size = 0.5)) +
-  geom_line(aes(fill = as.factor(Flood_number),
-                colour = as.factor(Flood_number)),
-                size = 0.75) +
-  geom_ribbon(aes(ymin=(100*(10^pred - 1) - (100*(10^se -1))),
-                  ymax=(100*(10^pred - 1) + (100*(10^se -1))),
-                  fill = as.factor(Flood_number)),
-              alpha = 0.2) +
-  ylab("predicted \n %Change Soil Respiration") +
-  xlab("Study Duration (years)") +
-  scale_color_manual(name = "Number of Flood Events",
-    values = c("sienna1", "sienna4","hotpink4")
-  ) +
-  scale_fill_manual(name = "Number of Flood Events",
-       values = c("sienna1", "sienna4","hotpink4")
-  ) +
-  ggtitle("Predicted response of soil respiration in TEMPEST") +
-  guides(size = "none") +
   theme(legend.position = "bottom")
 
 
@@ -910,12 +853,13 @@ ggplot(
   scale_fill_manual(name = "Ecosystem", values = Eco_colors) +
   theme(legend.position = "bottom")
 ```
+
 ```{r Combined_duration_plot, message = FALSE, warning = FALSE}
 
 #combine predicted dataframes
 metadat_d2preds %>%
   mutate(Manipulation = "-P") %>%
-    bind_rows(metadat_ipreds2) %>%
+    bind_rows(metadat_ipreds) %>%
   mutate(Manipulation = replace_na(Manipulation, "+P")) -> metadat_bothpreds
 
 
@@ -986,6 +930,7 @@ ggplot(
   theme(legend.position = "bottom")
 
 ```
+
 ```{r Intensity_effect_-P, fig.cap = " Supplemental -P predicted effect.", message = FALSE, warning = FALSE}
 
 ggplot(
