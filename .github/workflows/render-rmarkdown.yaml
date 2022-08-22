@@ -30,7 +30,7 @@ jobs:
           install.packages(c("forcats", "metafor", "DT", "PerformanceAnalytics"))
           install.packages(c("ggmap", "rnaturalearth", "rnaturalearthdata", "ggspatial", "sf"))
           remotes::install_github("MathiasHarrer/dmetar")
-          remotes::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")          remotes::install_github()
+          remotes::install_version("MuMIn", version = "1.43.15", repos = "http://cran.us.r-project.org")
         shell: Rscript {0}
       - name: Render Rmarkdown files
         run: |
